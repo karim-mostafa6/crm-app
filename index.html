@@ -146,7 +146,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 // إعدادات Supabase
 var SUPABASE_URL = "https://jxfumlinzbikkarzarsg.supabase.co/rest/v1/";
 var SUPABASE_KEY = "sb_publishable_4fOzE1ZGB2vXXvdMKCgD5A_Vf3WMSbX";
-var GEMINI_API_KEY = "AQ.Ab8RN6ICoYnlQIMHcdHzEfEejSlik1LuxJChsARGhf4HjcL8Tg";
+var GEMINI_API_KEY = "AQ.Ab8RN6J6bvafMeYdRcMfQPUWdZmj1GBfIAbjp2Lxts4N_uGoGw";
 
 var S=["مهتم","معاينة","تفاوض","جديد","مبيردش","تم البيع","مش مهتم"],K="crm_clients_v1",C=[],cur=null,view=1;
 try{C=JSON.parse(localStorage.getItem(K)||"[]")}catch(e){C=[]}
@@ -405,11 +405,11 @@ async function runAssistant(){
       body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
     });
     var data = await response.json();
-    if(data.candidates && data.candidates[0].content.parts[0].text){
+    if(data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0].text){
       resBox.textContent = data.candidates[0].content.parts[0].text;
       $("ai_q").value = "";
     } else {
-      resBox.textContent = "⚠️ لم يتم التوصل لإجابة، حاول مرة أخرى.";
+      resBox.textContent = "⚠️ لم يتم التوصل لإجابة، تحقق من الـ API Key وحاول مرة أخرى.";
     }
   } catch(e) {
     resBox.textContent = "⚠️ حدث خطأ أثناء الاتصال بالمساعد الذكي.";
