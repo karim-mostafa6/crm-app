@@ -73,7 +73,7 @@ button:hover{opacity:0.9}
 .late{color:var(--rd)}.today{color:var(--or)}.ok{color:var(--gr)}
 .sec{font-weight:bold;margin:14px 0 4px}
 .tabs button{flex:1;transition:all 0.2s ease}.tabs .on{background:var(--pr);color:#fff;border-color:var(--pr)}
-dialog{border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);width:min(94vw,520px);padding:14px}
+dialog{border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);width:min(94vw,620px);padding:14px}
 dialog::backdrop{background:#0008}
 label{display:block;font-size:13px;color:var(--mu);margin:8px 0 3px}
 a.b{display:inline-block;text-decoration:none;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;font-size:13px}
@@ -121,8 +121,16 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 .pdf-highlight .pdf-label { color: #047857; }
 .pdf-highlight .pdf-val { color: #065f46; font-size: 18px; }
 .pdf-footer { margin-top: 20px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
+
+/* تنسيقات دراسة الجدوى وتكلفة المشروع */
+.feasibility-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.feasibility-table th, .feasibility-table td { border: 1px solid #e3e6ea; padding: 8px 10px; text-align: center; }
+.feasibility-table th { background: #1f6feb; color: #fff; font-weight: bold; }
+.feasibility-table tr:nth-child(even) { background: #f8fafc; }
+.feasibility-table .row-highlight { background: #eff6ff; font-weight: bold; }
+.feasibility-table .row-grand { background: #ecfdf5; font-weight: bold; font-size: 14px; color: #065f46; }
 </style></head><body><div class="w">
-<div class="row"><h1 style="flex:1">📇 CRM العقارات</h1><span id="sy" class="mu">💾 محلي</span><button onclick="requestNotify()">🔔 الإشعارات</button><button onclick="anald.showModal();renderFunnel()">📊 التحليلات</button><button onclick="$('cd2').showModal();calc()">🧮 حاسبة & ROI</button><button onclick="pjd.showModal();nR()">🏢 مشاريعي</button><button class="p" onclick="openF()">+ عميل</button></div>
+<div class="row"><h1 style="flex:1">📇 CRM العقارات</h1><span id="sy" class="mu">💾 محلي</span><button onclick="requestNotify()">🔔 الإشعارات</button><button onclick="anald.showModal();renderFunnel()">📊 التحليلات</button><button onclick="$('cd2').showModal();calc()">🧮 حاسبة & ROI</button><button onclick="$('feasibilityDialog').showModal();calculateTotals()">📐 دراسة الجدوى</button><button onclick="pjd.showModal();nR()">🏢 مشاريعي</button><button class="p" onclick="openF()">+ عميل</button></div>
 <div class="stats"><button type="button" class="st" id="k_all" onclick="tab('all')"><b id="s3">0</b><span>👥 كل العملاء</span></button><button type="button" class="st" id="k_late" onclick="tab('late')"><b id="s1">0</b><span>🔴 متأخر</span></button><button type="button" class="st" id="k_today" onclick="tab('today')"><b id="s2">0</b><span>🔔 النهاردة</span></button><button type="button" class="st" id="k_soon" onclick="tab('soon')"><b id="s4">0</b><span>📅 الجاي</span></button></div>
 <div id="pp" class="mu" style="margin:-4px 2px 10px"></div>
 <div class="row" style="margin-bottom:6px">
@@ -226,6 +234,103 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 </div>
 
 <div class="row" style="margin-top:12px"><button class="p" onclick="cshare()">إرسال واتساب</button><button onclick="ccopy()">نسخ نصي</button><button onclick="exportPDF()" style="background:var(--rd);color:#fff;border-color:var(--rd)">📄 تصدير PDF</button></div></dialog>
+
+<!-- حاسبة دراسة الجدوى وتكلفة المشروع -->
+<dialog id="feasibilityDialog"><div class="hd"><b>📐 حاسبة دراسة الجدوى والتكاليف</b><button type="button" class="x" onclick="feasibilityDialog.close()" aria-label="إغلاق">✕</button></div>
+<div class="row">
+  <div style="flex:1;min-width:260px">
+    <div class="sec">1. البيانات الأساسية والإيجار</div>
+    <label>اسم المشروع / المحل:</label>
+    <input type="text" id="projectName" placeholder="مثال: مطعم الأمل" oninput="calculateTotals()">
+    <div class="row">
+      <div style="flex:1">
+        <label>المساحة (متر²):</label>
+        <input type="number" id="shopArea" value="50" oninput="calculateTotals()">
+      </div>
+      <div style="flex:1">
+        <label>سعر المتر (ج.م):</label>
+        <input type="number" id="rentPerMeter" value="200" oninput="calculateTotals()">
+      </div>
+    </div>
+    <label>إجمالي الإيجار الشهري (محسوب):</label>
+    <input type="number" id="totalRent" class="bg-light" readonly>
+    <label>المرافق والخدمات الشهرية (كهرباء/ماء/غيرها):</label>
+    <input type="number" id="utilitiesCost" value="1500" oninput="calculateTotals()">
+  </div>
+
+  <div style="flex:1;min-width:260px">
+    <div class="sec">2. العمالة والتجهيزات الأولية</div>
+    <label>إجمالي رواتب العمالة الشهرية (ج.م):</label>
+    <input type="number" id="salariesCost" value="8000" oninput="calculateTotals()">
+    <label>تكلفة التشطيبات والتجهيزات (مرة واحدة):</label>
+    <input type="number" id="setupCost" value="25000" oninput="calculateTotals()">
+    <label>مصاريف تسويق ونثريات شهرياً:</label>
+    <input type="number" id="marketingCost" value="2000" oninput="calculateTotals()">
+  </div>
+</div>
+
+<!-- المعاينة / التقرير الخاص بدراسة الجدوى للتصدير لـ PDF -->
+<div id="feasibility-pdf-content" class="pdf-container" style="margin-top:16px;">
+  <div class="pdf-header" style="text-align:center;display:block;">
+    <div id="pdfProjectTitle" class="pdf-title">دراسة تكاليف المشروع</div>
+    <div class="pdf-sub">تقرير تفصيلي بالتكاليف الإجمالية والإيجار</div>
+  </div>
+
+  <table class="feasibility-table">
+    <thead>
+      <tr>
+        <th>بند التكلفة</th>
+        <th>التفاصيل / التفنيط</th>
+        <th>القيمة (جنيه مصري)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:bold">تفاصيل الإيجار</td>
+        <td><span id="pdfArea">0</span> متر² × <span id="pdfRentPerMeter">0</span> ج.م/متر</td>
+        <td id="pdfTotalRent" style="font-weight:bold;color:var(--pr)">0</td>
+      </tr>
+      <tr>
+        <td>المرافق والخدمات</td>
+        <td>كهرباء، مياه، إنترنت، صيانة</td>
+        <td id="pdfUtilities">0</td>
+      </tr>
+      <tr>
+        <td>رواتب العمالة</td>
+        <td>إجمالي أجور الموظفين والعمال</td>
+        <td id="pdfSalaries">0</td>
+      </tr>
+      <tr>
+        <td>المصاريف التسويقية والنثريات</td>
+        <td>إعلانات ومصاريف تشغيلية متفرقة</td>
+        <td id="pdfMarketing">0</td>
+      </tr>
+      <tr class="row-highlight">
+        <td colspan="2">إجمالي التكاليف التشغيلية الشهرية</td>
+        <td id="pdfMonthlyTotal">0</td>
+      </tr>
+      <tr>
+        <td>التجهيزات والتشطيبات الأولية</td>
+        <td>يدفع مرة واحدة عند التأسيس</td>
+        <td id="pdfSetup">0</td>
+      </tr>
+      <tr class="row-grand">
+        <td colspan="2">إجمالي رأس المال المطلوب للتأسيس (أول شهر)</td>
+        <td id="pdfGrandTotal">0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:12px;font-size:11px;color:var(--mu)">
+    * هذا التقرير تم إعداده تلقائياً بناءً على البيانات المدخلة.
+  </div>
+</div>
+
+<div class="row" style="margin-top:12px">
+  <button onclick="generateFeasibilityPDF()" class="p" style="background:var(--gr);border-color:var(--gr)">📄 تحميل التقرير PDF</button>
+  <button onclick="feasibilityDialog.close()">إغلاق</button>
+</div>
+</dialog>
 
 <script>
 // إعدادات Supabase
@@ -498,6 +603,52 @@ function exportPDF(){
   }).from(element).save();
 }
 
+/* وظائف حاسبة دراسة الجدوى وتكلفة المشروع */
+function calculateTotals() {
+  const area = parseFloat(document.getElementById('shopArea').value) || 0;
+  const rentPerMeter = parseFloat(document.getElementById('rentPerMeter').value) || 0;
+  const utilities = parseFloat(document.getElementById('utilitiesCost').value) || 0;
+  const salaries = parseFloat(document.getElementById('salariesCost').value) || 0;
+  const marketing = parseFloat(document.getElementById('marketingCost').value) || 0;
+  const setup = parseFloat(document.getElementById('setupCost').value) || 0;
+
+  const totalRent = area * rentPerMeter;
+  document.getElementById('totalRent').value = totalRent;
+
+  const monthlyTotal = totalRent + utilities + salaries + marketing;
+  const grandTotal = monthlyTotal + setup;
+
+  const projectName = document.getElementById('projectName').value.trim();
+  document.getElementById('pdfProjectTitle').innerText = projectName ? `دراسة تكاليف: ${projectName}` : 'دراسة تكاليف المشروع';
+  
+  document.getElementById('pdfArea').innerText = area.toLocaleString('ar-EG');
+  document.getElementById('pdfRentPerMeter').innerText = rentPerMeter.toLocaleString('ar-EG');
+  document.getElementById('pdfTotalRent').innerText = totalRent.toLocaleString('ar-EG');
+  
+  document.getElementById('pdfUtilities').innerText = utilities.toLocaleString('ar-EG');
+  document.getElementById('pdfSalaries').innerText = salaries.toLocaleString('ar-EG');
+  document.getElementById('pdfMarketing').innerText = marketing.toLocaleString('ar-EG');
+  document.getElementById('pdfMonthlyTotal').innerText = monthlyTotal.toLocaleString('ar-EG');
+  
+  document.getElementById('pdfSetup').innerText = setup.toLocaleString('ar-EG');
+  document.getElementById('pdfGrandTotal').innerText = grandTotal.toLocaleString('ar-EG');
+}
+
+function generateFeasibilityPDF() {
+  const element = document.getElementById('feasibility-pdf-content');
+  const projectName = document.getElementById('projectName').value.trim() || 'دراسة_مشروع';
+
+  const opt = {
+    margin:       10,
+    filename:     `${projectName}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(element).save();
+}
+
 function renderFunnel(){
   var total = C.length || 1;
   var stages = ['جديد', 'مهتم', 'معاينة', 'تفاوض', 'تم البيع'];
@@ -674,19 +825,34 @@ function nSave(){try{localStorage.setItem(NK,JSON.stringify(PD));localStorage.se
 function nP(x){return x?(x>=1e6?+(x/1e6).toFixed(1)+"M":Math.round(x/1000)+"K"):"?"}
 function nBud(s){
   s = String(s||"")
-    .replace(/[٠-٩]/g, function(d){ return "٠١٢٣٤٥٦Trem٩".indexOf(d); })
-    .replace(/٫/g,".")
-    .replace(/[,٬،]/g,"");
-  var m = s.match(/\d+(?:\.\d+)?/g);
+    .replace(/,/g, "")
+    .replace(/[\u0660-\u0669]/g, function(d){ return d.charCodeAt(0) - 0x0660; })
+    .replace(/[\u06f0-\u06f9]/g, function(d){ return d.charCodeAt(0) - 0x06f0; });
+  var m = s.match(/(\d+(?:\.\d+)?)/);
   if(!m) return 0;
-  var n = Math.max.apply(null, m.map(Number));
-  if(/مليون|million/i.test(s)) n *= 1e6;
-  else if(/[اأ]لف|\bk\b/i.test(s)) n *= 1e3;
-  else if(n < 1000) n *= 1e6;
-  return n >= 1.5e6 ? n : 0;
+  var v = parseFloat(m[1]);
+  if(isNaN(v)) return 0;
+  if(/مليون|م|million|m/i.test(s)) return v * 1e6;
+  if(/ألف|الف|k|thousand/i.test(s)) return v * 1000;
+  if(v < 100) return v * 1e6;
+  return v;
 }
-
-(function(){var ds=document.querySelectorAll("dialog");function f(){var o=false;ds.forEach(function(x){if(x.open)o=true});document.documentElement.classList.toggle("lk",o)}
-var mo=new MutationObserver(f);ds.forEach(function(x){mo.observe(x,{attributes:true,attributeFilter:["open"]})});f()})();
-R();
-</script></body></html>
+function nR(){
+  if(!PD.length){
+    $("nst").textContent="مفيش مشاريع";
+    $("nl").innerHTML='<div class="mu" style="margin:8px 0">حمل ملف CSV الخاص بنوي لاستعراض المشاريع.</div>';
+    return;
+  }
+  $("nst").textContent=PD.length+" مشروع";
+  var q=($("nq").value||"").toLowerCase().trim();
+  var b=+$("nb").value||0;
+  var L=PD.filter(function(x){
+    return(!q||(x.n+" "+x.d+" "+x.a+" "+x.t).toLowerCase().indexOf(q)>-1)&&(!b||!x.lo||x.lo<=b*1e6);
+  });
+  $("nl").innerHTML=L.slice(0,100).map(function(x){
+    return'<div class="card" style="margin:6px 0;padding:8px 10px"><div style="font-weight:bold">'+esc(x.n)+'</div><div class="mu">'+esc(x.d)+' • '+esc(x.a)+'</div><div>سعر مبدئي: '+nP(x.lo)+' - '+nP(x.hi)+' EGP</div></div>';
+  }).join("");
+}
+</script>
+</body>
+</html>
