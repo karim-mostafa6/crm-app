@@ -34,7 +34,7 @@ body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--font);font-
   background: var(--card);
   border: 1px solid var(--bd);
   border-radius: 12px;
-  padding: 10px; /* تقليل البادينج من 14 لـ 10 */
+  padding: 10px;
   margin: 0;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   display: flex;
@@ -93,7 +93,7 @@ button:hover{opacity:0.92}
 .late{color:var(--rd)}.today{color:var(--or)}.ok{color:var(--gr)}
 .sec{font-weight:bold;margin:16px 0 6px}
 .tabs button{flex:1;transition:all 0.2s ease}.tabs .on{background:var(--pr);color:#fff;border-color:var(--pr)}
-dialog{border:1px solid var(--bd);border-radius:16px;background:var(--bg);color:var(--tx);width:min(94vw,540px);padding:16px;box-shadow:0 20px 40px rgba(0,0,0,0.2)}
+dialog{border:1px solid var(--bd);border-radius:16px;background:var(--bg);color:var(--tx);width:min(94vw,560px);padding:16px;box-shadow:0 20px 40px rgba(0,0,0,0.2)}
 dialog::backdrop{background:rgba(0,0,0,0.5);backdrop-filter:blur(3px)}
 label{display:block;font-size:13px;color:var(--mu);margin:8px 0 3px}
 a.b{display:inline-block;text-decoration:none;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;font-size:13px}
@@ -165,40 +165,52 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 
 <dialog id="wd"><div class="hd"><b>💬 رسالة واتساب</b><button type="button" class="x" onclick="wd.close()" aria-label="إغلاق">✕</button></div><div class="row" id="wb" style="margin:8px 0"></div><textarea id="wt" rows="5"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wsend()">فتح واتساب</button><button onclick="wd.close()">إغلاق</button></div></dialog>
 
-<!-- الحاسبة الاستثمارية المحدثة بالتصميم المطلوب -->
-<dialog id="cd2" style="width:min(96vw,560px)">
+<!-- الحاسبة الاستثمارية المحدثة بخانات الإيجار والمساحة -->
+<dialog id="cd2" style="width:min(96vw,580px)">
   <div class="hd">
-    <b>📈 حاسبة العرض الاستثماري وخطة السداد</b>
+    <b>📈 حاسبة العرض الاستثماري والعائد الإيجاري</b>
     <button type="button" class="x" onclick="cd2.close()" aria-label="إغلاق">✕</button>
   </div>
 
   <div class="row" style="margin-top:6px">
-    <div style="flex:1">
+    <div style="flex:1;min-width:130px">
       <label>سعر الوحدة (ج)</label>
       <input id="cp" type="number" inputmode="numeric" value="5500000" oninput="calc()">
     </div>
-    <div style="flex:1">
+    <div style="flex:1;min-width:100px">
       <label>المقدم %</label>
       <input id="cd" type="number" value="10" oninput="calc()">
     </div>
-    <div style="flex:1">
+    <div style="flex:1;min-width:100px">
       <label>سنين التقسيط</label>
       <input id="cy" type="number" value="8" oninput="calc()">
     </div>
   </div>
 
   <div class="row">
-    <div style="flex:1">
+    <div style="flex:1;min-width:130px">
       <label>سنوات التقدير الاستثماري</label>
       <input id="c_years" type="number" value="3" oninput="calc()">
     </div>
-    <div style="flex:1">
-      <label>نسبة الزيادة السنوية المتوقعة %</label>
+    <div style="flex:1;min-width:130px">
+      <label>نسبة الزيادة السنوية %</label>
       <input id="c_growth" type="number" value="15" oninput="calc()">
     </div>
   </div>
 
-  <!-- المعاينة بنفس تصميم الكروت المطلوب -->
+  <!-- المدخلات الجديدة للإيجار الاستثماري -->
+  <div class="row" style="background:rgba(37,99,235,0.05);padding:8px;border-radius:10px;border:1px dashed var(--bd)">
+    <div style="flex:1;min-width:130px">
+      <label style="color:var(--pr);font-weight:bold">مساحة الوحدة (م²)</label>
+      <input id="c_area" type="number" value="100" placeholder="مثال: 85" oninput="calc()">
+    </div>
+    <div style="flex:1;min-width:130px">
+      <label style="color:var(--pr);font-weight:bold">سعر المتر الإيجاري المتوقع (ج)</label>
+      <input id="c_rent_meter" type="number" value="500" placeholder="مثال: 400" oninput="calc()">
+    </div>
+  </div>
+
+  <!-- المعاينة بالكامل -->
   <div id="offer_preview" style="background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:12px 0;font-size:13px">
     
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px;border-bottom:1px solid var(--bd);padding-bottom:8px">
@@ -241,9 +253,33 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
       </div>
     </div>
 
+    <!-- قسم العائد الإيجاري المتوقع -->
+    <div style="background:rgba(37,99,235,0.08);padding:6px 10px;border-radius:6px;font-weight:bold;color:var(--pr);margin-bottom:8px;border-inline-start:3px solid var(--pr)">
+      🏢 التوقعات الإيجارية والدخل الشهري
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+      <div style="background:var(--bg);padding:8px 10px;border-radius:8px;text-align:center">
+        <div class="mu" style="font-size:11px">المساحة الإجمالية</div>
+        <b id="v_area" style="font-size:14px;color:var(--tx)">-</b>
+      </div>
+      <div style="background:var(--bg);padding:8px 10px;border-radius:8px;text-align:center">
+        <div class="mu" style="font-size:11px">سعر المتر الإيجاري</div>
+        <b id="v_rent_meter" style="font-size:14px;color:var(--tx)">-</b>
+      </div>
+      <div style="background:var(--bg);padding:8px 10px;border-radius:8px;text-align:center">
+        <div class="mu" style="font-size:11px">الإيجار الشهري المتوقع</div>
+        <b id="v_rent_monthly" style="font-size:14px;color:var(--gr)">-</b>
+      </div>
+      <div style="background:var(--bg);padding:8px 10px;border-radius:8px;text-align:center">
+        <div class="mu" style="font-size:11px">العائد الإيجاري السنوي %</div>
+        <b id="v_rent_yield" style="font-size:14px;color:var(--gr)">-</b>
+      </div>
+    </div>
+
     <!-- التوقع والربح الاستثماري -->
     <div style="background:rgba(37,99,235,0.08);padding:6px 10px;border-radius:6px;font-weight:bold;color:var(--pr);margin-bottom:8px;border-inline-start:3px solid var(--pr)">
-      📈 التوقع والربح الاستثماري
+      📈 التوقع والربح الرأسمالي (إعادة البيع)
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
@@ -325,6 +361,7 @@ function getQuickAiSnippet(c){
   if(c.s == "مبيردش") return "أرسل تحديثاً سريعاً وخفيفاً عن عرض خاص لفترة محدودة.";
   return "متابعة عامة واقتراح خطة سداد تناسب ميزانيته.";
 }
+
 function card(c){
   var t=td(), n="";
   if(c.nx){
@@ -349,8 +386,8 @@ function card(c){
   + '</div>'
   + '<div class="ci">'+n+(st?'<span class="late">🧊 '+st+' يوم</span>':"")+(c.pr?'<span>📍 '+esc(c.pr)+'</span>':"")+(bu?'<span>💰 '+esc(bu)+'</span>':"")+fitB(c)+'</div>'
   + getPipelineBar(c.s)
-  + (l ? '<div class="cl"><div class="cl1">💬 '+esc(l.t)+'</div></div>' : "") // الملاحظة الأخيرة فوق
-  + '<div class="as"><div class="ast">🤖 اقتراح المساعد</div>'+esc(aiSnippet)+'</div>' // اقتراح المساعد تحت الملاحظة
+  + (l ? '<div class="cl"><div class="cl1">💬 '+esc(l.t)+'</div></div>' : "")
+  + '<div class="as"><div class="ast">🤖 اقتراح المساعد</div>'+esc(aiSnippet)+'</div>'
   + ft 
   + '</div>';
 }
@@ -483,7 +520,7 @@ function fill(i){$("wt").value=T[i][1].replace("{اسم}",WC.n.split(" ")[0]).re
 function wsend(){window.open("https://wa.me/"+num(WC.ph)+"?text="+encodeURIComponent($("wt").value),"_blank");WC.log=WC.log||[];WC.log.push({d:td(),t:"اتبعتله رسالة واتساب"});P();$("wd").close();R()}
 function f(x){return Math.round(x).toLocaleString("ar-EG")}
 
-// دالة حساب العرض الاستثماري وخطة السداد
+// دالة حساب العرض الاستثماري وخطة السداد والعائد الإيجاري
 function calc(){
   var p = +$("cp").value || 0;
   var d = +$("cd").value || 0;
@@ -491,10 +528,17 @@ function calc(){
   var estY = +$("c_years").value || 0;
   var growthRate = +$("c_growth").value || 0;
 
+  var area = +$("c_area").value || 0;
+  var rentPerMeter = +$("c_rent_meter").value || 0;
+
   var dp = p * (d / 100);
   var rem = p - dp;
   var m = y ? rem / (y * 12) : 0;
   var q = m * 3;
+
+  var monthlyRent = area * rentPerMeter;
+  var yearlyRent = monthlyRent * 12;
+  var rentYield = p > 0 ? ((yearlyRent / p) * 100) : 0;
 
   var futurePrice = p * Math.pow((1 + growthRate / 100), estY);
   var profit = futurePrice - p;
@@ -511,6 +555,11 @@ function calc(){
   $("v_m").textContent = "EGP " + f(m);
   $("v_q").textContent = "EGP " + f(q);
 
+  $("v_area").textContent = area + " م²";
+  $("v_rent_meter").textContent = "EGP " + f(rentPerMeter);
+  $("v_rent_monthly").textContent = "EGP " + f(monthlyRent);
+  $("v_rent_yield").textContent = rentYield.toFixed(1) + "% سنوياً";
+
   $("v_est_years").textContent = "Years " + estY;
   $("v_future").textContent = "EGP " + f(futurePrice);
   $("v_profit").textContent = "EGP " + f(profit);
@@ -525,7 +574,13 @@ function getShareText() {
   var rem = p - dp;
   var m = y ? rem / (y * 12) : 0;
 
-  return "🏢 *عرض استثماري عقاري*\n" +
+  var area = +$("c_area").value || 0;
+  var rentPerMeter = +$("c_rent_meter").value || 0;
+  var monthlyRent = area * rentPerMeter;
+  var yearlyRent = monthlyRent * 12;
+  var rentYield = p > 0 ? ((yearlyRent / p) * 100) : 0;
+
+  return "🏢 *عرض استثماري عقاري شامل*\n" +
          "👤 المستشار العقاري: كريم مصطفى\n" +
          "📅 التاريخ: " + td() + "\n\n" +
          "💳 *خطة الدفع والتقسيط:*\n" +
@@ -535,10 +590,15 @@ function getShareText() {
          "• مدة التقسيط: " + y + " سنوات\n" +
          "• القسط الشهري: EGP " + f(m) + "\n" +
          "• القسط الربع سنوي: EGP " + f(m * 3) + "\n\n" +
-         "📈 *التوقع والربح الاستثماري:*\n" +
+         "🏢 *التوقعات الإيجارية والدخل الشهري:*\n" +
+         "• مساحة الوحدة: " + area + " م²\n" +
+         "• سعر المتر الإيجاري: EGP " + f(rentPerMeter) + "\n" +
+         "💵 *الإيجار الشهري المتوقع:* EGP " + f(monthlyRent) + "\n" +
+         "📊 *نسبة العائد الإيجاري السنوي:* " + rentYield.toFixed(1) + "%\n\n" +
+         "📈 *التوقع والربح الرأسمالي (إعادة البيع):*\n" +
          "• سنوات التقدير: " + $("c_years").value + " سنوات\n" +
          "• القيمة المتوقعة للوحدة: " + $("v_future").textContent + "\n" +
-         "• صافي الأوفر الربح المتوقع: " + $("v_profit").textContent + "\n" +
+         "• صافي الأوفر/الربح المتوقع: " + $("v_profit").textContent + "\n" +
          "🔥 *العائد على الاستثمار (ROI):* " + $("v_roi").textContent + "\n\n" +
          "للحجز والاستفسار يرجى التواصل مباشرة.";
 }
@@ -706,7 +766,7 @@ return'<div class="lg"><div><b>'+esc(x.n)+'</b> <span class="tag">'+esc(x.d)+'</
 $("nl").innerHTML=h}
 function nBud(s){
   s = String(s||"")
-    .replace(/[٠-٩]/g, function(d){ return "٠١٢٣٤٥٦ternational".indexOf(d); })
+    .replace(/[٠-٩]/g, function(d){ return "٠١٢٣٤٥٦٧٨٩".indexOf(d); })
     .replace(/٫/g,".")
     .replace(/[,٬،]/g,"");
   var m = s.match(/\d+(?:\.\d+)?/g);
