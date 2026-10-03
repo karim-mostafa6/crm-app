@@ -1,374 +1,593 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" translate="no">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM العقارات - كريم مصطفى</title>
-    
-    <!-- PWA Settings -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="CRM كريم">
-    <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22CRM%20Karim%20Mostafa%22%2C%22short_name%22%3A%22CRM%22%2C%22start_url%22%3A%22%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2314161a%22%2C%22theme_color%22%3A%22%231f6feb%22%7D">
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<title>CRM Karim Mostafa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- استدعاء خط Tajawal المميز ورسومات PDF -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <!-- Styles & Fonts -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f5f6f8;--card:#fff;--tx:#1a1d24;--mu:#6b7280;--bd:#e3e6ea;--pr:#1f6feb;--rd:#d93025;--gr:#188038;--or:#e8710a;
+  --font:'Tajawal', Tahoma, sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#14161a;--card:#1e2126;--tx:#eceef1;--mu:#98a0ab;--bd:#2d3138;--pr:#5b9dff;--rd:#f28b82;--gr:#81c995;--or:#fdb45b}
+}
+:root[data-theme="dark"]{--bg:#14161a;--card:#1e2126;--tx:#eceef1;--mu:#98a0ab;--bd:#2d3138;--pr:#5b9dff;--rd:#f28b82;--gr:#81c995;--or:#fdb45b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--font);font-size:15px;transition:background 0.3s, color 0.3s}
+.w{max-width:1320px;margin:0 auto;padding:14px}
+#list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:12px;align-items:stretch}
+#list>.sec,#list>.card{grid-column:1/-1}
 
-    <style>
-        body { background-color: #14161a; color: #e6edf3; font-family: system-ui, -apple-system, sans-serif; }
-        .card { background-color: #1f232a; border: 1px solid #30363d; }
-        .btn-primary { background-color: #1f6feb; color: white; }
-        .btn-primary:hover { background-color: #388bfd; }
-        input, select, textarea { background-color: #0d1117 !important; border-color: #30363d !important; color: white !important; }
-    </style>
-</head>
-<body class="p-3 md:p-6 min-h-screen">
+.cc{
+  background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin:0;
+  box-shadow:0 2px 5px rgba(0,0,0,0.04);display:flex;flex-direction:column;
+  transition:transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.cc:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,0.08)}
 
-    <!-- Header & Navigation -->
-    <header class="flex flex-wrap justify-between items-center mb-6 gap-3 pb-4 border-b border-gray-800">
-        <div class="flex items-center gap-2">
-            <span class="text-2xl">🏢</span>
-            <h1 class="text-xl font-bold">CRM العقارات</h1>
-            <span class="bg-gray-800 text-xs px-2 py-1 rounded text-gray-400">متزامن</span>
-        </div>
-        <div class="flex flex-wrap gap-2 text-sm">
-            <button onclick="requestNotificationPermission()" class="card px-3 py-1.5 rounded-lg text-yellow-400 hover:border-yellow-500">
-                <i class="fa-regular fa-bell"></i> التنبيهات
-            </button>
-            <button onclick="showSection('crm')" class="btn-primary px-3 py-1.5 rounded-lg font-medium">
-                <i class="fa-solid fa-users"></i> العملاء
-            </button>
-            <button onclick="showSection('analytics')" class="card px-3 py-1.5 rounded-lg font-medium hover:border-gray-500">
-                <i class="fa-solid fa-chart-pie"></i> التحليلات
-            </button>
-            <button onclick="showSection('calc')" class="card px-3 py-1.5 rounded-lg font-medium hover:border-gray-500">
-                <i class="fa-solid fa-calculator"></i> الحاسبة و ROI
-            </button>
-            <button onclick="showSection('projects')" class="card px-3 py-1.5 rounded-lg font-medium hover:border-gray-500">
-                <i class="fa-solid fa-building"></i> مشاريعي
-            </button>
-        </div>
-    </header>
+.cc .ch{gap:8px;display:flex;align-items:center}
+.cc .av{width:38px;height:38px;font-size:16px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;flex:none}
+.cc .cn{font-size:16px;font-weight:700}
+.cc .ci{margin-top:8px;gap:5px;font-size:12px;display:flex;flex-wrap:wrap}
+.cc .ci span{padding:2px 8px;background:var(--bg);border-radius:99px}
+.cc .cl{margin-top:8px;padding:6px 10px;background:var(--bg);border-radius:8px;font-size:13px}
+.cc .cl1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc .ib{flex:none;padding:6px 9px;font-size:15px;line-height:1}
+.cc .ft{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:auto;padding-top:8px}
+.cc .ft .b2{margin:0;flex:none}
 
-    <!-- 1. CRM Section (العملاء) -->
-    <section id="sec-crm" class="space-y-6">
-        <!-- Top Stats Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div class="card p-3 rounded-xl text-center">
-                <p class="text-xs text-gray-400">👥 كل العملاء</p>
-                <h3 id="stat-total" class="text-xl font-bold mt-1">3</h3>
-            </div>
-            <div class="card p-3 rounded-xl text-center">
-                <p class="text-xs text-red-400">🔴 متأخر</p>
-                <h3 id="stat-late" class="text-xl font-bold mt-1 text-red-400">0</h3>
-            </div>
-            <div class="card p-3 rounded-xl text-center">
-                <p class="text-xs text-yellow-400">🔔 النهاردة</p>
-                <h3 id="stat-today" class="text-xl font-bold mt-1 text-yellow-400">0</h3>
-            </div>
-            <div class="card p-3 rounded-xl text-center">
-                <p class="text-xs text-blue-400">📅 الجاي</p>
-                <h3 id="stat-upcoming" class="text-xl font-bold mt-1 text-blue-400">3</h3>
-            </div>
-        </div>
+.pipeline-bar{display:flex;gap:4px;margin-top:10px;background:var(--bg);padding:4px 6px;border-radius:8px;align-items:center;justify-content:space-between}
+.pipe-step{height:6px;flex:1;border-radius:4px;background:var(--bd);transition:background 0.3s ease}
+.pipe-step.active{background:var(--pr)}
 
-        <!-- Controls & Add Client -->
-        <div class="flex justify-between items-center gap-3">
-            <button onclick="openModal()" class="btn-primary px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2">
-                <i class="fa-solid fa-plus"></i> عميل جديد
-            </button>
-            <div class="text-xs text-gray-400">إجمالي الميزانيات: <span id="total-budget" class="font-bold text-white">19.5M ج</span></div>
-        </div>
+.as{margin-top:6px;padding:7px 10px;border-radius:10px;background:linear-gradient(135deg,rgba(91,157,255,.16),rgba(91,157,255,.06));border:1px solid rgba(91,157,255,.32);border-inline-start:3px solid var(--pr);font-size:12px;line-height:1.4}
+.as .ast{font-size:11px;font-weight:bold;color:var(--pr);margin-bottom:2px}
+.cc.dueC{background:linear-gradient(180deg,rgba(248,81,73,.20),rgba(248,81,73,.07));border-color:rgba(248,81,73,.55);box-shadow:0 4px 18px rgba(248,81,73,.16)}
+.cc.dueC .ci .today{color:var(--rd)}
+h1{font-size:20px;margin:4px 0 12px;font-weight:700}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px;margin-bottom:12px}
+.st{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center;cursor:pointer;flex:none;transition:all .2s ease}.st.on{border-color:var(--pr);box-shadow:0 0 0 2px var(--pr) inset}.st.hot b{color:var(--rd)}.st.warm b{color:var(--or)}.st#k_late.hot{background:rgba(248,81,73,.10);border-color:rgba(248,81,73,.45)}.st#k_today.warm{background:rgba(255,166,0,.10);border-color:rgba(255,166,0,.45)}.st#k_late.on,.st#k_today.on{border-color:var(--pr)}
+.st b{display:block;font-size:22px}.st span{font-size:12px;color:var(--mu)}
+input,select,textarea,button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:9px;transition:border-color .2s, box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pr);box-shadow:0 0 0 2px rgba(31,111,235,0.2)}
+input,select,textarea{width:100%}
+button{cursor:pointer;transition:background .2s, opacity .2s}.p{background:var(--pr);color:#fff;border-color:var(--pr)}
+button:hover{opacity:0.9}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;margin:8px 0}
+.card h3{margin:0 0 4px;font-size:16px}.mu{color:var(--mu);font-size:13px}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--bd)}
+.late{color:var(--rd)}.today{color:var(--or)}.ok{color:var(--gr)}
+.sec{font-weight:bold;margin:14px 0 4px}
+.tabs button{flex:1;transition:all 0.2s ease}.tabs .on{background:var(--pr);color:#fff;border-color:var(--pr)}
+dialog{border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);width:min(94vw,520px);padding:14px}
+dialog::backdrop{background:#0008}
+label{display:block;font-size:13px;color:var(--mu);margin:8px 0 3px}
+a.b{display:inline-block;text-decoration:none;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;font-size:13px}
+pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:10px;margin:8px 0}
+.lg{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;margin:8px 0}.lg .mu{font-size:12px;margin-bottom:3px}.lg div+div{white-space:pre-wrap}
+.hd{display:flex;justify-content:space-between;align-items:center;position:sticky;top:-14px;margin:-14px -14px 4px;padding:10px 14px;background:var(--bg);z-index:2}.x{width:38px;height:38px;padding:0;border-radius:99px;font-size:17px;line-height:1}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chip{flex:1 1 auto;padding:7px 8px;font-size:13px;border-radius:99px;white-space:nowrap;transition:all .2s ease}.chip.on{background:var(--pr);color:#fff;border-color:var(--pr)}.chip b{opacity:.7;margin-inline-start:2px}.chip i{font-style:normal;background:var(--rd);color:#fff;border-radius:99px;padding:0 6px;margin-inline-start:4px;font-size:11px}.b2{padding:5px 10px;font-size:13px;margin-top:6px}
+.rep{margin-top:8px;margin-inline-start:16px;border-inline-start:3px solid var(--pr);background:var(--bg);border-radius:8px;padding:8px 10px;font-size:14px}.rp2{margin-top:6px;font-size:13px}.gp{color:var(--or)}
+.log{font-size:13px;border-top:1px dashed var(--bd);padding:4px 0}.cb{margin-top:6px;padding:7px 10px;border-radius:12px;font-size:13px;white-space:pre-wrap}.cbu{background:var(--pr);color:#fff;margin-inline-start:28px}.cba{background:var(--card);border:1px solid var(--bd);margin-inline-end:28px}dialog{overscroll-behavior:contain}html{scrollbar-gutter:stable}html.lk,html.lk body{overflow:hidden}#dtl{border:1px solid var(--bd);border-radius:12px;margin:8px 0 4px;padding:0 12px 10px;background:var(--card)}#dtl summary{cursor:pointer;padding:10px 0 2px;font-weight:600;list-style:none;display:flex;align-items:center;gap:8px}#dtl summary::-webkit-details-marker{display:none}#dtl summary::after{content:"▾";margin-inline-start:auto;color:var(--mu)}#dtl[open] summary::after{content:"▴"}#dtl .dsm{flex:1;min-width:0;font-weight:400;font-size:12px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#dtl[open] .dsm{display:none}input[type=date]{position:relative}input[type=date]::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.prs{position:absolute;inset-inline:0;top:100%;z-index:20;max-height:240px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:10px;margin-top:4px;box-shadow:0 6px 20px rgba(0,0,0,.35)}.pri{padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--bd)}.pri:last-child{border-bottom:0}.pri:hover{background:rgba(127,127,127,.15)}.pri b{font-size:14px}.pri .mu{margin:2px 0 0}
 
-        <!-- Search & Filter Tabs -->
-        <div class="space-y-3">
-            <input type="text" id="search-input" oninput="filterClients()" placeholder="ابحث بالاسم أو الرقم أو المشروع..." class="w-full p-2.5 rounded-xl text-sm border">
-            
-            <div class="flex gap-2 overflow-x-auto pb-1 text-xs">
-                <button onclick="setFilter('all')" class="card px-3 py-1.5 rounded-lg font-bold border-blue-500 text-blue-400">الكل</button>
-                <button onclick="setFilter('مهتم')" class="card px-3 py-1.5 rounded-lg">مهتم</button>
-                <button onclick="setFilter('معاينة')" class="card px-3 py-1.5 rounded-lg">معاينة</button>
-                <button onclick="setFilter('تفاوض')" class="card px-3 py-1.5 rounded-lg">تفاوض</button>
-                <button onclick="setFilter('جديد')" class="card px-3 py-1.5 rounded-lg">جديد</button>
-                <button onclick="setFilter('تم البيع')" class="card px-3 py-1.5 rounded-lg">تم البيع</button>
-            </div>
-        </div>
+/* أنماط المساعد الذكي والتحليلات */
+.ai-box{background:rgba(31,111,235,0.06);border:1px solid rgba(31,111,235,0.25);border-radius:10px;padding:12px;margin-top:10px}
+.ai-title{font-size:14px;font-weight:bold;color:var(--pr);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ai-res{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;min-height:70px}
 
-        <!-- Client Cards Grid -->
-        <div id="clients-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <!-- Dynamic Content generated by JS -->
-        </div>
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--gr);color:#fff;padding:8px 18px;border-radius:99px;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.2);z-index:999;display:none;animation:fadeIn 0.3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+</style></head><body><div class="w">
+<div class="row"><h1 style="flex:1">📇 CRM العقارات</h1><span id="sy" class="mu">💾 محلي</span><button onclick="requestNotify()">🔔 الإشعارات</button><button onclick="anald.showModal();renderFunnel()">📊 التحليلات</button><button onclick="$('cd2').showModal();calc()">🧮 حاسبة & ROI</button><button onclick="pjd.showModal();nR()">🏢 مشاريعي</button><button class="p" onclick="openF()">+ عميل</button></div>
+<div class="stats"><button type="button" class="st" id="k_all" onclick="tab('all')"><b id="s3">0</b><span>👥 كل العملاء</span></button><button type="button" class="st" id="k_late" onclick="tab('late')"><b id="s1">0</b><span>🔴 متأخر</span></button><button type="button" class="st" id="k_today" onclick="tab('today')"><b id="s2">0</b><span>🔔 النهاردة</span></button><button type="button" class="st" id="k_soon" onclick="tab('soon')"><b id="s4">0</b><span>📅 الجاي</span></button></div>
+<div id="pp" class="mu" style="margin:-4px 2px 10px"></div>
+<div class="row" style="margin-bottom:6px">
+  <input id="q" placeholder="ابحث بالاسم أو الرقم أو المشروع" oninput="R()" style="flex:1;min-width:150px">
+  <button onclick="sortTodayPlan()" style="background:var(--card);border-color:var(--pr);color:var(--pr);font-weight:bold">🎯 خطة النهاردة</button>
+</div>
+<div id="chips" class="chips"></div><div id="list"></div>
+<div class="row" style="margin-top:18px"><button onclick="exp()">⬇ نسخة احتياطية</button><button onclick="imp.click()">⬆ استرجاع</button><input type="file" id="imp" accept=".json" hidden onchange="impF(this)"></div>
+<p class="mu">البيانات محفوظة في متصفحك وسحابياً عبر Supabase.</p>
+</div>
 
-        <!-- Backup & Restore Buttons -->
-        <div class="flex justify-center gap-3 pt-4 border-t border-gray-800">
-            <button onclick="exportData()" class="card px-3 py-1.5 rounded-lg text-xs hover:border-gray-500">⬆️ نسخة احتياطية</button>
-            <button onclick="importData()" class="card px-3 py-1.5 rounded-lg text-xs hover:border-gray-500">⬇️ استرجاع</button>
-        </div>
-    </section>
+<!-- توست إشعار الحفظ -->
+<div id="toast">✓ تم الحفظ بنجاح</div>
 
-    <!-- 2. Analytics Section (التحليلات - ميزة 1) -->
-    <section id="sec-analytics" class="hidden space-y-6">
-        <div class="card p-5 rounded-2xl">
-            <h2 class="text-lg font-bold mb-4 text-blue-400 flex items-center gap-2">
-                <i class="fa-solid fa-chart-line"></i> تحليلات مسار المبيعات (Sales Funnel)
-            </h2>
-            <div id="funnel-container" class="space-y-4 text-sm">
-                <!-- Funnel items generated dynamically -->
-            </div>
-        </div>
-    </section>
+<dialog id="d"><form onsubmit="return false"><div class="hd"><b id="dt">عميل جديد</b><button type="button" class="x" onclick="d.close()" aria-label="إغلاق">✕</button></div>
+<div class="row tabs" style="margin:6px 0"><button type="button" id="dt1" class="on" onclick="dtab(1)">📋 الملف</button><button type="button" id="dt2" onclick="dtab(2)">👤 الاسم والرقم</button><button type="button" id="dt3" onclick="dtab(3)">🤖 المساعد الذكي</button></div><div id="pb" hidden><label>الاسم</label><input id="n"><label>الموبايل</label><input id="ph" type="tel" dir="ltr" style="text-align:right" oninput="dupC()"><div id="dup" class="late" style="font-size:13px;margin-top:4px"></div></div><div id="pa"><div id="who" class="mu" dir="ltr" style="text-align:right"></div><div id="brief"></div>
+<details id="dtl" oninput="dS();prI()" onchange="dS();prI()"><summary>📝 بيانات العميل <span id="dsm" class="dsm"></span></summary><div class="row"><div style="flex:1"><label>الميزانية</label><input id="bu"></div><div style="flex:1"><label>الحالة</label><select id="stt"></select></div></div>
+<label>المشروع / المنطقة المهتم بيها</label><div style="position:relative"><input id="pr" autocomplete="off" placeholder="ابحث باسم المشروع أو المطور أو المنطقة" oninput="prS();prI()" onfocus="prS()" onblur="setTimeout(prH,250)"><div id="prs" class="prs" hidden></div></div><label>المصدر</label><input id="src" placeholder="فيسبوك، ترشيح، ..."></details><div id="pin" class="mu" style="margin:6px 2px 0"></div>
+<label>ميعاد الفولو اب الجاي</label><input id="nx" type="date" onclick="try{this.showPicker()}catch(e){}"><div class="row" style="margin-top:6px;gap:6px"><button type="button" class="b2" style="margin:0" onclick="nxq(1)">بكرة</button><button type="button" class="b2" style="margin:0" onclick="nxq(3)">بعد 3 أيام</button><button type="button" class="b2" style="margin:0" onclick="nxq(7)">أسبوع</button><button type="button" class="b2" style="margin:0" onclick="nxq(14)">أسبوعين</button></div>
 
-    <!-- 3. Calculator & ROI Section (حاسبة ROI وتصدير PDF - ميزة 3 & 5) -->
-    <section id="sec-calc" class="hidden space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- ROI Form -->
-            <div class="card p-5 rounded-2xl space-y-4">
-                <h2 class="text-lg font-bold text-green-400 flex items-center gap-2">
-                    <i class="fa-solid fa-calculator"></i> حاسبة الاستثمار و ROI
-                </h2>
-                <div class="space-y-3 text-sm">
-                    <div>
-                        <label class="block text-gray-400 mb-1">سعر العقار الأصلي (ج):</label>
-                        <input type="number" id="calc-price" value="5000000" oninput="runCalc()" class="w-full p-2 rounded-xl border">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1">المقدم المدفوع (ج):</label>
-                        <input type="number" id="calc-down" value="500000" oninput="runCalc()" class="w-full p-2 rounded-xl border">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1">الزيادة السنوية المتوقعة (%):</label>
-                        <input type="number" id="calc-growth" value="20" oninput="runCalc()" class="w-full p-2 rounded-xl border">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1">مدة الاستثمار (سنوات):</label>
-                        <input type="number" id="calc-years" value="3" oninput="runCalc()" class="w-full p-2 rounded-xl border">
-                    </div>
-                </div>
-            </div>
+<div class="row" style="justify-content:space-between;align-items:center;margin-top:8px">
+  <label style="margin:0">ملاحظة جديدة (بتتسجل بتاريخ النهاردة)</label>
+  <button type="button" onclick="startDictation()" style="font-size:12px;padding:3px 8px;background:rgba(31,111,235,0.1);color:var(--pr);border-color:var(--pr)">🎙️ إملاء صوتي</button>
+</div>
+<textarea id="nt" rows="2" placeholder="اكتب أو استخدم الإملاء الصوتي..."></textarea>
 
-            <!-- Printable PDF Template -->
-            <div class="card p-5 rounded-2xl flex flex-col justify-between">
-                <div id="pdf-offer-sheet" class="p-4 bg-gray-900 rounded-xl border border-gray-800 space-y-3">
-                    <div class="border-b border-gray-700 pb-3 text-center">
-                        <h3 class="font-bold text-lg text-blue-400">عرض استثماري عقاري</h3>
-                        <p class="text-xs text-gray-400">المستشار العقاري: كريم مصطفى</p>
-                    </div>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between"><span>القيمة الحالية:</span> <span id="pdf-price" class="font-bold">5,000,000 ج</span></div>
-                        <div class="flex justify-between"><span>المقدم:</span> <span id="pdf-down" class="font-bold">500,000 ج</span></div>
-                        <div class="flex justify-between"><span>القيمة المتوقعة بعد الاستثمار:</span> <span id="pdf-future" class="font-bold text-green-400">-</span></div>
-                        <div class="flex justify-between"><span>الأوفر / صافي الربح:</span> <span id="pdf-profit" class="font-bold text-green-400">-</span></div>
-                        <div class="flex justify-between"><span>العائد على الاستثمار (ROI):</span> <span id="pdf-roi" class="font-bold text-blue-400">-</span></div>
-                    </div>
-                </div>
-                <button onclick="exportPDF()" class="mt-4 bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 text-sm">
-                    <i class="fa-solid fa-file-pdf"></i> تصدير العرض PDF
-                </button>
-            </div>
-        </div>
-    </section>
+<div id="hist"></div></div>
 
-    <!-- 4. Projects Section (المشاريع) -->
-    <section id="sec-projects" class="hidden">
-        <div class="card p-5 rounded-2xl">
-            <h2 class="text-lg font-bold mb-4">قائمة المشاريع المتاحة</h2>
-            <p class="text-sm text-gray-400">مشاريع أكتوبر، زايد، والساحل الشمالي مفعلة وسريعة للربط مع العملاء.</p>
-        </div>
-    </section>
+<!-- تبويب المساعد الذكي الاستراتيجي -->
+<div id="pc" hidden>
+  <div class="ai-box">
+    <div class="ai-title">🤖 تحليل واستراتيجية المساعد للديل</div>
+    <div id="ai_res" class="ai-res">اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات فورية...</div>
+  </div>
+  <label style="margin-top:10px">اسأل المساعد أو وجهه (اختياري):</label>
+  <div class="row" style="gap:6px">
+    <input id="ai_q" placeholder="مثال: العميل خايف من إعادة البيع أو السعر عالي...">
+    <button type="button" class="p" onclick="runAssistant()" style="flex:none">تحليل ورد سريع</button>
+  </div>
+</div>
 
-    <!-- Add/Edit Client Modal -->
-    <div id="modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-        <div class="card p-5 rounded-2xl w-full max-w-md space-y-4">
-            <h3 id="modal-title" class="font-bold text-lg">إضافة عميل جديد</h3>
-            <input type="text" id="m-name" placeholder="اسم العميل" class="w-full p-2.5 rounded-xl text-sm border">
-            <input type="text" id="m-phone" placeholder="رقم الهاتف" class="w-full p-2.5 rounded-xl text-sm border">
-            <input type="text" id="m-project" placeholder="المشروع" class="w-full p-2.5 rounded-xl text-sm border">
-            <input type="text" id="m-budget" placeholder="الميزانية (مثال: 5M)" class="w-full p-2.5 rounded-xl text-sm border">
-            <select id="m-stage" class="w-full p-2.5 rounded-xl text-sm border">
-                <option value="جديد">جديد</option>
-                <option value="مهتم">مهتم</option>
-                <option value="معاينة">معاينة</option>
-                <option value="تفاوض">تفاوض</option>
-                <option value="تم البيع">تم البيع</option>
-            </select>
-            <input type="date" id="m-date" class="w-full p-2.5 rounded-xl text-sm border">
-            <textarea id="m-notes" placeholder="ملاحظات العميل..." class="w-full p-2.5 rounded-xl text-sm border h-20"></textarea>
-            <div class="flex gap-2">
-                <button onclick="saveClient()" class="btn-primary w-full py-2 rounded-xl text-sm font-bold">حفظ</button>
-                <button onclick="closeModal()" class="card w-full py-2 rounded-xl text-sm">إلغاء</button>
-            </div>
-        </div>
-    </div>
+<div class="row" style="margin-top:12px"><button class="p" onclick="save()">حفظ</button><button onclick="d.close()">إلغاء</button><button id="del" class="late" onclick="delClient()" style="margin-inline-start:auto">حذف</button></div></form></dialog>
 
-    <!-- Core App Logic -->
-    <script>
-        // Data Store
-        let clients = JSON.parse(localStorage.getItem('crm_clients')) || [
-            { id: 1, name: "مصطفى عبدالسلام", phone: "01000000000", project: "Ashgar City", budget: "5M", stage: "مهتم", date: "2026-10-04", notes: "عايز حاجة استلام فوري ومعاه مقدم..." },
-            { id: 2, name: "Tareq", phone: "01100000000", project: "kiran", budget: "9.5M", stage: "جديد", date: "2026-10-04", notes: "ده عميل تبع ميدو كم محتاج حاجه تكون مسا..." },
-            { id: 3, name: "Ahmed", phone: "01200000000", project: "ink", budget: "5M", stage: "تفاوض", date: "2026-10-10", notes: "كلمته وقاللي انه في كذا حاجه هوا داخل فيها و..." }
-        ];
+<!-- نافذة التحليلات ومسار المبيعات Sales Funnel -->
+<dialog id="anald"><div class="hd"><b>📊 تحليلات مسار المبيعات (Sales Funnel)</b><button type="button" class="x" onclick="anald.close()" aria-label="إغلاق">✕</button></div>
+<div id="funnel_box" style="margin-top:10px;display:flex;flex-direction:column;gap:10px"></div>
+</dialog>
 
-        let activeFilter = 'all';
+<dialog id="pjd"><div class="hd"><b>🏢 مشاريعي</b><button type="button" class="x" onclick="pjd.close()" aria-label="إغلاق">✕</button></div>
+<div class="sec" style="margin-top:6px">📦 قاعدة مشاريع نوي</div>
+<div class="row"><button type="button" class="p" onclick="nimp.click()">⬆ استيراد CSV</button><span id="nst" class="mu" style="flex:1"></span></div><input type="file" id="nimp" accept=".csv,text/csv" hidden onchange="nImp(this)">
+<div class="row" style="margin-top:8px"><input id="nq" placeholder="ابحث بالمشروع أو المطور أو المنطقة" oninput="nR()" style="flex:2;min-width:140px"><input id="nb" type="number" inputmode="decimal" placeholder="أقصى سعر (مليون)" oninput="nR()" style="flex:1;min-width:120px"></div>
+<div id="nl"></div>
+<div class="sec">✍️ مشاريع إضافية (يدوي)</div><div class="mu" style="margin:0 0 6px">سطر لكل مشروع (المطور، المنطقة، النوع، السعر).</div><textarea id="pjt" rows="4" oninput="pjSave()" placeholder="مثال: سوديك إيست - التجمع - شقق من 5.2 مليون - استلام 2028"></textarea></dialog>
+<dialog id="wd"><div class="hd"><b>💬 رسالة واتساب</b><button type="button" class="x" onclick="wd.close()" aria-label="إغلاق">✕</button></div><div class="row" id="wb" style="margin:8px 0"></div><textarea id="wt" rows="5"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wsend()">فتح واتساب</button><button onclick="wd.close()">إغلاق</button></div></dialog>
 
-        function saveToStorage() {
-            localStorage.setItem('crm_clients', JSON.stringify(clients));
-            renderClients();
-            renderAnalytics();
-        }
+<!-- حاسبة الأقساط + حاسبة العائد الاستثماري وتصدير PDF -->
+<dialog id="cd2"><div class="hd"><b>🧮 حاسبة الخطة والعائد الاستثماري (ROI)</b><button type="button" class="x" onclick="cd2.close()" aria-label="إغلاق">✕</button></div>
+<label>سعر الوحدة (ج)</label><input id="cp" type="number" inputmode="numeric" value="5000000" oninput="calc()"><div class="row"><div style="flex:1"><label>المقدم %</label><input id="cd" type="number" value="10" oninput="calc()"></div><div style="flex:1"><label>سنين التقسيط</label><input id="cy" type="number" value="8" oninput="calc()"></div></div>
+<div class="row" style="margin-top:6px"><div style="flex:1"><label>الزيادة السنوية المتوقعة %</label><input id="cgrowth" type="number" value="20" oninput="calc()"></div><div style="flex:1"><label>سنوات الاستثمار</label><input id="cyears" type="number" value="3" oninput="calc()"></div></div>
 
-        function showSection(name) {
-            document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
-            document.getElementById('sec-' + name).classList.remove('hidden');
-        }
+<div id="pdf_offer" class="card" style="margin-top:10px;padding:10px;background:var(--bg)">
+  <div style="text-align:center;border-bottom:1px solid var(--bd);padding-bottom:6px;margin-bottom:6px">
+    <b style="color:var(--pr)">عرض استثماري عقاري</b>
+    <div class="mu" style="font-size:12px">المستشار العقاري: كريم مصطفى</div>
+  </div>
+  <pre id="co" style="margin:0;padding:4px;background:transparent;border:0"></pre>
+</div>
 
-        function renderClients() {
-            const grid = document.getElementById('clients-grid');
-            grid.innerHTML = '';
+<div class="row" style="margin-top:8px"><button class="p" onclick="cshare()">إرسال واتساب</button><button onclick="ccopy()">نسخ</button><button onclick="exportPDF()" style="background:var(--rd);color:#fff;border-color:var(--rd)">📄 تصدير PDF</button></div></dialog>
 
-            let filtered = clients.filter(c => {
-                const search = document.getElementById('search-input').value.toLowerCase();
-                const matchSearch = c.name.toLowerCase().includes(search) || c.project.toLowerCase().includes(search);
-                const matchFilter = activeFilter === 'all' || c.stage === activeFilter;
-                return matchSearch && matchFilter;
-            });
+<script>
+// إعدادات Supabase
+var SUPABASE_URL = "https://jxfumlinzbikkarzarsg.supabase.co/rest/v1/";
+var SUPABASE_KEY = "sb_publishable_4fOzE1ZGB2vXXvdMKCgD5A_Vf3WMSbX";
 
-            document.getElementById('stat-total').innerText = clients.length;
+var S=["مهتم","معاينة","تفاوض","جديد","مبيردش","تم البيع","مش مهتم"],K="crm_clients_v1",C=[],cur=null,view=1;
+try{C=JSON.parse(localStorage.getItem(K)||"[]")}catch(e){C=[]}
+var CAT=0;try{CAT=+localStorage.getItem(K+"_at")||0}catch(e){}
+function P(){CAT=Date.now();try{localStorage.setItem(K,JSON.stringify(C));localStorage.setItem(K+"_at",String(CAT))}catch(e){}cloud()}
+var $=function(i){return document.getElementById(i)};
+var flt="";
+$("stt").innerHTML=S.map(function(s){return"<option>"+s+"</option>"}).join("");
+function td(){var x=new Date();return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")}
+function lg(l,i){return'<div class="lg"><div class="mu">📅 '+l.d+'</div><div>'+esc(l.t)+'</div></div>'}
+function esc(s){return String(s||"").replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var TAB=null;function tab(v){TAB=v;isTodayPlanSort=false;R()}
+function act(c){return c.s!="تم البيع"&&c.s!="مش مهتم"}
+function ymd(x){return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")}
+function stale(c){if(!act(c))return 0;var l=(c.log||[]).slice(-1)[0],d=l?new Date(l.d+"T00:00:00"):new Date(c.c||Date.now()),n=Math.floor((Date.now()-d.getTime())/864e5);return n>=5?n:0}
+function snz(id,d){var c=C.filter(function(x){return x.id==id})[0];if(!c)return;var x=new Date();x.setDate(x.getDate()+d);c.nx=ymd(x);P();R()}
+var SP={"تفاوض":0,"معاينة":1,"مهتم":2,"جديد":3,"مبيردش":4};function sp(c){return SP[c.s]==null?5:SP[c.s]}
+function byNx(a,b){return a.nx<b.nx?-1:a.nx>b.nx?1:sp(a)-sp(b)}
+function dupC(){var n=num($("ph").value),e=$("dup");if(n.length<10){e.textContent="";return}var x=C.filter(function(c){return c.id!=cur&&num(c.ph)==n})[0];e.textContent=x?"⚠️ الرقم ده متسجل عند: "+x.n:""}
+var SC={"مهتم":"#1f6feb","معاينة":"#8e44ad","تفاوض":"#e8710a","جديد":"#6b7280","مبيردش":"#d93025","تم البيع":"#188038","مش مهتم":"#9aa0a6"};
+function fitB(c){if(!PD.length||!c.pr)return"";var b=nBud(c.bu);if(!b)return"";var q=c.pr.split(/[,،]/)[0].trim().toLowerCase(),x=PD.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x||!x.lo)return"";return x.lo>b?'<span class="late">⚠️ فوق الميزانية</span>':'<span>✅ في الميزانية</span>'}
 
-            filtered.forEach(c => {
-                grid.innerHTML += `
-                    <div class="card p-4 rounded-2xl relative space-y-2">
-                        <div class="flex justify-between items-start">
-                            <h4 class="font-bold text-base">${c.name}</h4>
-                            <span class="bg-blue-900/60 text-blue-300 text-xs px-2 py-0.5 rounded-full border border-blue-700">${c.stage}</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-xs text-gray-400">
-                            <span>📍 ${c.project}</span>
-                            <span>💰 ${c.budget} ج</span>
-                            <span>📅 ${c.date}</span>
-                        </div>
-                        <p class="text-xs text-gray-300 bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">${c.notes || 'لا يوجد ملاحظات'}</p>
-                        <div class="flex justify-between items-center pt-2 text-xs">
-                            <a href="https://wa.me/2${c.phone}" target="_blank" class="text-green-400 flex items-center gap-1 hover:underline">
-                                <i class="fa-brands fa-whatsapp"></i> واتساب
-                            </a>
-                            <button onclick="deleteClient(${c.id})" class="text-red-400 hover:text-red-300">حذف</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
+function getPipelineBar(s){
+  var steps=["جديد","مهتم","معاينة","تفاوض","تم البيع"];
+  var idx=steps.indexOf(s);
+  if(idx==-1) idx=0;
+  var h='<div class="pipeline-bar" title="مرحلة العميل: '+s+'">';
+  for(var i=0;i<5;i++){
+    h+='<div class="pipe-step '+(i<=idx?'active':'')+'"></div>';
+  }
+  return h+'</div>';
+}
 
-        function setFilter(stage) {
-            activeFilter = stage;
-            renderClients();
-        }
+function getQuickAiSnippet(c){
+  var logs = c.log ? c.log.map(function(l){return l.t}).join(" ").toLowerCase() : "";
+  if(logs.includes("استلام") || logs.includes("جاهز") || logs.includes("مستعجل")) return "ركز على موقف الإنشاءات والتسليم وسرعة المعاينة.";
+  if(logs.includes("إعادة بيع") || logs.includes("اعادة بيع") || logs.includes("استثمار")) return "وضّح له قوة العائد الاستثماري وموقع المشروع الحيوي.";
+  if(logs.includes("غالي") || logs.includes("سعر") || logs.includes("ميزانية")) return "عرض مرونة خطة السداد وطول فترة التقسيط.";
+  if(c.s == "تفاوض") return "حفزه بجدية الحجز لضمان المتاح قبل زيادات الأسعار.";
+  if(c.s == "مبيردش") return "أرسل تحديثاً سريعاً وخفيفاً عن عرض خاص لفترة محدودة.";
+  return "متابعة عامة واقتراح خطة سداد تناسب ميزانيته.";
+}
 
-        function filterClients() {
-            renderClients();
-        }
+function card(c){
+  var t=td(),n="";
+  if(c.nx){n=c.nx<t?'<span class="late">⏰ متأخر من '+c.nx+'</span>':c.nx==t?'<span class="today">🔔 فولو اب النهاردة</span>':'<span>📅 '+c.nx+'</span>'}else if(act(c))n='<span class="late">⚠️ من غير ميعاد</span>';
+  var id="'"+c.id+"'",st=stale(c),due=act(c)&&c.nx&&c.nx<=t,col=SC[c.s]||"#6b7280",l=null,k=(c.log||[]).length;while(k--){if(!c.log[k].a){l=c.log[k];break}}
+  var bn=+String(c.bu||"").replace(/,/g,""),bu=c.bu&&!isNaN(bn)?(bn>=1e6?+(bn/1e6).toFixed(2)+"M":bn.toLocaleString("ar-EG"))+" ج":c.bu;
+  var ft=due?'<div class="ft"><span class="mu" style="margin:0">أجّل:</span>'+[[1,"يوم"],[3,"3 أيام"],[7,"أسبوع"]].map(function(z){return'<button type="button" class="b2" onclick="event.stopPropagation();snz('+id+','+z[0]+')">'+z[1]+'</button>'}).join("")+'</div>':"";
+  
+  var aiSnippet = getQuickAiSnippet(c);
 
-        function openModal() {
-            document.getElementById('modal').classList.remove('hidden');
-        }
+  return'<div class="cc'+(due?' dueC':'')+'" role="button" tabindex="0" onclick="openF('+id+')" style="cursor:pointer;border-inline-start:4px solid '+(due?'var(--rd)':col)+'"><div class="ch"><div class="av" style="background:'+(due?'var(--rd)':col)+'">'+esc((c.n||"?").trim().charAt(0).toUpperCase())+'</div><div style="flex:1;min-width:0"><div class="cn">'+esc(c.n)+'</div><div class="cs" style="color:'+col+'">● '+c.s+'</div></div>'+(c.ph?'<a class="b ib" href="tel:'+esc(c.ph)+'" title="اتصال" onclick="event.stopPropagation()">📞</a><button type="button" class="ib" title="واتساب" onclick="event.stopPropagation();wa('+id+')">💬</button>':"")+'</div>'
+  +'<div class="ci">'+n+(st?'<span class="late">🧊 '+st+' يوم</span>':"")+(c.pr?'<span>📍 '+esc(c.pr)+'</span>':"")+(bu?'<span>💰 '+esc(bu)+'</span>':"")+fitB(c)+'</div>'
+  +getPipelineBar(c.s)
+  +'<div class="as"><div class="ast">🤖 اقتراح المساعد</div>'+esc(aiSnippet)+'</div>'
+  +(l?'<div class="cl"><div class="cl1">💬 '+esc(l.t)+'</div></div>':"")+ft+'</div>'
+}
 
-        function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
-        }
+var isTodayPlanSort=false;
+function sortTodayPlan(){
+  isTodayPlanSort=true;
+  R();
+}
 
-        function saveClient() {
-            const newC = {
-                id: Date.now(),
-                name: document.getElementById('m-name').value,
-                phone: document.getElementById('m-phone').value,
-                project: document.getElementById('m-project').value,
-                budget: document.getElementById('m-budget').value,
-                stage: document.getElementById('m-stage').value,
-                date: document.getElementById('m-date').value,
-                notes: document.getElementById('m-notes').value
-            };
-            if(!newC.name) return alert('برجاء كتابة اسم العميل');
-            clients.push(newC);
-            saveToStorage();
-            closeModal();
-        }
+function R(){var t=td(),q=$("q").value.toLowerCase().trim(),f=flt;chipsR();
+var isLate=function(c){return act(c)&&c.nx&&c.nx<t},isNow=function(c){return act(c)&&c.nx==t},isSoon=function(c){return act(c)&&c.nx&&c.nx>t};
+var n={late:C.filter(isLate).length,today:C.filter(isNow).length,soon:C.filter(isSoon).length,all:C.length};
+$("s1").textContent=n.late;$("s2").textContent=n.today;$("s4").textContent=n.soon;$("s3").textContent=n.all;
+var D=TAB||(n.late?"late":n.today?"today":"all"),E=q?"all":D;
+["all","late","today","soon"].forEach(function(k){$("k_"+k).className="st"+(E==k?" on":"")+(k=="late"&&n.late?" hot":"")+(k=="today"&&n.today?" warm":"")});
+var ac=C.filter(act),sum=0;ac.forEach(function(c){sum+=nBud(c.bu)});$("pp").textContent=sum?"💼 "+ac.length+" عميل نشط • إجمالي ميزانياتهم "+(sum>=1e9?+(sum/1e9).toFixed(2)+"B":+(sum/1e6).toFixed(1)+"M")+" ج":"";
+var L=C.filter(function(c){return(!f||c.s==f)&&(!q||(c.n+" "+c.ph+" "+c.pr).toLowerCase().indexOf(q)>-1)});
+var M={late:["مفيش متأخرين ✅",isLate,byNx],today:["مفيش متابعات النهاردة ✅",isNow,function(a,b){return sp(a)-sp(b)}],soon:["مفيش متابعات جاية",isSoon,byNx],all:["لسه مفيش عملاء. دوس + عميل",function(){return true},function(a,b){return b.c-a.c}]}[E];
+L=L.filter(M[1]);
 
-        function deleteClient(id) {
-            if(confirm('هل أنت تأكد من حذف العميل؟')) {
-                clients = clients.filter(c => c.id !== id);
-                saveToStorage();
-            }
-        }
+if(isTodayPlanSort){
+  L.sort(function(a,b){
+    var scoreA = (sp(a) * -10) + (stale(a) * 2) + (nBud(a.bu)>0 ? 5 : 0);
+    var scoreB = (sp(b) * -10) + (stale(b) * 2) + (nBud(b.bu)>0 ? 5 : 0);
+    return scoreB - scoreA;
+  });
+} else {
+  L.sort(M[2]);
+}
 
-        // 1. Sales Funnel Analytics
-        function renderAnalytics() {
-            const container = document.getElementById('funnel-container');
-            if(!container) return;
-            const stages = ['جديد', 'مهتم', 'معاينة', 'تفاوض', 'تم البيع'];
-            const total = clients.length || 1;
+$("list").innerHTML=L.length?L.map(card).join(""):'<div class="card '+(E=="all"?"mu":"ok")+'">'+M[0]+'</div>'}
 
-            container.innerHTML = stages.map(st => {
-                const count = clients.filter(c => c.stage === st).length;
-                const pct = Math.round((count / total) * 100);
-                return `
-                    <div>
-                        <div class="flex justify-between mb-1">
-                            <span>${st} (${count})</span>
-                            <span class="font-bold">${pct}%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-2.5">
-                            <div class="bg-blue-500 h-2.5 rounded-full" style="width: ${pct}%"></div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
+function startDictation() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert("خاصية الإملاء الصوتي غير مدعومة في متصفحك. يفضل استخدام متصفح Google Chrome.");
+    return;
+  }
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = new SpeechRecognition();
+  recognition.lang = 'ar-EG';
+  recognition.interimResults = false;
+  
+  var nt = $("nt");
+  nt.placeholder = "جاري الاستماع... اتكلم الآن بالعامية المصرية";
+  
+  recognition.start();
+  
+  recognition.onresult = function(event) {
+    var text = event.results[0][0].transcript;
+    nt.value = nt.value ? nt.value + " " + text : text;
+    nt.placeholder = "اكتب أو استخدم الإملاء الصوتي...";
+  };
+  
+  recognition.onerror = function() {
+    nt.placeholder = "اكتب أو استخدم الإملاء الصوتي...";
+    alert("لم نتمكن من التقاط الصوت، حاول مجدداً.");
+  };
+  
+  recognition.onend = function() {
+    nt.placeholder = "اكتب أو استخدم الإملاء الصوتي...";
+  };
+}
 
-        // 3. Calculator & ROI Engine
-        function runCalc() {
-            const price = parseFloat(document.getElementById('calc-price').value) || 0;
-            const down = parseFloat(document.getElementById('calc-down').value) || 0;
-            const growth = (parseFloat(document.getElementById('calc-growth').value) || 0) / 100;
-            const years = parseFloat(document.getElementById('calc-years').value) || 0;
+function showToast(msg) {
+  var t = $("toast");
+  if(msg) t.textContent = msg;
+  t.style.display = "block";
+  setTimeout(function(){ t.style.display = "none"; }, 2500);
+}
 
-            const future = price * Math.pow((1 + growth), years);
-            const profit = future - price;
-            const roi = down > 0 ? ((profit / down) * 100) : 0;
+function nxq(n){var x=new Date();x.setDate(x.getDate()+n);$("nx").value=ymd(x)}
+var PRL=[];
+function prTok(){var v=$("pr").value,i=Math.max(v.lastIndexOf(","),v.lastIndexOf("،"));return{pre:v.slice(0,i+1),q:v.slice(i+1).trim()}}
+function prS(){var P=$("prs");if(!PD.length){P.hidden=true;return}var q=prTok().q.toLowerCase(),L=PD.filter(function(x){return!q||(x.n+" "+x.d+" "+x.a).toLowerCase().indexOf(q)>-1});
+L.sort(function(a,b){var an=a.n.toLowerCase().indexOf(q)==0?0:1,bn=b.n.toLowerCase().indexOf(q)==0?0:1;return an-bn||(a.u<b.u?1:-1)});
+var T=L.length;PRL=L.slice(0,60).map(function(x){return{v:x.n,h:"<b>"+esc(x.n)+'</b><div class="mu">'+esc(x.d)+" • "+esc(x.a)+" • "+nP(x.lo)+"–"+nP(x.hi)+"</div>"}});
+if(q.length>=2){var seen={},c=0;PD.forEach(function(x){var k=x.a;if(k&&!seen[k]&&c<5&&k.toLowerCase().indexOf(q)>-1){seen[k]=1;c++;PRL.push({v:k,h:"<b>📍 "+esc(k)+"</b>"})}})}
+P.innerHTML=PRL.length?PRL.map(function(r,i){return'<div class="pri" onmousedown="event.preventDefault()" onclick="prP('+i+')">'+r.h+"</div>"}).join("")+(T>60?'<div class="mu" style="padding:8px 12px">اكتب أكتر للتضييق ('+T+" مشروع)</div>":""):'<div class="mu" style="padding:8px 12px">مفيش مشروع بالاسم ده — هيتسجل زي ما كتبته</div>';
+P.hidden=false}
+function prP(i){var t=prTok(),r=PRL[i];if(!r)return;$("pr").value=(t.pre?t.pre+" ":"")+r.v;prH();prI();dS()}
+function prH(){$("prs").hidden=true}
+function prI(){var el=$("pin"),b=nBud($("bu").value),h=[];$("pr").value.split(/[,،]/).map(function(s){return s.trim().toLowerCase()}).filter(Boolean).forEach(function(q){var x=PD.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x)return;
+var fit=b&&x.lo?(x.lo>b?' • <span class="late">⚠ أقل سعر فوق ميزانيته</span>':" • ✅ في حدود ميزانيته"):"";
+h.push("💰 "+nP(x.lo)+"–"+nP(x.hi)+" ج • 🏢 "+esc(x.d)+(x.cm?" • عمولة "+esc(x.cm)+"%":"")+fit)});el.innerHTML=h.join("<br>")}
+function dS(){var p=[],b=$("bu").value.trim(),st=$("stt").value,pr=$("pr").value.trim(),sr=$("src").value.trim();
+if(b)p.push("💰 "+b);if(st)p.push(st);if(pr)p.push("📍 "+pr);if(sr)p.push("🔗 "+sr);
+$("dsm").textContent=p.length?p.join(" • "):"لسه فاضية"}
 
-            document.getElementById('pdf-price').innerText = price.toLocaleString('ar-EG') + ' ج';
-            document.getElementById('pdf-down').innerText = down.toLocaleString('ar-EG') + ' ج';
-            document.getElementById('pdf-future').innerText = future.toLocaleString('ar-EG', {maximumFractionDigits:0}) + ' ج';
-            document.getElementById('pdf-profit').innerText = profit.toLocaleString('ar-EG', {maximumFractionDigits:0}) + ' ج';
-            document.getElementById('pdf-roi').innerText = roi.toFixed(1) + '%';
-        }
+function openF(id){
+  cur = id || null;
+  var c = C.filter(function(x){return x.id==id})[0] || {};
+  $("dt").textContent = id ? (c.n || "عميل") : "عميل جديد";
+  $("who").textContent = c.ph || "";
+  $("n").value = c.n || "";
+  $("ph").value = c.ph || "";
+  $("bu").value = c.bu || "";
+  $("stt").value = c.s || flt || "مهتم";
+  $("pr").value = c.pr || "";
+  $("src").value = c.src || "";
+  $("nx").value = c.nx || "";
+  $("nt").value = "";
+  
+  $("ai_q").value = ""; 
+  $("ai_res").textContent = "اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات فورية...";
 
-        // 5. PDF Export
-        function exportPDF() {
-            const el = document.getElementById('pdf-offer-sheet');
-            html2pdf().set({
-                margin: 10,
-                filename: 'عرض_استثماري.pdf',
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            }).from(el).save();
-        }
+  $("hist").innerHTML = ((c.log || []).length ? '<div class="sec">سجل الملاحظات</div>' : "") + (c.log || []).slice().reverse().map(function(l, i, a){return lg(l, a.length - 1 - i)}).join("");
+  $("del").style.display = id ? "" : "none";
+  dupC();
+  $("dtl").open = !id;
+  dS();
+  prH();
+  prI();
+  dtab(id ? 1 : 2);
+  $("d").showModal();
+}
 
-        // 4. Notifications
-        function requestNotificationPermission() {
-            if ('Notification' in window) {
-                Notification.requestPermission().then(p => {
-                    if (p === 'granted') {
-                        new Notification('CRM العقارات', { body: 'تم تفعيل التنبيهات اليومية بنجاح!' });
-                    }
-                });
-            }
-        }
+function save(){var n=$("n").value.trim();if(!n){$("n").focus();return}
+var c=C.filter(function(x){return x.id==cur})[0];if(!c){c={id:"c"+Date.now(),c:Date.now(),log:[]};C.push(c)}
+c.n=n;c.ph=$("ph").value.trim();c.bu=$("bu").value.trim();c.s=$("stt").value;c.pr=$("pr").value.trim();c.src=$("src").value.trim();c.nx=$("nx").value;
+var t=$("nt").value.trim();if(t){c.log=c.log||[];c.log.push({d:td(),t:t})}
+P();$("d").close();R();showToast("✓ تم الحفظ بنجاح")}
+var dc=0;function delClient(){var b=$("del");if(!dc){dc=1;b.textContent="متأكد؟ دوس تاني";setTimeout(function(){dc=0;b.textContent="حذف"},3000);return}dc=0;b.textContent="حذف";C=C.filter(function(x){return x.id!=cur});P();$("d").close();R();showToast("تم الحذف")}
+function exp(){var a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(C));a.download="crm-backup-"+td()+".json";a.click()}
+function impF(i){var r=new FileReader();r.onload=function(){try{var x=JSON.parse(r.result);if(Array.isArray(x)){C=x;P();R();showToast("تم استرجاع البيانات")}}catch(e){alert("الملف مش سليم")}};if(i.files[0])r.readAsText(i.files[0])}
+var T=[["أول تواصل","أهلاً {اسم}، أنا كريم. شكراً لاهتمامك بـ {مشروع}. حابب أعرفك على تفاصيل الوحدات وخطط السداد، إمتى يناسبك نتكلم؟"],["بعد المعاينة","أهلاً {اسم}، شكراً لوقتك النهاردة في معاينة {مشروع}. عايز أعرف رأيك، وأنا جاهز أظبطلك أفضل خطة سداد تناسب ميزانيتك."],["متابعة","أهلاً {اسم}، عامل إيه؟ حبيت أطمن عليك وأعرف وصلت لإيه بخصوص {مشروع}، وفيه عروض جديدة ممكن تناسبك."],["عرض قرب يخلص","أهلاً {اسم}، حبيت أفكرك إن العرض الحالي في {مشروع} قرب يخلص. تحب أحجزلك الوحدة؟"]],WC=null;
+function num(p){var w=(p||"").replace(/\D/g,"");return w.indexOf("0")==0?"20"+w.slice(1):w}
+function wa(id){WC=C.filter(function(x){return x.id==id})[0];$("wb").innerHTML=T.map(function(t,i){return'<button onclick="fill('+i+')">'+t[0]+'</button>'}).join("");fill(0);$("wd").showModal()}
+function fill(i){$("wt").value=T[i][1].replace("{اسم}",WC.n.split(" ")[0]).replace("{مشروع}",WC.pr||"المشروع")}
+function wsend(){window.open("https://wa.me/"+num(WC.ph)+"?text="+encodeURIComponent($("wt").value),"_blank");WC.log=WC.log||[];WC.log.push({d:td(),t:"اتبعتله رسالة واتساب"});P();$("wd").close();R()}
+function f(x){return Math.round(x).toLocaleString("ar-EG")}
 
-        // Init
-        renderClients();
-        renderAnalytics();
-        runCalc();
-    </script>
-</body>
-</html>
+// حاسبة الأقساط المطورة + حساب العائد ROI
+function calc(){
+  var p=+$("cp").value||0, d=+$("cd").value||0, y=+$("cy").value||0;
+  var growth=(+$("cgrowth").value||0)/100, years=+$("cyears").value||0;
+
+  var dp=p*d/100, r=p-dp, m=y?r/(y*12):0;
+  var future = p * Math.pow((1 + growth), years);
+  var profit = future - p;
+  var roi = dp > 0 ? ((profit / dp) * 100) : 0;
+
+  $("co").textContent = 
+    "سعر الوحدة: " + f(p) + " ج\n" +
+    "المقدم (" + d + "%): " + f(dp) + " ج\n" +
+    "المتبقي: " + f(r) + " ج\n" +
+    "التقسيط على " + y + " سنين\n" +
+    "القسط الشهري: " + f(m) + " ج\n" +
+    "القسط ربع السنوي: " + f(m*3) + " ج\n" +
+    "----------------------------\n" +
+    "📈 التوقع الاستثماري بعد " + years + " سنوات:\n" +
+    "القيمة المتوقعة: " + f(future) + " ج\n" +
+    "الأوفر / صافي الربح: " + f(profit) + " ج\n" +
+    "العائد على المقدم (ROI): " + roi.toFixed(1) + "%";
+}
+
+function cshare(){window.open("https://wa.me/?text="+encodeURIComponent($("co").textContent),"_blank")}
+function ccopy(){try{navigator.clipboard.writeText($("co").textContent);showToast("تم النسخ بنجاح")}catch(e){}}
+
+function exportPDF(){
+  var element = document.getElementById('pdf_offer');
+  html2pdf().set({
+    margin: 10,
+    filename: 'عرض_استثماري_كريم_مصطفى.pdf',
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  }).from(element).save();
+}
+
+function renderFunnel(){
+  var total = C.length || 1;
+  var stages = ['جديد', 'مهتم', 'معاينة', 'تفاوض', 'تم البيع'];
+  var h = "";
+  stages.forEach(function(st){
+    var count = C.filter(function(c){return c.s == st}).length;
+    var pct = Math.round((count / total) * 100);
+    h += '<div class="card" style="margin:0;padding:8px 12px">'+
+           '<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">'+
+             '<b>' + st + ' (' + count + ')</b>' +
+             '<span>' + pct + '%</span>' +
+           '</div>'+
+           '<div style="background:var(--bd);height:8px;border-radius:4px;overflow:hidden">'+
+             '<div style="background:var(--pr);height:100%;width:' + pct + '%"></div>'+
+           '</div>'+
+         '</div>';
+  });
+  $("funnel_box").innerHTML = h;
+}
+
+function requestNotify(){
+  if ('Notification' in window) {
+    Notification.requestPermission().then(function(p){
+      if(p === 'granted'){
+        new Notification('CRM العقارات', { body: 'تم تفعيل إشعارات المتابعات اليومية بنجاح!' });
+      } else {
+        alert('يرجى السماح للإشعارات من إعدادات المتصفح.');
+      }
+    });
+  }
+}
+
+var tm=null;
+function setSync(t){$("sy").textContent=t}
+
+function cloud(){
+  setSync("⏳ بيتحفظ");
+  clearTimeout(tm);
+  tm = setTimeout(function(){
+    fetch(SUPABASE_URL + "crm_data", {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY,
+        "Content-Type": "application/json",
+        "Prefer": "resolution=merge-duplicates"
+      },
+      body: JSON.stringify({
+        id: "main_user",
+        clients: JSON.stringify(C),
+        proj: PJ,
+        at: CAT
+      })
+    })
+    .then(function(res){
+      if(res.ok) setSync("☁️️ متزامن");
+      else setSync("⚠️ المزامنة فشلت");
+    })
+    .catch(function(){
+      setSync("⚠ المزامنة فشلت");
+    });
+  }, 800);
+}
+
+async function initCloud(){
+  try {
+    var res = await fetch(SUPABASE_URL + "crm_data?id=eq.main_user", {
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY
+      }
+    });
+    var data = await res.json();
+    if (data && data.length > 0) {
+      var cloudData = data[0];
+      var ca = +cloudData.at || 0;
+      if (ca > CAT) {
+        C = JSON.parse(cloudData.clients || "[]");
+        PJ = cloudData.proj || "";
+        CAT = ca;
+        try {
+          localStorage.setItem(K, JSON.stringify(C));
+          localStorage.setItem(K+"_at", String(CAT));
+          localStorage.setItem("crm_proj_v1", PJ);
+        } catch(e){}
+        R();
+      } else if (CAT > ca || C.length) {
+        cloud();
+      }
+    } else if (C.length) {
+      cloud();
+    }
+    setSync("☁️ متزامن");
+  } catch(e) {
+    setSync("⚠️ محلي فقط");
+  }
+}
+
+initCloud();
+
+document.querySelectorAll("dialog").forEach(function(g){g.addEventListener("pointerdown",function(e){var r=g.getBoundingClientRect();g._o=e.target===g&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)});g.addEventListener("click",function(){if(g._o){g._o=false;g.close()}})});
+function chipsR(){var t=td(),a=S.map(function(s){var L=C.filter(function(c){return c.s==s}),d=L.filter(function(c){return act(c)&&c.nx&&c.nx<=t}).length;return'<button class="chip'+(flt==s?' on':'')+'" onclick="setF(\''+s+'\')">'+s+' <b>'+L.length+'</b>'+(d?'<i>'+d+'</i>':'')+'</button>'});a.unshift('<button class="chip'+(flt==""?' on':'')+'" onclick="setF(\'\')">الكل <b>'+C.length+'</b></button>');$("chips").innerHTML=a.join("")}
+function setF(v){flt=v;isTodayPlanSort=false;R()}
+function dtab(n){
+  $("pa").hidden = n!=1;
+  $("pb").hidden = n!=2;
+  $("pc").hidden = n!=3;
+  $("dt1").className = n==1 ? "on" : "";
+  $("dt2").className = n==2 ? "on" : "";
+  $("dt3").className = n==3 ? "on" : "";
+}
+
+function runAssistant(){
+  var c = C.filter(function(x){return x.id==cur})[0] || {};
+  var logs = c.log ? c.log.map(function(l){return l.t}).join(" ") : "";
+  var userQuery = ($("ai_q").value || "").trim();
+  var clientName = (c.n || $("n").value || "العميل").split(" ")[0];
+  var project = c.pr || $("pr").value || "المشروع المطلوب";
+  var budget = c.bu || $("bu").value || "المميزة";
+  
+  var combinedText = (userQuery + " " + logs).toLowerCase();
+
+  var advice = "";
+  var msg = "";
+  var followUp = "";
+
+  if(combinedText.includes("استلام") || combinedText.includes("جاهز") || combinedText.includes("قريب") || combinedText.includes("مستعجل")){
+    advice = "العميل مستعجل على الاستلام. اضغط على موقف الإنشاءات الحالي على الأرض وسرعة تسليم الوحدات.";
+    msg = "أهلاً يا " + clientName + "، بخصوص موقف الاستلام في " + project + "، معدلات البناء ممتازة ومطابقة للمواعيد. تحب نحدد معاد معاينة قريب تشوف بنفسك؟";
+    followUp = "متابعة خلال 24 ساعة لتأكيد موعد المعاينة.";
+  } else if(combinedText.includes("إعادة بيع") || combinedText.includes("اعادة بيع") || combinedText.includes("استثمار") || combinedText.includes("أوفر")){
+    advice = "العميل مهتم بإعادة البيع والأوفر (Resale). ركّز على حجم العائد المتوقع وموقع المشروع الحيوي الذي يضمن سيولة عالية.";
+    msg = "ازيك يا " + clientName + "؟ نقطة إعادة البيع والاستثمار في " + project + " مضمونة جداً نظراً للإقبال الكبير وارتفاع قيمة المنطقة. يناسبك أبعتلك دراسة سريعة للعائد المتوقع؟";
+    followUp = "متابعة بعد 48 ساعة لمناقشة أرقام الاستثمار.";
+  } else if(combinedText.includes("غالي") || combinedText.includes("سعر") || combinedText.includes("فلوس") || combinedText.includes("ميزانية") || combinedText.includes("عالي")){
+    advice = "العميل مهتم بالميزانية والسعر. وضّح له مرونة خطة السداد وطول فترة التقسيط لتخفيف الأعباء.";
+    msg = "مساء الفل يا " + clientName + "، عارف إن الأسعار بقت محتاجة دراسة، عشان كدة قدرت أظبطلك خطة سداد تناسب ميزانيتك بمقدم مريح وتقسيط على فترة طويلة. نراجعها سوا؟";
+    followUp = "متابعة خلال يومين لعرض تفاصيل خطة السداد.";
+  } else {
+    advice = "عميل في مرحلة اتخاذ القرار. اسأله عن الميعاد المناسب لحجز الوحدة أو زيارة الموقع.";
+    msg = "أهلاً بيك يا " + clientName + "، بناءً على ترشيحنا لـ " + project + " بميزانية " + budget + "، الوحدات المتاحة ممتازة وبتخلص بسرعة. تحب نحجز الوحدة النهاردة؟";
+    followUp = "متابعة خلال 24 ساعة للحسم.";
+  }
+
+  var finalHtml = "📌 استراتيجية التعامل:\n" + advice + "\n\n" +
+                  "💬 مقترح رسالة الواتساب:\n" + msg + "\n\n" +
+                  "📅 خطوة الفولو أب المقترحة:\n" + followUp;
+
+  $("ai_res").textContent = finalHtml;
+}
+
+var PJ="";try{PJ=localStorage.getItem("crm_proj_v1")||""}catch(e){}$("pjt").value=PJ;
+function pjSave(){PJ=$("pjt").value;try{localStorage.setItem("crm_proj_v1",PJ)}catch(e){}cloud()}
+var NK="crm_nawy_v1",PD=[],PDat=0;try{PD=JSON.parse(localStorage.getItem(NK)||"[]");PDat=+localStorage.getItem(NK+"_at")||0}catch(e){PD=[]}
+function csvP(t){t=t.replace(/^\ufeff/,"");var r=[],w=[],v="",q=false,i=0,ch;
+for(;i<t.length;i++){ch=t[i];
+if(q){if(ch=='"'){if(t[i+1]=='"'){v+='"';i++}else q=false}else v+=ch}
+else if(ch=='"')q=true;
+else if(ch==","){w.push(v);v=""}
+else if(ch=="\n"||ch=="\r"){if(ch=="\r"&&t[i+1]=="\n")i++;w.push(v);v="";if(w.length>1||w[0]!=="")r.push(w);w=[]}
+else v+=ch}
+if(v!==""||w.length){w.push(v);r.push(w)}
+return r}
+function nImp(i){var f=i.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){try{
+var rows=csvP(String(rd.result)),h=rows.shift(),ix={};h.forEach(function(k,j){ix[k.trim()]=j});
+if(ix.name==null||ix.primary_min_price==null){alert("الملف مش بتاع نوي (مفيش أعمدة name و primary_min_price)");return}
+var g=function(r,k){return ix[k]==null?"":(r[ix[k]]||"").trim()},out=[];
+rows.forEach(function(r){if(!g(r,"name")||g(r,"status")=="sold_off")return;
+var a=g(r,"area"),rg=g(r,"region");
+out.push({n:g(r,"name"),d:g(r,"developer"),a:rg&&rg!=a?a+" - "+rg:a,t:g(r,"unit_types").replace(/\s*\(\d+\)/g,"").split(" | ").join("/"),lo:+g(r,"primary_min_price")||0,hi:+g(r,"primary_max_price")||0,s:g(r,"status"),u:g(r,"last_update").slice(0,10),cm:g(r,"commission_normal")})});
+if(!out.length){alert("الملف فاضي");return}
+PD=out;PDat=Date.now();nSave();nR()}catch(e){alert("الملف مش سليم")}};rd.readAsText(f,"utf-8");i.value=""}
+function nSave(){try{localStorage.setItem(NK,JSON.stringify(PD));localStorage.setItem(NK+"_at",String(PDat))}catch(e){}}
+function nP(x){return x?(x>=1e6?+(x/1e6).toFixed(1)+"M":Math.round(x/1000)+"K"):"?"}
+function nR(){var st=$("nst"),q=($("nq").value||"").toLowerCase().trim(),b=(+$("nb").value||0)*1e6;
+st.textContent=PD.length?"📦 "+PD.length+" مشروع • آخر استيراد "+new Date(PDat).toISOString().slice(0,10):"لسه مفيش استيراد";
+if(!PD.length){$("nl").innerHTML='<div class="card mu">دوس ⬆ استيراد CSV واختار ملف nawy_projects.csv</div>';return}
+var L=PD.filter(function(x){return(!q||(x.n+" "+x.d+" "+x.a+" "+x.t).toLowerCase().indexOf(q)>-1)&&(!b||(x.lo&&x.lo<=b))});
+L.sort(function(a,c){return a.u<c.u?1:-1});
+var h='<div class="mu" style="margin:6px 0">'+L.length+' نتيجة'+(L.length>30?' (أول 30)':'')+'</div>'+L.slice(0,30).map(function(x){
+return'<div class="lg"><div><b>'+esc(x.n)+'</b> <span class="tag">'+esc(x.d)+'</span>'+(x.s=="launch"?' <span class="tag ok">🚀 إطلاق</span>':'')+'</div><div class="mu">📍 '+esc(x.a)+' • '+esc(x.t)+'</div><div>💰 '+nP(x.lo)+' – '+nP(x.hi)+' ج'+(x.cm?' • عمولة '+esc(x.cm)+'%':'')+'</div></div>'}).join("");
+$("nl").innerHTML=h}
+function nBud(s){
+  s = String(s||"")
+    .replace(/[٠-٩]/g, function(d){ return "٠١٢٣٤٥٦Trem٩".indexOf(d); })
+    .replace(/٫/g,".")
+    .replace(/[,٬،]/g,"");
+  var m = s.match(/\d+(?:\.\d+)?/g);
+  if(!m) return 0;
+  var n = Math.max.apply(null, m.map(Number));
+  if(/مليون|million/i.test(s)) n *= 1e6;
+  else if(/[اأ]لف|\bk\b/i.test(s)) n *= 1e3;
+  else if(n < 1000) n *= 1e6;
+  return n >= 1.5e6 ? n : 0;
+}
+
+(function(){var ds=document.querySelectorAll("dialog");function f(){var o=false;ds.forEach(function(x){if(x.open)o=true});document.documentElement.classList.toggle("lk",o)}
+var mo=new MutationObserver(f);ds.forEach(function(x){mo.observe(x,{attributes:true,attributeFilter:["open"]})});f()})();
+R();
+</script></body></html>
