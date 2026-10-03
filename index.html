@@ -129,6 +129,10 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 .feasibility-table tr:nth-child(even) { background: #f8fafc; }
 .feasibility-table .row-highlight { background: #eff6ff; font-weight: bold; }
 .feasibility-table .row-grand { background: #ecfdf5; font-weight: bold; font-size: 14px; color: #065f46; }
+
+/* تنسيقات كروت إغلاق وإدارة المشاريع اليدوية */
+.pjt-card { background:var(--card); border:1px solid var(--bd); border-radius:8px; padding:10px; margin-top:8px; position:relative; }
+.pjt-card-actions { display:flex; gap:6px; margin-top:6px; justify-content:flex-end; }
 </style></head><body><div class="w">
 <div class="row"><h1 style="flex:1">📇 CRM العقارات</h1><span id="sy" class="mu">💾 محلي</span><button onclick="requestNotify()">🔔 الإشعارات</button><button onclick="anald.showModal();renderFunnel()">📊 التحليلات</button><button onclick="$('cd2').showModal();calc()">🧮 حاسبة & ROI</button><button onclick="$('feasibilityDialog').showModal();calculateTotals()">📐 دراسة الجدوى</button><button onclick="pjd.showModal();nR()">🏢 مشاريعي</button><button class="p" onclick="openF()">+ عميل</button></div>
 <div class="stats"><button type="button" class="st" id="k_all" onclick="tab('all')"><b id="s3">0</b><span>👥 كل العملاء</span></button><button type="button" class="st" id="k_late" onclick="tab('late')"><b id="s1">0</b><span>🔴 متأخر</span></button><button type="button" class="st" id="k_today" onclick="tab('today')"><b id="s2">0</b><span>🔔 النهاردة</span></button><button type="button" class="st" id="k_soon" onclick="tab('soon')"><b id="s4">0</b><span>📅 الجاي</span></button></div>
@@ -184,12 +188,39 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 <div id="funnel_box" style="margin-top:10px;display:flex;flex-direction:column;gap:10px"></div>
 </dialog>
 
+<!-- نافذة إدارة المشاريع المحدثة مع نموذج للإضافة والتعديل والحذف -->
 <dialog id="pjd"><div class="hd"><b>🏢 مشاريعي</b><button type="button" class="x" onclick="pjd.close()" aria-label="إغلاق">✕</button></div>
-<div class="sec" style="margin-top:6px">📦 قاعدة مشاريع نوي</div>
+<div class="sec" style="margin-top:6px">📦 قاعدة مشاريع نوي (CSV)</div>
 <div class="row"><button type="button" class="p" onclick="nimp.click()">⬆ استيراد CSV</button><span id="nst" class="mu" style="flex:1"></span></div><input type="file" id="nimp" accept=".csv,text/csv" hidden onchange="nImp(this)">
 <div class="row" style="margin-top:8px"><input id="nq" placeholder="ابحث بالمشروع أو المطور أو المنطقة" oninput="nR()" style="flex:2;min-width:140px"><input id="nb" type="number" inputmode="decimal" placeholder="أقصى سعر (مليون)" oninput="nR()" style="flex:1;min-width:120px"></div>
 <div id="nl"></div>
-<div class="sec">✍️ مشاريع إضافية (يدوي)</div><div class="mu" style="margin:0 0 6px">سطر لكل مشروع (المطور، المنطقة، النوع، السعر).</div><textarea id="pjt" rows="4" oninput="pjSave()" placeholder="مثال: سوديك إيست - التجمع - شقق من 5.2 مليون - استلام 2028"></textarea></dialog>
+
+<div class="sec" style="margin-top:14px">✍️ إضافة/تعديل مشروع يدوي</div>
+<form id="pjt_form" onsubmit="saveCustomProject(event)">
+  <input type="hidden" id="pjt_edit_id" value="">
+  <div class="row">
+    <div style="flex:1;min-width:130px"><label>اسم المشروع*</label><input id="pjt_name" required placeholder="مثال: سوديك إيست"></div>
+    <div style="flex:1;min-width:130px"><label>المطور</label><input id="pjt_dev" placeholder="مثال: سوديك"></div>
+  </div>
+  <div class="row">
+    <div style="flex:1;min-width:130px"><label>المنطقة</label><input id="pjt_area" placeholder="مثال: التجمع الخامس"></div>
+    <div style="flex:1;min-width:130px"><label>أنواع الوحدات</label><input id="pjt_type" placeholder="مثال: شقق/فيلات"></div>
+  </div>
+  <div class="row">
+    <div style="flex:1;min-width:100px"><label>أقل سعر (ج.م)</label><input id="pjt_lo" type="number" placeholder="5200000"></div>
+    <div style="flex:1;min-width:100px"><label>أعلى سعر (ج.م)</label><input id="pjt_hi" type="number" placeholder="12000000"></div>
+    <div style="flex:1;min-width:80px"><label>العمولة %</label><input id="pjt_cm" type="number" step="0.1" placeholder="2.5"></div>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <button type="submit" class="p" id="pjt_submit_btn">➕ إضافة المشروع</button>
+    <button type="button" id="pjt_cancel_btn" onclick="resetCustomProjectForm()" style="display:none">إلغاء التعديل</button>
+  </div>
+</form>
+
+<div class="sec" style="margin-top:12px">📋 المشاريع اليدوية المضافة (<span id="custom_proj_count">0</span>)</div>
+<div id="custom_projects_list"></div>
+</dialog>
+
 <dialog id="wd"><div class="hd"><b>💬 رسالة واتساب</b><button type="button" class="x" onclick="wd.close()" aria-label="إغلاق">✕</button></div><div class="row" id="wb" style="margin:8px 0"></div><textarea id="wt" rows="5"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wsend()">فتح واتساب</button><button onclick="wd.close()">إغلاق</button></div></dialog>
 
 <!-- حاسبة الأقساط + حاسبة العائد الاستثماري وتصدير PDF المطور -->
@@ -356,7 +387,14 @@ var SP={"تفاوض":0,"معاينة":1,"مهتم":2,"جديد":3,"مبيردش"
 function byNx(a,b){return a.nx<b.nx?-1:a.nx>b.nx?1:sp(a)-sp(b)}
 function dupC(){var n=num($("ph").value),e=$("dup");if(n.length<10){e.textContent="";return}var x=C.filter(function(c){return c.id!=cur&&num(c.ph)==n})[0];e.textContent=x?"⚠️ الرقم ده متسجل عند: "+x.n:""}
 var SC={"مهتم":"#1f6feb","معاينة":"#8e44ad","تفاوض":"#e8710a","جديد":"#6b7280","مبيردش":"#d93025","تم البيع":"#188038","مش مهتم":"#9aa0a6"};
-function fitB(c){if(!PD.length||!c.pr)return"";var b=nBud(c.bu);if(!b)return"";var q=c.pr.split(/[,،]/)[0].trim().toLowerCase(),x=PD.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x||!x.lo)return"";return x.lo>b?'<span class="late">⚠️ فوق الميزانية</span>':'<span>✅ في الميزانية</span>'}
+function fitB(c){
+  var allProjects = getAllProjects();
+  if(!allProjects.length||!c.pr)return"";
+  var b=nBud(c.bu);if(!b)return"";
+  var q=c.pr.split(/[,،]/)[0].trim().toLowerCase(),x=allProjects.filter(function(y){return y.n.toLowerCase()==q})[0];
+  if(!x||!x.lo)return"";
+  return x.lo>b?'<span class="late">⚠️ فوق الميزانية</span>':'<span>✅ في الميزانية</span>';
+}
 
 function getPipelineBar(s){
   var steps=["جديد","مهتم","معاينة","تفاوض","تم البيع"];
@@ -464,18 +502,35 @@ function showToast(msg) {
 
 function nxq(n){var x=new Date();x.setDate(x.getDate()+n);$("nx").value=ymd(x)}
 var PRL=[];
+
+function getAllProjects(){
+  return CUSTOM_PROJECTS.concat(PD);
+}
+
 function prTok(){var v=$("pr").value,i=Math.max(v.lastIndexOf(","),v.lastIndexOf("،"));return{pre:v.slice(0,i+1),q:v.slice(i+1).trim()}}
-function prS(){var P=$("prs");if(!PD.length){P.hidden=true;return}var q=prTok().q.toLowerCase(),L=PD.filter(function(x){return!q||(x.n+" "+x.d+" "+x.a).toLowerCase().indexOf(q)>-1});
-L.sort(function(a,b){var an=a.n.toLowerCase().indexOf(q)==0?0:1,bn=b.n.toLowerCase().indexOf(q)==0?0:1;return an-bn||(a.u<b.u?1:-1)});
-var T=L.length;PRL=L.slice(0,60).map(function(x){return{v:x.n,h:"<b>"+esc(x.n)+'</b><div class="mu">'+esc(x.d)+" • "+esc(x.a)+" • "+nP(x.lo)+"–"+nP(x.hi)+"</div>"}});
-if(q.length>=2){var seen={},c=0;PD.forEach(function(x){var k=x.a;if(k&&!seen[k]&&c<5&&k.toLowerCase().indexOf(q)>-1){seen[k]=1;c++;PRL.push({v:k,h:"<b>📍 "+esc(k)+"</b>"})}})}
-P.innerHTML=PRL.length?PRL.map(function(r,i){return'<div class="pri" onmousedown="event.preventDefault()" onclick="prP('+i+')">'+r.h+"</div>"}).join("")+(T>60?'<div class="mu" style="padding:8px 12px">اكتب أكتر للتضييق ('+T+" مشروع)</div>":""):'<div class="mu" style="padding:8px 12px">مفيش مشروع بالاسم ده — هيتسجل زي ما كتبته</div>';
-P.hidden=false}
+function prS(){
+  var P=$("prs");
+  var allProjects = getAllProjects();
+  if(!allProjects.length){P.hidden=true;return}
+  var q=prTok().q.toLowerCase(),L=allProjects.filter(function(x){return!q||(x.n+" "+x.d+" "+x.a).toLowerCase().indexOf(q)>-1});
+  L.sort(function(a,b){var an=a.n.toLowerCase().indexOf(q)==0?0:1,bn=b.n.toLowerCase().indexOf(q)==0?0:1;return an-bn||(a.u<b.u?1:-1)});
+  var T=L.length;PRL=L.slice(0,60).map(function(x){return{v:x.n,h:"<b>"+esc(x.n)+'</b><div class="mu">'+esc(x.d||"")+" • "+esc(x.a||"")+" • "+nP(x.lo)+"–"+nP(x.hi)+"</div>"}});
+  if(q.length>=2){var seen={},c=0;allProjects.forEach(function(x){var k=x.a;if(k&&!seen[k]&&c<5&&k.toLowerCase().indexOf(q)>-1){seen[k]=1;c++;PRL.push({v:k,h:"<b>📍 "+esc(k)+"</b>"})}})}
+  P.innerHTML=PRL.length?PRL.map(function(r,i){return'<div class="pri" onmousedown="event.preventDefault()" onclick="prP('+i+')">'+r.h+"</div>"}).join("")+(T>60?'<div class="mu" style="padding:8px 12px">اكتب أكتر للتضييق ('+T+" مشروع)</div>":""):'<div class="mu" style="padding:8px 12px">مفيش مشروع بالاسم ده — هيتسجل زي ما كتبته</div>';
+  P.hidden=false
+}
 function prP(i){var t=prTok(),r=PRL[i];if(!r)return;$("pr").value=(t.pre?t.pre+" ":"")+r.v;prH();prI();dS()}
 function prH(){$("prs").hidden=true}
-function prI(){var el=$("pin"),b=nBud($("bu").value),h=[];$("pr").value.split(/[,،]/).map(function(s){return s.trim().toLowerCase()}).filter(Boolean).forEach(function(q){var x=PD.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x)return;
-var fit=b&&x.lo?(x.lo>b?' • <span class="late">⚠ أقل سعر فوق ميزانيته</span>':" • ✅ في حدود ميزانيته"):"";
-h.push("💰 "+nP(x.lo)+"–"+nP(x.hi)+" EGP • 🏢 "+esc(x.d)+(x.cm?" • عمولة "+esc(x.cm)+"%":"")+fit)});el.innerHTML=h.join("<br>")}
+function prI(){
+  var el=$("pin"),b=nBud($("bu").value),h=[];
+  var allProjects = getAllProjects();
+  $("pr").value.split(/[,،]/).map(function(s){return s.trim().toLowerCase()}).filter(Boolean).forEach(function(q){
+    var x=allProjects.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x)return;
+    var fit=b&&x.lo?(x.lo>b?' • <span class="late">⚠ أقل سعر فوق ميزانيته</span>':" • ✅ في حدود ميزانيته"):"";
+    h.push("💰 "+nP(x.lo)+"–"+nP(x.hi)+" EGP • 🏢 "+esc(x.d||"")+(x.cm?" • عمولة "+esc(x.cm)+"%":"")+fit)
+  });
+  el.innerHTML=h.join("<br>")
+}
 function dS(){var p=[],b=$("bu").value.trim(),st=$("stt").value,pr=$("pr").value.trim(),sr=$("src").value.trim();
 if(b)p.push("💰 "+b);if(st)p.push(st);if(pr)p.push("📍 "+pr);if(sr)p.push("🔗 "+sr);
 $("dsm").textContent=p.length?p.join(" • "):"لسه فاضية"}
@@ -699,7 +754,7 @@ function cloud(){
       body: JSON.stringify({
         id: "main_user",
         clients: JSON.stringify(C),
-        proj: PJ,
+        proj: JSON.stringify(CUSTOM_PROJECTS),
         at: CAT
       })
     })
@@ -727,14 +782,18 @@ async function initCloud(){
       var ca = +cloudData.at || 0;
       if (ca > CAT) {
         C = JSON.parse(cloudData.clients || "[]");
-        PJ = cloudData.proj || "";
+        try {
+          var parsedProj = JSON.parse(cloudData.proj || "[]");
+          if(Array.isArray(parsedProj)) CUSTOM_PROJECTS = parsedProj;
+        } catch(e){}
         CAT = ca;
         try {
           localStorage.setItem(K, JSON.stringify(C));
           localStorage.setItem(K+"_at", String(CAT));
-          localStorage.setItem("crm_proj_v1", PJ);
+          localStorage.setItem("crm_custom_proj_v2", JSON.stringify(CUSTOM_PROJECTS));
         } catch(e){}
         R();
+        renderCustomProjects();
       } else if (CAT > ca || C.length) {
         cloud();
       }
@@ -800,8 +859,108 @@ function runAssistant(){
   $("ai_res").textContent = finalHtml;
 }
 
-var PJ="";try{PJ=localStorage.getItem("crm_proj_v1")||""}catch(e){}$("pjt").value=PJ;
-function pjSave(){PJ=$("pjt").value;try{localStorage.setItem("crm_proj_v1",PJ)}catch(e){}cloud()}
+/* =========================================================
+   إدارة كاملة للمشاريع اليدوية (CRUD)
+   ========================================================= */
+var CUSTOM_PROJECTS = [];
+try {
+  CUSTOM_PROJECTS = JSON.parse(localStorage.getItem("crm_custom_proj_v2") || "[]");
+} catch(e) {
+  CUSTOM_PROJECTS = [];
+}
+
+function saveCustomProjectStorage(){
+  try {
+    localStorage.setItem("crm_custom_proj_v2", JSON.stringify(CUSTOM_PROJECTS));
+  } catch(e){}
+  cloud();
+  renderCustomProjects();
+}
+
+function saveCustomProject(e){
+  if(e) e.preventDefault();
+  var id = $("pjt_edit_id").value;
+  var name = $("pjt_name").value.trim();
+  var dev = $("pjt_dev").value.trim();
+  var area = $("pjt_area").value.trim();
+  var type = $("pjt_type").value.trim();
+  var lo = parseFloat($("pjt_lo").value) || 0;
+  var hi = parseFloat($("pjt_hi").value) || 0;
+  var cm = $("pjt_cm").value.trim();
+
+  if(!name) return;
+
+  if(id){
+    var item = CUSTOM_PROJECTS.find(function(x){ return x.id === id; });
+    if(item){
+      item.n = name; item.d = dev; item.a = area; item.t = type; item.lo = lo; item.hi = hi; item.cm = cm;
+      showToast("✓ تم تعديل المشروع اليدوي بنجاح");
+    }
+  } else {
+    var newProj = {
+      id: "p_" + Date.now(),
+      n: name, d: dev, a: area, t: type, lo: lo, hi: hi, cm: cm, isCustom: true
+    };
+    CUSTOM_PROJECTS.push(newProj);
+    showToast("✓ تم إضافة المشروع اليدوي بنجاح");
+  }
+
+  resetCustomProjectForm();
+  saveCustomProjectStorage();
+}
+
+function editCustomProject(id){
+  var item = CUSTOM_PROJECTS.find(function(x){ return x.id === id; });
+  if(!item) return;
+  $("pjt_edit_id").value = item.id;
+  $("pjt_name").value = item.n || "";
+  $("pjt_dev").value = item.d || "";
+  $("pjt_area").value = item.a || "";
+  $("pjt_type").value = item.t || "";
+  $("pjt_lo").value = item.lo || "";
+  $("pjt_hi").value = item.hi || "";
+  $("pjt_cm").value = item.cm || "";
+
+  $("pjt_submit_btn").textContent = "💾 حفظ التعديلات";
+  $("pjt_cancel_btn").style.display = "inline-block";
+}
+
+function deleteCustomProject(id){
+  if(!confirm("هل أنت متأكد من حذف هذا المشروع اليدوي؟")) return;
+  CUSTOM_PROJECTS = CUSTOM_PROJECTS.filter(function(x){ return x.id !== id; });
+  showToast("تم حذف المشروع");
+  saveCustomProjectStorage();
+}
+
+function resetCustomProjectForm(){
+  $("pjt_edit_id").value = "";
+  $("pjt_form").reset();
+  $("pjt_submit_btn").textContent = "➕ إضافة المشروع";
+  $("pjt_cancel_btn").style.display = "none";
+}
+
+function renderCustomProjects(){
+  $("custom_proj_count").textContent = CUSTOM_PROJECTS.length;
+  if(!CUSTOM_PROJECTS.length){
+    $("custom_projects_list").innerHTML = '<div class="mu" style="margin:8px 0">لا توجد مشاريع يدوية مضافة حالياً.</div>';
+    return;
+  }
+  var h = CUSTOM_PROJECTS.map(function(x){
+    return '<div class="pjt-card">' +
+             '<div style="font-weight:bold;font-size:15px;color:var(--pr)">' + esc(x.n) + '</div>' +
+             '<div class="mu" style="margin-top:2px">' + (x.d ? esc(x.d) + ' • ' : '') + (x.a ? esc(x.a) + ' • ' : '') + (x.t ? esc(x.t) : '') + '</div>' +
+             '<div style="margin-top:4px;font-size:13px">السعر: ' + nP(x.lo) + ' – ' + nP(x.hi) + ' EGP' + (x.cm ? ' | العمولة: ' + esc(x.cm) + '%' : '') + '</div>' +
+             '<div class="pjt-card-actions">' +
+               '<button type="button" style="padding:4px 8px;font-size:12px" onclick="editCustomProject(\'' + x.id + '\')">✏️ تعديل</button>' +
+               '<button type="button" class="late" style="padding:4px 8px;font-size:12px" onclick="deleteCustomProject(\'' + x.id + '\')">🗑️ حذف</button>' +
+             '</div>' +
+           '</div>';
+  }).join("");
+  $("custom_projects_list").innerHTML = h;
+}
+
+renderCustomProjects();
+
 var NK="crm_nawy_v1",PD=[],PDat=0;try{PD=JSON.parse(localStorage.getItem(NK)||"[]");PDat=+localStorage.getItem(NK+"_at")||0}catch(e){PD=[]}
 function csvP(t){t=t.replace(/^\ufeff/,"");var r=[],w=[],v="",q=false,i=0,ch;
 for(;i<t.length;i++){ch=t[i];
@@ -838,19 +997,20 @@ function nBud(s){
   return v;
 }
 function nR(){
-  if(!PD.length){
+  var allProjects = getAllProjects();
+  if(!allProjects.length){
     $("nst").textContent="مفيش مشاريع";
-    $("nl").innerHTML='<div class="mu" style="margin:8px 0">حمل ملف CSV الخاص بنوي لاستعراض المشاريع.</div>';
+    $("nl").innerHTML='<div class="mu" style="margin:8px 0">حمل ملف CSV الخاص بنوي أو أضف مشروعاً يدوياً.</div>';
     return;
   }
-  $("nst").textContent=PD.length+" مشروع";
+  $("nst").textContent=allProjects.length+" مشروع إجمالي";
   var q=($("nq").value||"").toLowerCase().trim();
   var b=+$("nb").value||0;
-  var L=PD.filter(function(x){
+  var L=allProjects.filter(function(x){
     return(!q||(x.n+" "+x.d+" "+x.a+" "+x.t).toLowerCase().indexOf(q)>-1)&&(!b||!x.lo||x.lo<=b*1e6);
   });
   $("nl").innerHTML=L.slice(0,100).map(function(x){
-    return'<div class="card" style="margin:6px 0;padding:8px 10px"><div style="font-weight:bold">'+esc(x.n)+'</div><div class="mu">'+esc(x.d)+' • '+esc(x.a)+'</div><div>سعر مبدئي: '+nP(x.lo)+' - '+nP(x.hi)+' EGP</div></div>';
+    return'<div class="card" style="margin:6px 0;padding:8px 10px"><div style="font-weight:bold">'+esc(x.n)+(x.isCustom?' <span class="tag">يدوي</span>':'')+'</div><div class="mu">'+esc(x.d||"")+' • '+esc(x.a||"")+'</div><div>سعر مبدئي: '+nP(x.lo)+' - '+nP(x.hi)+' EGP</div></div>';
   }).join("");
 }
 </script>
