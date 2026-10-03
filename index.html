@@ -10,6 +10,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 
+<!-- استدعاء مكتبة html2pdf لتحميل العرض كـ PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <style>
 :root{
   box-sizing:border-box;
@@ -29,7 +32,6 @@ body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--font);font-
 #list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px;align-items:stretch}
 #list>.sec,#list>.card{grid-column:1/-1}
 
-/* تصغير المسافات والخطوط في البطاقة */
 .cc {
   background: var(--card);
   border: 1px solid var(--bd);
@@ -42,27 +44,22 @@ body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--font);font-
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-/* تصغير صورة العميل والاسم */
 .cc .ch { gap: 8px; display: flex; align-items: center; }
 .cc .av { width: 34px; height: 34px; font-size: 15px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; flex: none; }
 .cc .cn { font-size: 15px; font-weight: 700; }
 
-/* تصغير التاجات والبيانات */
 .cc .ci { margin-top: 6px; gap: 4px; font-size: 11px; display: flex; flex-wrap: wrap; }
 .cc .ci span { padding: 2px 8px; background: var(--bg); border-radius: 99px; border: 1px solid var(--bd); }
 
-/* الملاحظة الأخيرة (تظهر قبل اقتراح المساعد) */
 .cc .cl { margin-top: 6px; padding: 6px 10px; background: var(--bg); border-radius: 8px; font-size: 12px; }
 .cc .cl1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .cc .ib { flex: none; padding: 5px 8px; font-size: 14px; line-height: 1; border-radius: 6px; }
 .cc .ft { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: auto; padding-top: 6px; }
 
-/* شريط المرحلة (Pipeline) بشكل أرفع */
 .pipeline-bar { display: flex; gap: 3px; margin-top: 8px; background: var(--bg); padding: 3px 5px; border-radius: 6px; align-items: center; justify-content: space-between; }
 .pipe-step { height: 4px; flex: 1; border-radius: 3px; background: var(--bd); transition: background 0.3s ease; }
 
-/* اقتراح المساعد بشيك أرق وأصغر وتحت الملاحظة */
 .as {
   margin-top: 6px;
   padding: 6px 9px;
@@ -104,7 +101,6 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 .rep{margin-top:8px;margin-inline-start:16px;border-inline-start:3px solid var(--pr);background:var(--bg);border-radius:8px;padding:8px 10px;font-size:14px}.rp2{margin-top:6px;font-size:13px}.gp{color:var(--or)}
 .log{font-size:13px;border-top:1px dashed var(--bd);padding:4px 0}.cb{margin-top:6px;padding:7px 10px;border-radius:12px;font-size:13px;white-space:pre-wrap}.cbu{background:var(--pr);color:#fff;margin-inline-start:28px}.cba{background:var(--card);border:1px solid var(--bd);margin-inline-end:28px}dialog{overscroll-behavior:contain}html{scrollbar-gutter:stable}html.lk,html.lk body{overflow:hidden}#dtl{border:1px solid var(--bd);border-radius:12px;margin:8px 0 4px;padding:0 12px 10px;background:var(--card)}#dtl summary{cursor:pointer;padding:10px 0 2px;font-weight:600;list-style:none;display:flex;align-items:center;gap:8px}#dtl summary::-webkit-details-marker{display:none}#dtl summary::after{content:"▾";margin-inline-start:auto;color:var(--mu)}#dtl[open] summary::after{content:"▴"}#dtl .dsm{flex:1;min-width:0;font-weight:400;font-size:12px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#dtl[open] .dsm{display:none}input[type=date]{position:relative}input[type=date]::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.prs{position:absolute;inset-inline:0;top:100%;z-index:20;max-height:240px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:10px;margin-top:4px;box-shadow:0 8px 24px rgba(0,0,0,.2)}.pri{padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--bd)}.pri:last-child{border-bottom:0}.pri:hover{background:rgba(127,127,127,.15)}.pri b{font-size:14px}.pri .mu{margin:2px 0 0}
 
-/* أنماط المساعد الذكي الاستراتيجي */
 .ai-box{background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.2);border-radius:12px;padding:14px;margin-top:10px}
 .ai-title{font-size:14px;font-weight:bold;color:var(--pr);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .ai-res{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;min-height:70px}
@@ -135,13 +131,12 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 
 <div class="row" style="justify-content:space-between;align-items:center;margin-top:8px">
   <label style="margin:0">ملاحظة جديدة (بتتسجل بتاريخ النهاردة)</label>
-  <button type="button" onclick="startDictation()" style="font-size:12px;padding:3px 8px;background:rgba(37,99,235,0.1);color:var(--pr);border-color:var(--pr)">🎙️ إملاء صوتي</button>
+  <button type="button" onclick="startDictation()" style="font-size:12px;padding:3px 8px;background:rgba(37,99,235,0.1);color:var(--pr);border-color:var(--pr)">🎙️️ إملاء صوتي</button>
 </div>
 <textarea id="nt" rows="2" placeholder="اكتب أو استخدم الإملاء الصوتي..."></textarea>
 
 <div id="hist"></div></div>
 
-<!-- تبويب المساعد الذكي الاستراتيجي -->
 <div id="pc" hidden>
   <div class="ai-box">
     <div class="ai-title">🤖 تحليل واستراتيجية المساعد للديل</div>
@@ -165,7 +160,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 
 <dialog id="wd"><div class="hd"><b>💬 رسالة واتساب</b><button type="button" class="x" onclick="wd.close()" aria-label="إغلاق">✕</button></div><div class="row" id="wb" style="margin:8px 0"></div><textarea id="wt" rows="5"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wsend()">فتح واتساب</button><button onclick="wd.close()">إغلاق</button></div></dialog>
 
-<!-- الحاسبة الاستثمارية المحدثة بخانات الإيجار والمساحة -->
+<!-- الحاسبة الاستثمارية المحدثة مع زر تحميل PDF وتوحيد الأرقام بالإنجليزية -->
 <dialog id="cd2" style="width:min(96vw,580px)">
   <div class="hd">
     <b>📈 حاسبة العرض الاستثماري والعائد الإيجاري</b>
@@ -198,7 +193,6 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
     </div>
   </div>
 
-  <!-- المدخلات الجديدة للإيجار الاستثماري -->
   <div class="row" style="background:rgba(37,99,235,0.05);padding:8px;border-radius:10px;border:1px dashed var(--bd)">
     <div style="flex:1;min-width:130px">
       <label style="color:var(--pr);font-weight:bold">مساحة الوحدة (م²)</label>
@@ -210,7 +204,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
     </div>
   </div>
 
-  <!-- المعاينة بالكامل -->
+  <!-- المعاينة المجهزة للتحميل بنظافة كـ PDF -->
   <div id="offer_preview" style="background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:12px 0;font-size:13px">
     
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px;border-bottom:1px solid var(--bd);padding-bottom:8px">
@@ -309,8 +303,9 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
   </div>
 
   <div class="row">
-    <button class="p" onclick="cshare()">إرسال واتساب 💬</button>
-    <button onclick="ccopy()">نسخ العرض النصي 📋</button>
+    <button class="p" onclick="downloadPDF()">تحميل PDF 📄</button>
+    <button onclick="cshare()">إرسال واتساب 💬</button>
+    <button onclick="ccopy()">نسخ العرض 📋</button>
     <button onclick="cd2.close()">إغلاق</button>
   </div>
 </dialog>
@@ -373,7 +368,7 @@ function card(c){
   var id = "'"+c.id+"'", st = stale(c), due = act(c) && c.nx && c.nx <= t, col = SC[c.s] || "#6b7280", l = null, k = (c.log || []).length;
   while(k--){ if(!c.log[k].a){ l = c.log[k]; break; } }
   
-  var bn = +String(c.bu || "").replace(/,/g, ""), bu = c.bu && !isNaN(bn) ? (bn >= 1e6 ? +(bn/1e6).toFixed(2)+"M" : bn.toLocaleString("ar-EG"))+" ج" : c.bu;
+  var bn = +String(c.bu || "").replace(/,/g, ""), bu = c.bu && !isNaN(bn) ? (bn >= 1e6 ? +(bn/1e6).toFixed(2)+"M" : bn.toLocaleString("en-US"))+" ج" : c.bu;
   var ft = due ? '<div class="ft"><span class="mu" style="margin:0;font-size:11px">أجّل:</span>'+[[1,"يوم"],[3,"3 أيام"],[7,"أسبوع"]].map(function(z){ return '<button type="button" class="b2" onclick="event.stopPropagation();snz('+id+','+z[0]+')">'+z[1]+'</button>'; }).join("")+'</div>' : "";
   
   var aiSnippet = getQuickAiSnippet(c);
@@ -518,7 +513,9 @@ function num(p){var w=(p||"").replace(/\D/g,"");return w.indexOf("0")==0?"20"+w.
 function wa(id){WC=C.filter(function(x){return x.id==id})[0];$("wb").innerHTML=T.map(function(t,i){return'<button onclick="fill('+i+')">'+t[0]+'</button>'}).join("");fill(0);$("wd").showModal()}
 function fill(i){$("wt").value=T[i][1].replace("{اسم}",WC.n.split(" ")[0]).replace("{مشروع}",WC.pr||"المشروع")}
 function wsend(){window.open("https://wa.me/"+num(WC.ph)+"?text="+encodeURIComponent($("wt").value),"_blank");WC.log=WC.log||[];WC.log.push({d:td(),t:"اتبعتله رسالة واتساب"});P();$("wd").close();R()}
-function f(x){return Math.round(x).toLocaleString("ar-EG")}
+
+// توحيد الأرقام للغة الإنجليزية بنسبة 100%
+function f(x){return Math.round(x).toLocaleString("en-US")}
 
 // دالة حساب العرض الاستثماري وخطة السداد والعائد الإيجاري
 function calc(){
@@ -555,15 +552,32 @@ function calc(){
   $("v_m").textContent = "EGP " + f(m);
   $("v_q").textContent = "EGP " + f(q);
 
-  $("v_area").textContent = area + " م²";
+  $("v_area").textContent = area + " m²";
   $("v_rent_meter").textContent = "EGP " + f(rentPerMeter);
   $("v_rent_monthly").textContent = "EGP " + f(monthlyRent);
-  $("v_rent_yield").textContent = rentYield.toFixed(1) + "% سنوياً";
+  $("v_rent_yield").textContent = rentYield.toFixed(1) + "% Yearly";
 
   $("v_est_years").textContent = "Years " + estY;
   $("v_future").textContent = "EGP " + f(futurePrice);
   $("v_profit").textContent = "EGP " + f(profit);
   $("v_roi").textContent = Math.round(roi) + "%";
+}
+
+// دالة تحميل المعاينة كـ PDF احترافي
+function downloadPDF() {
+  var element = document.getElementById('offer_preview');
+  var opt = {
+    margin:       10,
+    filename:     'عرض_استثماري_عقاري_' + td() + '.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+  
+  showToast("⏳ جاري إنشاء ملف PDF...");
+  html2pdf().set(opt).from(element).save().then(function(){
+    showToast("✓ تم تحميل PDF بنجاح");
+  });
 }
 
 function getShareText() {
@@ -591,7 +605,7 @@ function getShareText() {
          "• القسط الشهري: EGP " + f(m) + "\n" +
          "• القسط الربع سنوي: EGP " + f(m * 3) + "\n\n" +
          "🏢 *التوقعات الإيجارية والدخل الشهري:*\n" +
-         "• مساحة الوحدة: " + area + " م²\n" +
+         "• مساحة الوحدة: " + area + " m²\n" +
          "• سعر المتر الإيجاري: EGP " + f(rentPerMeter) + "\n" +
          "💵 *الإيجار الشهري المتوقع:* EGP " + f(monthlyRent) + "\n" +
          "📊 *نسبة العائد الإيجاري السنوي:* " + rentYield.toFixed(1) + "%\n\n" +
@@ -766,7 +780,7 @@ return'<div class="lg"><div><b>'+esc(x.n)+'</b> <span class="tag">'+esc(x.d)+'</
 $("nl").innerHTML=h}
 function nBud(s){
   s = String(s||"")
-    .replace(/[٠-٩]/g, function(d){ return "٠١٢٣٤٥٦٧٨٩".indexOf(d); })
+    .replace(/[٠-٩]/g, function(d){ return "0123456789".indexOf(d); })
     .replace(/٫/g,".")
     .replace(/[,٬،]/g,"");
   var m = s.match(/\d+(?:\.\d+)?/g);
