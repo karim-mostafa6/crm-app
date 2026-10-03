@@ -5,11 +5,12 @@
 <meta name="google" content="notranslate">
 <title>CRM Karim Mostafa</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<!-- استدعاء خط Tajawal ورسومات PDF -->
+<!-- استدعاء خط Tajawal ورسومات PDF ومكتبة Excel -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <style>
 :root{
@@ -129,7 +130,12 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
   <button onclick="sortTodayPlan()" style="background:var(--card);border-color:var(--pr);color:var(--pr);font-weight:bold">🎯 خطة النهاردة</button>
 </div>
 <div id="chips" class="chips"></div><div id="list"></div>
-<div class="row" style="margin-top:18px"><button onclick="exp()">⬇ نسخة احتياطية</button><button onclick="imp.click()">⬆ استرجاع</button><input type="file" id="imp" accept=".json" hidden onchange="impF(this)"></div>
+<div class="row" style="margin-top:18px">
+  <button onclick="exp()">⬇ نسخة احتياطية JSON</button>
+  <button onclick="expXLSX()" style="background:var(--gr);color:#fff;border-color:var(--gr)">📊 تصدير Excel</button>
+  <button onclick="imp.click()">⬆ استرجاع JSON</button>
+  <input type="file" id="imp" accept=".json" hidden onchange="impF(this)">
+</div>
 <p class="mu">البيانات محفوظة في متصفحك وسحابياً عبر Supabase.</p>
 </div>
 
@@ -270,7 +276,7 @@ function getQuickAiSnippet(c){
 
 function card(c){
   var t=td(),n="";
-  if(c.nx){n=c.nx<t?'<span class="late">⏰ متأخر من '+c.nx+'</span>':c.nx==t?'<span class="today">🔔 فولو اب النهاردة</span>':'<span>📅 '+c.nx+'</span>'}else if(act(c))n='<span class="late">⚠️️ من غير ميعاد</span>';
+  if(c.nx){n=c.nx<t?'<span class="late">⏰ متأخر من '+c.nx+'</span>':c.nx==t?'<span class="today">🔔 فولو اب النهاردة</span>':'<span>📅 '+c.nx+'</span>'}else if(act(c))n='<span class="late">⚠ من غير ميعاد</span>';
   var id="'"+c.id+"'",st=stale(c),due=act(c)&&c.nx&&c.nx<=t,col=SC[c.s]||"#6b7280",l=null,k=(c.log||[]).length;while(k--){if(!c.log[k].a){l=c.log[k];break}}
   var bn=+String(c.bu||"").replace(/,/g,""),bu=c.bu&&!isNaN(bn)?(bn>=1e6?+(bn/1e6).toFixed(2)+"M":bn.toLocaleString("en-US"))+" EGP":c.bu;
   var ft=due?'<div class="ft"><span class="mu" style="margin:0">أجّل:</span>'+[[1,"يوم"],[3,"3 أيام"],[7,"أسبوع"]].map(function(z){return'<button type="button" class="b2" onclick="event.stopPropagation();snz('+id+','+z[0]+')">'+z[1]+'</button>'}).join("")+'</div>':"";
@@ -404,6 +410,29 @@ var t=$("nt").value.trim();if(t){c.log=c.log||[];c.log.push({d:td(),t:t})}
 P();$("d").close();R();showToast("✓ تم الحفظ بنجاح")}
 var dc=0;function delClient(){var b=$("del");if(!dc){dc=1;b.textContent="متأكد؟ دوس تاني";setTimeout(function(){dc=0;b.textContent="حذف"},3000);return}dc=0;b.textContent="حذف";C=C.filter(function(x){return x.id!=cur});P();$("d").close();R();showToast("تم الحذف")}
 function exp(){var a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(C));a.download="crm-backup-"+td()+".json";a.click()}
+
+/* تصدير العملاء بتنسيق ملف Excel منظم وصريح */
+function expXLSX(){
+  if(!C.length){ alert("لا يوجد عملاء لتصديرهم!"); return; }
+  var rows = C.map(function(c){
+    var lastLog = (c.log && c.log.length) ? c.log[c.log.length-1].t : "";
+    return {
+      "الاسم": c.n || "",
+      "الموبايل": c.ph || "",
+      "الحالة": c.s || "",
+      "المشروع": c.pr || "",
+      "الميزانية": c.bu || "",
+      "المصدر": c.src || "",
+      "ميعاد الفولو اب": c.nx || "",
+      "آخر ملاحظة": lastLog
+    };
+  });
+  var ws = XLSX.utils.json_to_sheet(rows);
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "العملاء");
+  XLSX.writeFile(wb, "CRM_Clients_" + td() + ".xlsx");
+}
+
 function impF(i){var r=new FileReader();r.onload=function(){try{var x=JSON.parse(r.result);if(Array.isArray(x)){C=x;P();R();showToast("تم استرجاع البيانات")}}catch(e){alert("الملف مش سليم")}};if(i.files[0])r.readAsText(i.files[0])}
 var T=[["أول تواصل","أهلاً {اسم}، أنا كريم. شكراً لاهتمامك بـ {مشروع}. حابب أعرفك على تفاصيل الوحدات وخطط السداد، إمتى يناسبك نتكلم؟"],["بعد المعاينة","أهلاً {اسم}، شكراً لوقتك النهاردة في معاينة {مشروع}. عايز أعرف رأيك، وأنا جاهز أظبطلك أفضل خطة سداد تناسب ميزانيتك."],["متابعة","أهلاً {اسم}، عامل إيه؟ حبيت أطمن عليك وأعرف وصلت لإيه بخصوص {مشروع}، وفيه عروض جديدة ممكن تناسبك."],["عرض قرب يخلص","أهلاً {اسم}، حبيت أفكرك إن العرض الحالي في {مشروع} قرب يخلص. تحب أحجزلك الوحدة؟"]],WC=null;
 function num(p){var w=(p||"").replace(/\D/g,"");return w.indexOf("0")==0?"20"+w.slice(1):w}
