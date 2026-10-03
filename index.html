@@ -5,10 +5,10 @@
 <meta name="google" content="notranslate">
 <title>CRM Karim Mostafa</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<!-- استدعاء خط Tajawal المميز ورسومات PDF -->
+<!-- استدعاء خط Tajawal ورسومات PDF -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
@@ -90,6 +90,36 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--gr);color:#fff;padding:8px 18px;border-radius:99px;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.2);z-index:999;display:none;animation:fadeIn 0.3s ease}
 @keyframes fadeIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* تصميم PDF احترافي وجذاب */
+.pdf-container {
+  background: #ffffff;
+  color: #1a1d24;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e3e6ea;
+  font-family: var(--font);
+  direction: rtl;
+}
+.pdf-header {
+  border-bottom: 2px solid #1f6feb;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pdf-title { font-size: 20px; font-weight: 800; color: #1f6feb; margin: 0; }
+.pdf-sub { font-size: 13px; color: #6b7280; margin-top: 2px; }
+.pdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.pdf-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; }
+.pdf-label { font-size: 12px; color: #64748b; font-weight: 500; }
+.pdf-val { font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 2px; dir: ltr; }
+.pdf-sec-title { font-size: 14px; font-weight: 700; color: #1f6feb; background: #eff6ff; padding: 6px 10px; border-radius: 6px; margin: 16px 0 10px; border-inline-start: 4px solid #1f6feb; }
+.pdf-highlight { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px; margin-top: 12px; }
+.pdf-highlight .pdf-label { color: #047857; }
+.pdf-highlight .pdf-val { color: #065f46; font-size: 18px; }
+.pdf-footer { margin-top: 20px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
 </style></head><body><div class="w">
 <div class="row"><h1 style="flex:1">📇 CRM العقارات</h1><span id="sy" class="mu">💾 محلي</span><button onclick="requestNotify()">🔔 الإشعارات</button><button onclick="anald.showModal();renderFunnel()">📊 التحليلات</button><button onclick="$('cd2').showModal();calc()">🧮 حاسبة & ROI</button><button onclick="pjd.showModal();nR()">🏢 مشاريعي</button><button class="p" onclick="openF()">+ عميل</button></div>
 <div class="stats"><button type="button" class="st" id="k_all" onclick="tab('all')"><b id="s3">0</b><span>👥 كل العملاء</span></button><button type="button" class="st" id="k_late" onclick="tab('late')"><b id="s1">0</b><span>🔴 متأخر</span></button><button type="button" class="st" id="k_today" onclick="tab('today')"><b id="s2">0</b><span>🔔 النهاردة</span></button><button type="button" class="st" id="k_soon" onclick="tab('soon')"><b id="s4">0</b><span>📅 الجاي</span></button></div>
@@ -148,20 +178,48 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 <div class="sec">✍️ مشاريع إضافية (يدوي)</div><div class="mu" style="margin:0 0 6px">سطر لكل مشروع (المطور، المنطقة، النوع، السعر).</div><textarea id="pjt" rows="4" oninput="pjSave()" placeholder="مثال: سوديك إيست - التجمع - شقق من 5.2 مليون - استلام 2028"></textarea></dialog>
 <dialog id="wd"><div class="hd"><b>💬 رسالة واتساب</b><button type="button" class="x" onclick="wd.close()" aria-label="إغلاق">✕</button></div><div class="row" id="wb" style="margin:8px 0"></div><textarea id="wt" rows="5"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wsend()">فتح واتساب</button><button onclick="wd.close()">إغلاق</button></div></dialog>
 
-<!-- حاسبة الأقساط + حاسبة العائد الاستثماري وتصدير PDF -->
+<!-- حاسبة الأقساط + حاسبة العائد الاستثماري وتصدير PDF المطور -->
 <dialog id="cd2"><div class="hd"><b>🧮 حاسبة الخطة والعائد الاستثماري (ROI)</b><button type="button" class="x" onclick="cd2.close()" aria-label="إغلاق">✕</button></div>
 <label>سعر الوحدة (ج)</label><input id="cp" type="number" inputmode="numeric" value="5000000" oninput="calc()"><div class="row"><div style="flex:1"><label>المقدم %</label><input id="cd" type="number" value="10" oninput="calc()"></div><div style="flex:1"><label>سنين التقسيط</label><input id="cy" type="number" value="8" oninput="calc()"></div></div>
 <div class="row" style="margin-top:6px"><div style="flex:1"><label>الزيادة السنوية المتوقعة %</label><input id="cgrowth" type="number" value="20" oninput="calc()"></div><div style="flex:1"><label>سنوات الاستثمار</label><input id="cyears" type="number" value="3" oninput="calc()"></div></div>
 
-<div id="pdf_offer" class="card" style="margin-top:10px;padding:10px;background:var(--bg)">
-  <div style="text-align:center;border-bottom:1px solid var(--bd);padding-bottom:6px;margin-bottom:6px">
-    <b style="color:var(--pr)">عرض استثماري عقاري</b>
-    <div class="mu" style="font-size:12px">المستشار العقاري: كريم مصطفى</div>
+<div id="pdf_offer" class="pdf-container" style="margin-top:14px">
+  <div class="pdf-header">
+    <div>
+      <div class="pdf-title">عرض استثماري عقاري</div>
+      <div class="pdf-sub">المستشار العقاري: كريم مصطفى</div>
+    </div>
+    <div style="font-size:12px;color:#64748b;text-align:left;" id="pdf_date"></div>
   </div>
-  <pre id="co" style="margin:0;padding:4px;background:transparent;border:0"></pre>
+  
+  <div class="pdf-sec-title">💳 خطة الدفع والتقسيط</div>
+  <div class="pdf-grid">
+    <div class="pdf-item"><div class="pdf-label">سعر الوحدة</div><div class="pdf-val" id="pv_p">-</div></div>
+    <div class="pdf-item"><div class="pdf-label">المقدم</div><div class="pdf-val" id="pv_dp">-</div></div>
+    <div class="pdf-item"><div class="pdf-label">المتبقي للتقسيط</div><div class="pdf-val" id="pv_r">-</div></div>
+    <div class="pdf-item"><div class="pdf-label">مدة التقسيط</div><div class="pdf-val" id="pv_y">-</div></div>
+    <div class="pdf-item"><div class="pdf-label">القسط الشهري</div><div class="pdf-val" id="pv_m">-</div></div>
+    <div class="pdf-item"><div class="pdf-label">القسط ربع السنوي</div><div class="pdf-val" id="pv_q">-</div></div>
+  </div>
+
+  <div class="pdf-sec-title">📈 التوقع والربح الاستثماري</div>
+  <div class="pdf-grid">
+    <div class="pdf-item"><div class="pdf-label">سنوات التقدير</div><div class="pdf-val" id="pv_years">-</div></div>
+    <div class="pdf-item"><div class="pdf-label">القيمة المتوقعة للوحدة</div><div class="pdf-val" id="pv_future">-</div></div>
+    <div class="pdf-item" style="grid-column: 1 / -1;"><div class="pdf-label">صافي الأوفر / الربح المتوقع</div><div class="pdf-val" id="pv_profit" style="color:#16a34a">-</div></div>
+  </div>
+
+  <div class="pdf-highlight">
+    <div class="pdf-label">العائد على المقدم (ROI)</div>
+    <div class="pdf-val" id="pv_roi">-</div>
+  </div>
+
+  <div class="pdf-footer">
+    تم إعداد هذا العرض خصيصاً بواسطة المستشار العقاري كريم مصطفى • للحجز والاستفسار يرجى التواصل مباشرة
+  </div>
 </div>
 
-<div class="row" style="margin-top:8px"><button class="p" onclick="cshare()">إرسال واتساب</button><button onclick="ccopy()">نسخ</button><button onclick="exportPDF()" style="background:var(--rd);color:#fff;border-color:var(--rd)">📄 تصدير PDF</button></div></dialog>
+<div class="row" style="margin-top:12px"><button class="p" onclick="cshare()">إرسال واتساب</button><button onclick="ccopy()">نسخ نصي</button><button onclick="exportPDF()" style="background:var(--rd);color:#fff;border-color:var(--rd)">📄 تصدير PDF</button></div></dialog>
 
 <script>
 // إعدادات Supabase
@@ -212,9 +270,9 @@ function getQuickAiSnippet(c){
 
 function card(c){
   var t=td(),n="";
-  if(c.nx){n=c.nx<t?'<span class="late">⏰ متأخر من '+c.nx+'</span>':c.nx==t?'<span class="today">🔔 فولو اب النهاردة</span>':'<span>📅 '+c.nx+'</span>'}else if(act(c))n='<span class="late">⚠️ من غير ميعاد</span>';
+  if(c.nx){n=c.nx<t?'<span class="late">⏰ متأخر من '+c.nx+'</span>':c.nx==t?'<span class="today">🔔 فولو اب النهاردة</span>':'<span>📅 '+c.nx+'</span>'}else if(act(c))n='<span class="late">⚠️️ من غير ميعاد</span>';
   var id="'"+c.id+"'",st=stale(c),due=act(c)&&c.nx&&c.nx<=t,col=SC[c.s]||"#6b7280",l=null,k=(c.log||[]).length;while(k--){if(!c.log[k].a){l=c.log[k];break}}
-  var bn=+String(c.bu||"").replace(/,/g,""),bu=c.bu&&!isNaN(bn)?(bn>=1e6?+(bn/1e6).toFixed(2)+"M":bn.toLocaleString("ar-EG"))+" ج":c.bu;
+  var bn=+String(c.bu||"").replace(/,/g,""),bu=c.bu&&!isNaN(bn)?(bn>=1e6?+(bn/1e6).toFixed(2)+"M":bn.toLocaleString("en-US"))+" EGP":c.bu;
   var ft=due?'<div class="ft"><span class="mu" style="margin:0">أجّل:</span>'+[[1,"يوم"],[3,"3 أيام"],[7,"أسبوع"]].map(function(z){return'<button type="button" class="b2" onclick="event.stopPropagation();snz('+id+','+z[0]+')">'+z[1]+'</button>'}).join("")+'</div>':"";
   
   var aiSnippet = getQuickAiSnippet(c);
@@ -238,7 +296,7 @@ var n={late:C.filter(isLate).length,today:C.filter(isNow).length,soon:C.filter(i
 $("s1").textContent=n.late;$("s2").textContent=n.today;$("s4").textContent=n.soon;$("s3").textContent=n.all;
 var D=TAB||(n.late?"late":n.today?"today":"all"),E=q?"all":D;
 ["all","late","today","soon"].forEach(function(k){$("k_"+k).className="st"+(E==k?" on":"")+(k=="late"&&n.late?" hot":"")+(k=="today"&&n.today?" warm":"")});
-var ac=C.filter(act),sum=0;ac.forEach(function(c){sum+=nBud(c.bu)});$("pp").textContent=sum?"💼 "+ac.length+" عميل نشط • إجمالي ميزانياتهم "+(sum>=1e9?+(sum/1e9).toFixed(2)+"B":+(sum/1e6).toFixed(1)+"M")+" ج":"";
+var ac=C.filter(act),sum=0;ac.forEach(function(c){sum+=nBud(c.bu)});$("pp").textContent=sum?"💼 "+ac.length+" عميل نشط • إجمالي ميزانياتهم "+(sum>=1e9?+(sum/1e9).toFixed(2)+"B":+(sum/1e6).toFixed(1)+"M")+" EGP":"";
 var L=C.filter(function(c){return(!f||c.s==f)&&(!q||(c.n+" "+c.ph+" "+c.pr).toLowerCase().indexOf(q)>-1)});
 var M={late:["مفيش متأخرين ✅",isLate,byNx],today:["مفيش متابعات النهاردة ✅",isNow,function(a,b){return sp(a)-sp(b)}],soon:["مفيش متابعات جاية",isSoon,byNx],all:["لسه مفيش عملاء. دوس + عميل",function(){return true},function(a,b){return b.c-a.c}]}[E];
 L=L.filter(M[1]);
@@ -306,7 +364,7 @@ function prP(i){var t=prTok(),r=PRL[i];if(!r)return;$("pr").value=(t.pre?t.pre+"
 function prH(){$("prs").hidden=true}
 function prI(){var el=$("pin"),b=nBud($("bu").value),h=[];$("pr").value.split(/[,،]/).map(function(s){return s.trim().toLowerCase()}).filter(Boolean).forEach(function(q){var x=PD.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x)return;
 var fit=b&&x.lo?(x.lo>b?' • <span class="late">⚠ أقل سعر فوق ميزانيته</span>':" • ✅ في حدود ميزانيته"):"";
-h.push("💰 "+nP(x.lo)+"–"+nP(x.hi)+" ج • 🏢 "+esc(x.d)+(x.cm?" • عمولة "+esc(x.cm)+"%":"")+fit)});el.innerHTML=h.join("<br>")}
+h.push("💰 "+nP(x.lo)+"–"+nP(x.hi)+" EGP • 🏢 "+esc(x.d)+(x.cm?" • عمولة "+esc(x.cm)+"%":"")+fit)});el.innerHTML=h.join("<br>")}
 function dS(){var p=[],b=$("bu").value.trim(),st=$("stt").value,pr=$("pr").value.trim(),sr=$("src").value.trim();
 if(b)p.push("💰 "+b);if(st)p.push(st);if(pr)p.push("📍 "+pr);if(sr)p.push("🔗 "+sr);
 $("dsm").textContent=p.length?p.join(" • "):"لسه فاضية"}
@@ -352,9 +410,13 @@ function num(p){var w=(p||"").replace(/\D/g,"");return w.indexOf("0")==0?"20"+w.
 function wa(id){WC=C.filter(function(x){return x.id==id})[0];$("wb").innerHTML=T.map(function(t,i){return'<button onclick="fill('+i+')">'+t[0]+'</button>'}).join("");fill(0);$("wd").showModal()}
 function fill(i){$("wt").value=T[i][1].replace("{اسم}",WC.n.split(" ")[0]).replace("{مشروع}",WC.pr||"المشروع")}
 function wsend(){window.open("https://wa.me/"+num(WC.ph)+"?text="+encodeURIComponent($("wt").value),"_blank");WC.log=WC.log||[];WC.log.push({d:td(),t:"اتبعتله رسالة واتساب"});P();$("wd").close();R()}
-function f(x){return Math.round(x).toLocaleString("ar-EG")}
 
-// حاسبة الأقساط المطورة + حساب العائد ROI
+// تنسيق أرقام بالإنجليزية حصراً
+function fEn(x){
+  return Math.round(x).toLocaleString('en-US');
+}
+
+// حاسبة الأقساط والعائد الاستثماري وتجهيز العرض التصميمي
 function calc(){
   var p=+$("cp").value||0, d=+$("cd").value||0, y=+$("cy").value||0;
   var growth=(+$("cgrowth").value||0)/100, years=+$("cyears").value||0;
@@ -364,29 +426,45 @@ function calc(){
   var profit = future - p;
   var roi = dp > 0 ? ((profit / dp) * 100) : 0;
 
-  $("co").textContent = 
-    "سعر الوحدة: " + f(p) + " ج\n" +
-    "المقدم (" + d + "%): " + f(dp) + " ج\n" +
-    "المتبقي: " + f(r) + " ج\n" +
-    "التقسيط على " + y + " سنين\n" +
-    "القسط الشهري: " + f(m) + " ج\n" +
-    "القسط ربع السنوي: " + f(m*3) + " ج\n" +
-    "----------------------------\n" +
-    "📈 التوقع الاستثماري بعد " + years + " سنوات:\n" +
-    "القيمة المتوقعة: " + f(future) + " ج\n" +
-    "الأوفر / صافي الربح: " + f(profit) + " ج\n" +
-    "العائد على المقدم (ROI): " + roi.toFixed(1) + "%";
+  // تحديث عناصر الكارت الجمالي
+  $("pdf_date").textContent = td();
+  $("pv_p").textContent = fEn(p) + " EGP";
+  $("pv_dp").textContent = fEn(dp) + " EGP (" + fEn(d) + "%)";
+  $("pv_r").textContent = fEn(r) + " EGP";
+  $("pv_y").textContent = fEn(y) + " Years";
+  $("pv_m").textContent = fEn(m) + " EGP";
+  $("pv_q").textContent = fEn(m*3) + " EGP";
+
+  $("pv_years").textContent = fEn(years) + " Years";
+  $("pv_future").textContent = fEn(future) + " EGP";
+  $("pv_profit").textContent = fEn(profit) + " EGP";
+  $("pv_roi").textContent = fEn(roi.toFixed(1)) + "%";
 }
 
-function cshare(){window.open("https://wa.me/?text="+encodeURIComponent($("co").textContent),"_blank")}
-function ccopy(){try{navigator.clipboard.writeText($("co").textContent);showToast("تم النسخ بنجاح")}catch(e){}}
+function cshare(){
+  var text = "عرض استثماري عقاري\nالمستشار العقاري: كريم مصطفى\n" +
+             "سعر الوحدة: " + $("pv_p").textContent + "\n" +
+             "المقدم: " + $("pv_dp").textContent + "\n" +
+             "القسط الشهري: " + $("pv_m").textContent + "\n" +
+             "العائد المتوقع ROI: " + $("pv_roi").textContent;
+  window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+}
+
+function ccopy(){
+  var text = "عرض استثماري عقاري\nالمستشار العقاري: كريم مصطفى\n" +
+             "سعر الوحدة: " + $("pv_p").textContent + "\n" +
+             "المقدم: " + $("pv_dp").textContent + "\n" +
+             "القسط الشهري: " + $("pv_m").textContent + "\n" +
+             "العائد المتوقع ROI: " + $("pv_roi").textContent;
+  try{navigator.clipboard.writeText(text);showToast("تم النسخ بنجاح")}catch(e){}
+}
 
 function exportPDF(){
   var element = document.getElementById('pdf_offer');
   html2pdf().set({
-    margin: 10,
+    margin: 12,
     filename: 'عرض_استثماري_كريم_مصطفى.pdf',
-    html2canvas: { scale: 2 },
+    html2canvas: { scale: 2, useCORS: true },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   }).from(element).save();
 }
@@ -446,7 +524,7 @@ function cloud(){
       })
     })
     .then(function(res){
-      if(res.ok) setSync("☁️️ متزامن");
+      if(res.ok) setSync("☁ متزامن");
       else setSync("⚠️ المزامنة فشلت");
     })
     .catch(function(){
@@ -565,14 +643,6 @@ if(!out.length){alert("الملف فاضي");return}
 PD=out;PDat=Date.now();nSave();nR()}catch(e){alert("الملف مش سليم")}};rd.readAsText(f,"utf-8");i.value=""}
 function nSave(){try{localStorage.setItem(NK,JSON.stringify(PD));localStorage.setItem(NK+"_at",String(PDat))}catch(e){}}
 function nP(x){return x?(x>=1e6?+(x/1e6).toFixed(1)+"M":Math.round(x/1000)+"K"):"?"}
-function nR(){var st=$("nst"),q=($("nq").value||"").toLowerCase().trim(),b=(+$("nb").value||0)*1e6;
-st.textContent=PD.length?"📦 "+PD.length+" مشروع • آخر استيراد "+new Date(PDat).toISOString().slice(0,10):"لسه مفيش استيراد";
-if(!PD.length){$("nl").innerHTML='<div class="card mu">دوس ⬆ استيراد CSV واختار ملف nawy_projects.csv</div>';return}
-var L=PD.filter(function(x){return(!q||(x.n+" "+x.d+" "+x.a+" "+x.t).toLowerCase().indexOf(q)>-1)&&(!b||(x.lo&&x.lo<=b))});
-L.sort(function(a,c){return a.u<c.u?1:-1});
-var h='<div class="mu" style="margin:6px 0">'+L.length+' نتيجة'+(L.length>30?' (أول 30)':'')+'</div>'+L.slice(0,30).map(function(x){
-return'<div class="lg"><div><b>'+esc(x.n)+'</b> <span class="tag">'+esc(x.d)+'</span>'+(x.s=="launch"?' <span class="tag ok">🚀 إطلاق</span>':'')+'</div><div class="mu">📍 '+esc(x.a)+' • '+esc(x.t)+'</div><div>💰 '+nP(x.lo)+' – '+nP(x.hi)+' ج'+(x.cm?' • عمولة '+esc(x.cm)+'%':'')+'</div></div>'}).join("");
-$("nl").innerHTML=h}
 function nBud(s){
   s = String(s||"")
     .replace(/[٠-٩]/g, function(d){ return "٠١٢٣٤٥٦Trem٩".indexOf(d); })
