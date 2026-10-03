@@ -29,30 +29,52 @@ body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--font);font-
 #list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px;align-items:stretch}
 #list>.sec,#list>.card{grid-column:1/-1}
 
-.cc{
-  background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin:0;
-  box-shadow:0 4px 10px rgba(0,0,0,0.03);display:flex;flex-direction:column;
-  transition:transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+/* تصغير المسافات والخطوط في البطاقة */
+.cc {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 10px; /* تقليل البادينج من 14 لـ 10 */
+  margin: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-.cc:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,0.08)}
 
-.cc .ch{gap:10px;display:flex;align-items:center}
-.cc .av{width:42px;height:42px;font-size:17px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;flex:none}
-.cc .cn{font-size:16px;font-weight:700}
-.cc .ci{margin-top:10px;gap:6px;font-size:12px;display:flex;flex-wrap:wrap}
-.cc .ci span{padding:3px 10px;background:var(--bg);border-radius:99px;border:1px solid var(--bd)}
-.cc .cl{margin-top:10px;padding:8px 12px;background:var(--bg);border-radius:10px;font-size:13px}
-.cc .cl1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cc .ib{flex:none;padding:7px 10px;font-size:15px;line-height:1;border-radius:8px}
-.cc .ft{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:auto;padding-top:10px}
-.cc .ft .b2{margin:0;flex:none}
+/* تصغير صورة العميل والاسم */
+.cc .ch { gap: 8px; display: flex; align-items: center; }
+.cc .av { width: 34px; height: 34px; font-size: 15px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; flex: none; }
+.cc .cn { font-size: 15px; font-weight: 700; }
 
-.pipeline-bar{display:flex;gap:4px;margin-top:12px;background:var(--bg);padding:4px 6px;border-radius:8px;align-items:center;justify-content:space-between}
-.pipe-step{height:6px;flex:1;border-radius:4px;background:var(--bd);transition:background 0.3s ease}
-.pipe-step.active{background:var(--pr)}
+/* تصغير التاجات والبيانات */
+.cc .ci { margin-top: 6px; gap: 4px; font-size: 11px; display: flex; flex-wrap: wrap; }
+.cc .ci span { padding: 2px 8px; background: var(--bg); border-radius: 99px; border: 1px solid var(--bd); }
 
-.as{margin-top:8px;padding:8px 12px;border-radius:10px;background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(59,130,246,.04));border:1px solid rgba(59,130,246,.25);border-inline-start:4px solid var(--pr);font-size:12px;line-height:1.5}
-.as .ast{font-size:11px;font-weight:bold;color:var(--pr);margin-bottom:2px}
+/* الملاحظة الأخيرة (تظهر قبل اقتراح المساعد) */
+.cc .cl { margin-top: 6px; padding: 6px 10px; background: var(--bg); border-radius: 8px; font-size: 12px; }
+.cc .cl1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.cc .ib { flex: none; padding: 5px 8px; font-size: 14px; line-height: 1; border-radius: 6px; }
+.cc .ft { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: auto; padding-top: 6px; }
+
+/* شريط المرحلة (Pipeline) بشكل أرفع */
+.pipeline-bar { display: flex; gap: 3px; margin-top: 8px; background: var(--bg); padding: 3px 5px; border-radius: 6px; align-items: center; justify-content: space-between; }
+.pipe-step { height: 4px; flex: 1; border-radius: 3px; background: var(--bd); transition: background 0.3s ease; }
+
+/* اقتراح المساعد بشيك أرق وأصغر وتحت الملاحظة */
+.as {
+  margin-top: 6px;
+  padding: 6px 9px;
+  border-radius: 8px;
+  background: rgba(37, 99, 235, 0.05);
+  border: 1px dashed rgba(37, 99, 235, 0.3);
+  border-inline-start: 3px solid var(--pr);
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--tx);
+}
+.as .ast { font-size: 10px; font-weight: bold; color: var(--pr); margin-bottom: 2px; display: flex; align-items: center; gap: 4px; }
 .cc.dueC{background:linear-gradient(180deg,rgba(239,68,68,.12),rgba(239,68,68,.03));border-color:rgba(239,68,68,.4);box-shadow:0 6px 20px rgba(239,68,68,.12)}
 .cc.dueC .ci .today{color:var(--rd)}
 h1{font-size:22px;margin:4px 0 12px;font-weight:700}
@@ -303,21 +325,34 @@ function getQuickAiSnippet(c){
   if(c.s == "مبيردش") return "أرسل تحديثاً سريعاً وخفيفاً عن عرض خاص لفترة محدودة.";
   return "متابعة عامة واقتراح خطة سداد تناسب ميزانيته.";
 }
-
 function card(c){
-  var t=td(),n="";
-  if(c.nx){n=c.nx<t?'<span class="late">⏰ متأخر من '+c.nx+'</span>':c.nx==t?'<span class="today">🔔 فولو اب النهاردة</span>':'<span>📅 '+c.nx+'</span>'}else if(act(c))n='<span class="late">⚠️ من غير ميعاد</span>';
-  var id="'"+c.id+"'",st=stale(c),due=act(c)&&c.nx&&c.nx<=t,col=SC[c.s]||"#6b7280",l=null,k=(c.log||[]).length;while(k--){if(!c.log[k].a){l=c.log[k];break}}
-  var bn=+String(c.bu||"").replace(/,/g,""),bu=c.bu&&!isNaN(bn)?(bn>=1e6?+(bn/1e6).toFixed(2)+"M":bn.toLocaleString("ar-EG"))+" ج":c.bu;
-  var ft=due?'<div class="ft"><span class="mu" style="margin:0">أجّل:</span>'+[[1,"يوم"],[3,"3 أيام"],[7,"أسبوع"]].map(function(z){return'<button type="button" class="b2" onclick="event.stopPropagation();snz('+id+','+z[0]+')">'+z[1]+'</button>'}).join("")+'</div>':"";
+  var t=td(), n="";
+  if(c.nx){
+    n = c.nx < t ? '<span class="late">⏰ متأخر من '+c.nx+'</span>' : c.nx == t ? '<span class="today">🔔 فولو اب النهاردة</span>' : '<span>📅 '+c.nx+'</span>';
+  } else if(act(c)) {
+    n = '<span class="late">⚠️ من غير ميعاد</span>';
+  }
+  
+  var id = "'"+c.id+"'", st = stale(c), due = act(c) && c.nx && c.nx <= t, col = SC[c.s] || "#6b7280", l = null, k = (c.log || []).length;
+  while(k--){ if(!c.log[k].a){ l = c.log[k]; break; } }
+  
+  var bn = +String(c.bu || "").replace(/,/g, ""), bu = c.bu && !isNaN(bn) ? (bn >= 1e6 ? +(bn/1e6).toFixed(2)+"M" : bn.toLocaleString("ar-EG"))+" ج" : c.bu;
+  var ft = due ? '<div class="ft"><span class="mu" style="margin:0;font-size:11px">أجّل:</span>'+[[1,"يوم"],[3,"3 أيام"],[7,"أسبوع"]].map(function(z){ return '<button type="button" class="b2" onclick="event.stopPropagation();snz('+id+','+z[0]+')">'+z[1]+'</button>'; }).join("")+'</div>' : "";
   
   var aiSnippet = getQuickAiSnippet(c);
 
-  return'<div class="cc'+(due?' dueC':'')+'" role="button" tabindex="0" onclick="openF('+id+')" style="cursor:pointer;border-inline-start:4px solid '+(due?'var(--rd)':col)+'"><div class="ch"><div class="av" style="background:'+(due?'var(--rd)':col)+'">'+esc((c.n||"?").trim().charAt(0).toUpperCase())+'</div><div style="flex:1;min-width:0"><div class="cn">'+esc(c.n)+'</div><div class="cs" style="color:'+col+'">● '+c.s+'</div></div>'+(c.ph?'<a class="b ib" href="tel:'+esc(c.ph)+'" title="اتصال" onclick="event.stopPropagation()">📞</a><button type="button" class="ib" title="واتساب" onclick="event.stopPropagation();wa('+id+')">💬</button>':"")+'</div>'
-  +'<div class="ci">'+n+(st?'<span class="late">🧊 '+st+' يوم</span>':"")+(c.pr?'<span>📍 '+esc(c.pr)+'</span>':"")+(bu?'<span>💰 '+esc(bu)+'</span>':"")+fitB(c)+'</div>'
-  +getPipelineBar(c.s)
-  +'<div class="as"><div class="ast">🤖 اقتراح المساعد</div>'+esc(aiSnippet)+'</div>'
-  +(l?'<div class="cl"><div class="cl1">💬 '+esc(l.t)+'</div></div>':"")+ft+'</div>'
+  return '<div class="cc'+(due?' dueC':'')+'" role="button" tabindex="0" onclick="openF('+id+')" style="cursor:pointer;border-inline-start:4px solid '+(due?'var(--rd)':col)+'">'
+  + '<div class="ch">'
+    + '<div class="av" style="background:'+(due?'var(--rd)':col)+'">'+esc((c.n||"?").trim().charAt(0).toUpperCase())+'</div>'
+    + '<div style="flex:1;min-width:0"><div class="cn">'+esc(c.n)+'</div><div class="cs" style="color:'+col+';font-size:12px">● '+c.s+'</div></div>'
+    + (c.ph ? '<a class="b ib" href="tel:'+esc(c.ph)+'" title="اتصال" onclick="event.stopPropagation()">📞</a><button type="button" class="ib" title="واتساب" onclick="event.stopPropagation();wa('+id+')">💬</button>' : "")
+  + '</div>'
+  + '<div class="ci">'+n+(st?'<span class="late">🧊 '+st+' يوم</span>':"")+(c.pr?'<span>📍 '+esc(c.pr)+'</span>':"")+(bu?'<span>💰 '+esc(bu)+'</span>':"")+fitB(c)+'</div>'
+  + getPipelineBar(c.s)
+  + (l ? '<div class="cl"><div class="cl1">💬 '+esc(l.t)+'</div></div>' : "") // الملاحظة الأخيرة فوق
+  + '<div class="as"><div class="ast">🤖 اقتراح المساعد</div>'+esc(aiSnippet)+'</div>' // اقتراح المساعد تحت الملاحظة
+  + ft 
+  + '</div>';
 }
 
 var isTodayPlanSort=false;
