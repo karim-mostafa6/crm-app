@@ -5,12 +5,10 @@
 <meta name="google" content="notranslate">
 <title>CRM Karim Mostafa</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<!-- استدعاء خط Tajawal ورسومات PDF ومكتبة Excel -->
+<!-- استدعاء خط Tajawal المميز -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -73,7 +71,7 @@ button:hover{opacity:0.9}
 .late{color:var(--rd)}.today{color:var(--or)}.ok{color:var(--gr)}
 .sec{font-weight:bold;margin:14px 0 4px}
 .tabs button{flex:1;transition:all 0.2s ease}.tabs .on{background:var(--pr);color:#fff;border-color:var(--pr)}
-dialog{border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);width:min(94vw,620px);padding:14px}
+dialog{border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);width:min(94vw,520px);padding:14px}
 dialog::backdrop{background:#0008}
 label{display:block;font-size:13px;color:var(--mu);margin:8px 0 3px}
 a.b{display:inline-block;text-decoration:none;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;font-size:13px}
@@ -84,57 +82,15 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 .rep{margin-top:8px;margin-inline-start:16px;border-inline-start:3px solid var(--pr);background:var(--bg);border-radius:8px;padding:8px 10px;font-size:14px}.rp2{margin-top:6px;font-size:13px}.gp{color:var(--or)}
 .log{font-size:13px;border-top:1px dashed var(--bd);padding:4px 0}.cb{margin-top:6px;padding:7px 10px;border-radius:12px;font-size:13px;white-space:pre-wrap}.cbu{background:var(--pr);color:#fff;margin-inline-start:28px}.cba{background:var(--card);border:1px solid var(--bd);margin-inline-end:28px}dialog{overscroll-behavior:contain}html{scrollbar-gutter:stable}html.lk,html.lk body{overflow:hidden}#dtl{border:1px solid var(--bd);border-radius:12px;margin:8px 0 4px;padding:0 12px 10px;background:var(--card)}#dtl summary{cursor:pointer;padding:10px 0 2px;font-weight:600;list-style:none;display:flex;align-items:center;gap:8px}#dtl summary::-webkit-details-marker{display:none}#dtl summary::after{content:"▾";margin-inline-start:auto;color:var(--mu)}#dtl[open] summary::after{content:"▴"}#dtl .dsm{flex:1;min-width:0;font-weight:400;font-size:12px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#dtl[open] .dsm{display:none}input[type=date]{position:relative}input[type=date]::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.prs{position:absolute;inset-inline:0;top:100%;z-index:20;max-height:240px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:10px;margin-top:4px;box-shadow:0 6px 20px rgba(0,0,0,.35)}.pri{padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--bd)}.pri:last-child{border-bottom:0}.pri:hover{background:rgba(127,127,127,.15)}.pri b{font-size:14px}.pri .mu{margin:2px 0 0}
 
-/* أنماط المساعد الذكي والتحليلات */
+/* أنماط المساعد الذكي الاستراتيجي */
 .ai-box{background:rgba(31,111,235,0.06);border:1px solid rgba(31,111,235,0.25);border-radius:10px;padding:12px;margin-top:10px}
 .ai-title{font-size:14px;font-weight:bold;color:var(--pr);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .ai-res{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;min-height:70px}
 
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--gr);color:#fff;padding:8px 18px;border-radius:99px;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.2);z-index:999;display:none;animation:fadeIn 0.3s ease}
 @keyframes fadeIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
-
-/* تصميم PDF احترافي وجذاب */
-.pdf-container {
-  background: #ffffff;
-  color: #1a1d24;
-  padding: 24px;
-  border-radius: 12px;
-  border: 1px solid #e3e6ea;
-  font-family: var(--font);
-  direction: rtl;
-}
-.pdf-header {
-  border-bottom: 2px solid #1f6feb;
-  padding-bottom: 12px;
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.pdf-title { font-size: 20px; font-weight: 800; color: #1f6feb; margin: 0; }
-.pdf-sub { font-size: 13px; color: #6b7280; margin-top: 2px; }
-.pdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-.pdf-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; }
-.pdf-label { font-size: 12px; color: #64748b; font-weight: 500; }
-.pdf-val { font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 2px; direction: ltr; text-align: right; }
-.pdf-sec-title { font-size: 14px; font-weight: 700; color: #1f6feb; background: #eff6ff; padding: 6px 10px; border-radius: 6px; margin: 16px 0 10px; border-inline-start: 4px solid #1f6feb; }
-.pdf-highlight { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px; margin-top: 12px; }
-.pdf-highlight .pdf-label { color: #047857; }
-.pdf-highlight .pdf-val { color: #065f46; font-size: 18px; }
-.pdf-footer { margin-top: 20px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
-
-/* تنسيقات دراسة الجدوى وتكلفة المشروع */
-.feasibility-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
-.feasibility-table th, .feasibility-table td { border: 1px solid #e3e6ea; padding: 8px 10px; text-align: center; }
-.feasibility-table th { background: #1f6feb; color: #fff; font-weight: bold; }
-.feasibility-table tr:nth-child(even) { background: #f8fafc; }
-.feasibility-table .row-highlight { background: #eff6ff; font-weight: bold; }
-.feasibility-table .row-grand { background: #ecfdf5; font-weight: bold; font-size: 14px; color: #065f46; }
-
-/* تنسيقات كروت إغلاق وإدارة المشاريع اليدوية */
-.pjt-card { background:var(--card); border:1px solid var(--bd); border-radius:8px; padding:10px; margin-top:8px; position:relative; }
-.pjt-card-actions { display:flex; gap:6px; margin-top:6px; justify-content:flex-end; }
 </style></head><body><div class="w">
-<div class="row"><h1 style="flex:1">📇 CRM العقارات</h1><span id="sy" class="mu">💾 محلي</span><button onclick="requestNotify()">🔔 الإشعارات</button><button onclick="$('anald').showModal();renderFunnel()">📊 التحليلات</button><button onclick="$('cd2').showModal();calc()">🧮 حاسبة & ROI</button><button onclick="$('feasibilityDialog').showModal();calculateTotals()">📐 دراسة الجدوى</button><button onclick="$('pjd').showModal();nR()">🏢 مشاريعي</button><button class="p" onclick="openF()">+ عميل</button></div>
+<div class="row"><h1 style="flex:1">📇 CRM العقارات</h1><span id="sy" class="mu">💾 محلي</span><button onclick="$('cd2').showModal();calc()">🧮 حاسبة</button><button onclick="pjd.showModal();nR()">🏢 مشاريعي</button><button class="p" onclick="openF()">+ عميل</button></div>
 <div class="stats"><button type="button" class="st" id="k_all" onclick="tab('all')"><b id="s3">0</b><span>👥 كل العملاء</span></button><button type="button" class="st" id="k_late" onclick="tab('late')"><b id="s1">0</b><span>🔴 متأخر</span></button><button type="button" class="st" id="k_today" onclick="tab('today')"><b id="s2">0</b><span>🔔 النهاردة</span></button><button type="button" class="st" id="k_soon" onclick="tab('soon')"><b id="s4">0</b><span>📅 الجاي</span></button></div>
 <div id="pp" class="mu" style="margin:-4px 2px 10px"></div>
 <div class="row" style="margin-bottom:6px">
@@ -142,25 +98,20 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
   <button onclick="sortTodayPlan()" style="background:var(--card);border-color:var(--pr);color:var(--pr);font-weight:bold">🎯 خطة النهاردة</button>
 </div>
 <div id="chips" class="chips"></div><div id="list"></div>
-<div class="row" style="margin-top:18px">
-  <button onclick="exp()">⬇ نسخة احتياطية JSON</button>
-  <button onclick="expXLSX()" style="background:var(--gr);color:#fff;border-color:var(--gr)">📊 تصدير Excel</button>
-  <button onclick="$('imp').click()">⬆ استرجاع JSON</button>
-  <input type="file" id="imp" accept=".json" hidden onchange="impF(this)">
-</div>
+<div class="row" style="margin-top:18px"><button onclick="exp()">⬇ نسخة احتياطية</button><button onclick="imp.click()">⬆ استرجاع</button><input type="file" id="imp" accept=".json" hidden onchange="impF(this)"></div>
 <p class="mu">البيانات محفوظة في متصفحك وسحابياً عبر Supabase.</p>
 </div>
 
 <!-- توست إشعار الحفظ -->
 <div id="toast">✓ تم الحفظ بنجاح</div>
 
-<dialog id="d"><form onsubmit="return false"><div class="hd"><b id="dt">عميل جديد</b><button type="button" class="x" onclick="$('d').close()" aria-label="إغلاق">✕</button></div>
+<dialog id="d"><form onsubmit="return false"><div class="hd"><b id="dt">عميل جديد</b><button type="button" class="x" onclick="d.close()" aria-label="إغلاق">✕</button></div>
 <div class="row tabs" style="margin:6px 0"><button type="button" id="dt1" class="on" onclick="dtab(1)">📋 الملف</button><button type="button" id="dt2" onclick="dtab(2)">👤 الاسم والرقم</button><button type="button" id="dt3" onclick="dtab(3)">🤖 المساعد الذكي</button></div><div id="pb" hidden><label>الاسم</label><input id="n"><label>الموبايل</label><input id="ph" type="tel" dir="ltr" style="text-align:right" oninput="dupC()"><div id="dup" class="late" style="font-size:13px;margin-top:4px"></div></div><div id="pa"><div id="who" class="mu" dir="ltr" style="text-align:right"></div><div id="brief"></div>
 <details id="dtl" oninput="dS();prI()" onchange="dS();prI()"><summary>📝 بيانات العميل <span id="dsm" class="dsm"></span></summary><div class="row"><div style="flex:1"><label>الميزانية</label><input id="bu"></div><div style="flex:1"><label>الحالة</label><select id="stt"></select></div></div>
 <label>المشروع / المنطقة المهتم بيها</label><div style="position:relative"><input id="pr" autocomplete="off" placeholder="ابحث باسم المشروع أو المطور أو المنطقة" oninput="prS();prI()" onfocus="prS()" onblur="setTimeout(prH,250)"><div id="prs" class="prs" hidden></div></div><label>المصدر</label><input id="src" placeholder="فيسبوك، ترشيح، ..."></details><div id="pin" class="mu" style="margin:6px 2px 0"></div>
 <label>ميعاد الفولو اب الجاي</label><input id="nx" type="date" onclick="try{this.showPicker()}catch(e){}"><div class="row" style="margin-top:6px;gap:6px"><button type="button" class="b2" style="margin:0" onclick="nxq(1)">بكرة</button><button type="button" class="b2" style="margin:0" onclick="nxq(3)">بعد 3 أيام</button><button type="button" class="b2" style="margin:0" onclick="nxq(7)">أسبوع</button><button type="button" class="b2" style="margin:0" onclick="nxq(14)">أسبوعين</button></div>
 
-<div class="row" style="justify-space-between;align-items:center;margin-top:8px">
+<div class="row" style="justify-content:space-between;align-items:center;margin-top:8px">
   <label style="margin:0">ملاحظة جديدة (بتتسجل بتاريخ النهاردة)</label>
   <button type="button" onclick="startDictation()" style="font-size:12px;padding:3px 8px;background:rgba(31,111,235,0.1);color:var(--pr);border-color:var(--pr)">🎙️ إملاء صوتي</button>
 </div>
@@ -181,187 +132,15 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
   </div>
 </div>
 
-<div class="row" style="margin-top:12px"><button class="p" onclick="save()">حفظ</button><button type="button" onclick="$('d').close()">إلغاء</button><button type="button" id="del" class="late" onclick="delClient()" style="margin-inline-start:auto">حذف</button></div></form></dialog>
-
-<!-- نافذة التحليلات ومسار المبيعات Sales Funnel -->
-<dialog id="anald"><div class="hd"><b>📊 تحليلات مسار المبيعات (Sales Funnel)</b><button type="button" class="x" onclick="$('anald').close()" aria-label="إغلاق">✕</button></div>
-<div id="funnel_box" style="margin-top:10px;display:flex;flex-direction:column;gap:10px"></div>
-</dialog>
-
-<!-- نافذة إدارة المشاريع المحدثة مع نموذج للإضافة والتعديل والحذف -->
-<dialog id="pjd"><div class="hd"><b>🏢 مشاريعي</b><button type="button" class="x" onclick="$('pjd').close()" aria-label="إغلاق">✕</button></div>
-<div class="sec" style="margin-top:6px">📦 قاعدة مشاريع نوي (CSV)</div>
-<div class="row"><button type="button" class="p" onclick="$('nimp').click()">⬆ استيراد CSV</button><span id="nst" class="mu" style="flex:1"></span></div><input type="file" id="nimp" accept=".csv,text/csv" hidden onchange="nImp(this)">
+<div class="row" style="margin-top:12px"><button class="p" onclick="save()">حفظ</button><button onclick="d.close()">إلغاء</button><button id="del" class="late" onclick="delClient()" style="margin-inline-start:auto">حذف</button></div></form></dialog>
+<dialog id="pjd"><div class="hd"><b>🏢 مشاريعي</b><button type="button" class="x" onclick="pjd.close()" aria-label="إغلاق">✕</button></div>
+<div class="sec" style="margin-top:6px">📦 قاعدة مشاريع نوي</div>
+<div class="row"><button type="button" class="p" onclick="nimp.click()">⬆ استيراد CSV</button><span id="nst" class="mu" style="flex:1"></span></div><input type="file" id="nimp" accept=".csv,text/csv" hidden onchange="nImp(this)">
 <div class="row" style="margin-top:8px"><input id="nq" placeholder="ابحث بالمشروع أو المطور أو المنطقة" oninput="nR()" style="flex:2;min-width:140px"><input id="nb" type="number" inputmode="decimal" placeholder="أقصى سعر (مليون)" oninput="nR()" style="flex:1;min-width:120px"></div>
 <div id="nl"></div>
-
-<div class="sec" style="margin-top:14px">✍️ إضافة/تعديل مشروع يدوي</div>
-<form id="pjt_form" onsubmit="saveCustomProject(event)">
-  <input type="hidden" id="pjt_edit_id" value="">
-  <div class="row">
-    <div style="flex:1;min-width:130px"><label>اسم المشروع*</label><input id="pjt_name" required placeholder="مثال: سوديك إيست"></div>
-    <div style="flex:1;min-width:130px"><label>المطور</label><input id="pjt_dev" placeholder="مثال: سوديك"></div>
-  </div>
-  <div class="row">
-    <div style="flex:1;min-width:130px"><label>المنطقة</label><input id="pjt_area" placeholder="مثال: التجمع الخامس"></div>
-    <div style="flex:1;min-width:130px"><label>أنواع الوحدات</label><input id="pjt_type" placeholder="مثال: شقق/فيلات"></div>
-  </div>
-  <div class="row">
-    <div style="flex:1;min-width:100px"><label>أقل سعر (ج.م)</label><input id="pjt_lo" type="number" placeholder="5200000"></div>
-    <div style="flex:1;min-width:100px"><label>أعلى سعر (ج.م)</label><input id="pjt_hi" type="number" placeholder="12000000"></div>
-    <div style="flex:1;min-width:80px"><label>العمولة %</label><input id="pjt_cm" type="number" step="0.1" placeholder="2.5"></div>
-  </div>
-  <div class="row" style="margin-top:8px">
-    <button type="submit" class="p" id="pjt_submit_btn">➕ إضافة المشروع</button>
-    <button type="button" id="pjt_cancel_btn" onclick="resetCustomProjectForm()" style="display:none">إلغاء التعديل</button>
-  </div>
-</form>
-
-<div class="sec" style="margin-top:12px">📋 المشاريع اليدوية المضافة (<span id="custom_proj_count">0</span>)</div>
-<div id="custom_projects_list"></div>
-</dialog>
-
-<dialog id="wd"><div class="hd"><b>💬 رسالة واتساب</b><button type="button" class="x" onclick="$('wd').close()" aria-label="إغلاق">✕</button></div><div class="row" id="wb" style="margin:8px 0"></div><textarea id="wt" rows="5"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wsend()">فتح واتساب</button><button type="button" onclick="$('wd').close()">إغلاق</button></div></dialog>
-
-<!-- حاسبة الأقساط + حاسبة العائد الاستثماري وتصدير PDF المطور -->
-<dialog id="cd2"><div class="hd"><b>🧮 حاسبة الخطة والعائد الاستثماري (ROI)</b><button type="button" class="x" onclick="$('cd2').close()" aria-label="إغلاق">✕</button></div>
-<label>سعر الوحدة (ج)</label><input id="cp" type="number" inputmode="numeric" value="5000000" oninput="calc()"><div class="row"><div style="flex:1"><label>المقدم %</label><input id="cd" type="number" value="10" oninput="calc()"></div><div style="flex:1"><label>سنين التقسيط</label><input id="cy" type="number" value="8" oninput="calc()"></div></div>
-<div class="row" style="margin-top:6px"><div style="flex:1"><label>الزيادة السنوية المتوقعة %</label><input id="cgrowth" type="number" value="20" oninput="calc()"></div><div style="flex:1"><label>سنوات الاستثمار</label><input id="cyears" type="number" value="3" oninput="calc()"></div></div>
-
-<div id="pdf_offer" class="pdf-container" style="margin-top:14px">
-  <div class="pdf-header">
-    <div>
-      <div class="pdf-title">عرض استثماري عقاري</div>
-      <div class="pdf-sub">المستشار العقاري: كريم مصطفى</div>
-    </div>
-    <div style="font-size:12px;color:#64748b;text-align:left;" id="pdf_date"></div>
-  </div>
-  
-  <div class="pdf-sec-title">💳 خطة الدفع والتقسيط</div>
-  <div class="pdf-grid">
-    <div class="pdf-item"><div class="pdf-label">سعر الوحدة</div><div class="pdf-val" id="pv_p">-</div></div>
-    <div class="pdf-item"><div class="pdf-label">المقدم</div><div class="pdf-val" id="pv_dp">-</div></div>
-    <div class="pdf-item"><div class="pdf-label">المتبقي للتقسيط</div><div class="pdf-val" id="pv_r">-</div></div>
-    <div class="pdf-item"><div class="pdf-label">مدة التقسيط</div><div class="pdf-val" id="pv_y">-</div></div>
-    <div class="pdf-item"><div class="pdf-label">القسط الشهري</div><div class="pdf-val" id="pv_m">-</div></div>
-    <div class="pdf-item"><div class="pdf-label">القسط ربع السنوي</div><div class="pdf-val" id="pv_q">-</div></div>
-  </div>
-
-  <div class="pdf-sec-title">📈 التوقع والربح الاستثماري</div>
-  <div class="pdf-grid">
-    <div class="pdf-item"><div class="pdf-label">سنوات التقدير</div><div class="pdf-val" id="pv_years">-</div></div>
-    <div class="pdf-item"><div class="pdf-label">القيمة المتوقعة للوحدة</div><div class="pdf-val" id="pv_future">-</div></div>
-    <div class="pdf-item" style="grid-column: 1 / -1;"><div class="pdf-label">صافي الأوفر / الربح المتوقع</div><div class="pdf-val" id="pv_profit" style="color:#16a34a">-</div></div>
-  </div>
-
-  <div class="pdf-highlight">
-    <div class="pdf-label">العائد على المقدم (ROI)</div>
-    <div class="pdf-val" id="pv_roi">-</div>
-  </div>
-
-  <div class="pdf-footer">
-    تم إعداد هذا العرض خصيصاً بواسطة المستشار العقاري كريم مصطفى • للحجز والاستفسار يرجى التواصل مباشرة
-  </div>
-</div>
-
-<div class="row" style="margin-top:12px"><button class="p" onclick="cshare()">إرسال واتساب</button><button type="button" onclick="ccopy()">نسخ نصي</button><button type="button" onclick="exportPDF()" style="background:var(--rd);color:#fff;border-color:var(--rd)">📄 تصدير PDF</button></div></dialog>
-
-<!-- حاسبة دراسة الجدوى وتكلفة المشروع -->
-<dialog id="feasibilityDialog"><div class="hd"><b>📐 حاسبة دراسة الجدوى والتكاليف</b><button type="button" class="x" onclick="$('feasibilityDialog').close()" aria-label="إغلاق">✕</button></div>
-<div class="row">
-  <div style="flex:1;min-width:260px">
-    <div class="sec">1. البيانات الأساسية والإيجار</div>
-    <label>اسم المشروع / المحل:</label>
-    <input type="text" id="projectName" placeholder="مثال: مطعم الأمل" oninput="calculateTotals()">
-    <div class="row">
-      <div style="flex:1">
-        <label>المساحة (متر²):</label>
-        <input type="number" id="shopArea" value="50" oninput="calculateTotals()">
-      </div>
-      <div style="flex:1">
-        <label>سعر المتر (ج.م):</label>
-        <input type="number" id="rentPerMeter" value="200" oninput="calculateTotals()">
-      </div>
-    </div>
-    <label>إجمالي الإيجار الشهري (محسوب):</label>
-    <input type="number" id="totalRent" class="bg-light" readonly>
-    <label>المرافق والخدمات الشهرية (كهرباء/ماء/غيرها):</label>
-    <input type="number" id="utilitiesCost" value="1500" oninput="calculateTotals()">
-  </div>
-
-  <div style="flex:1;min-width:260px">
-    <div class="sec">2. العمالة والتجهيزات الأولية</div>
-    <label>إجمالي رواتب العمالة الشهرية (ج.م):</label>
-    <input type="number" id="salariesCost" value="8000" oninput="calculateTotals()">
-    <label>تكلفة التشطيبات والتجهيزات (مرة واحدة):</label>
-    <input type="number" id="setupCost" value="25000" oninput="calculateTotals()">
-    <label>مصاريف تسويق ونثريات شهرياً:</label>
-    <input type="number" id="marketingCost" value="2000" oninput="calculateTotals()">
-  </div>
-</div>
-
-<!-- المعاينة / التقرير الخاص بدراسة الجدوى للتصدير لـ PDF -->
-<div id="feasibility-pdf-content" class="pdf-container" style="margin-top:16px;">
-  <div class="pdf-header" style="text-align:center;display:block;">
-    <div id="pdfProjectTitle" class="pdf-title">دراسة تكاليف المشروع</div>
-    <div class="pdf-sub">تقرير تفصيلي بالتكاليف الإجمالية والإيجار</div>
-  </div>
-
-  <table class="feasibility-table">
-    <thead>
-      <tr>
-        <th>بند التكلفة</th>
-        <th>التفاصيل / التفنيط</th>
-        <th>القيمة (جنيه مصري)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="font-weight:bold">تفاصيل الإيجار</td>
-        <td><span id="pdfArea">0</span> متر² × <span id="pdfRentPerMeter">0</span> ج.م/متر</td>
-        <td id="pdfTotalRent" style="font-weight:bold;color:var(--pr)">0</td>
-      </tr>
-      <tr>
-        <td>المرافق والخدمات</td>
-        <td>كهرباء، مياه، إنترنت، صيانة</td>
-        <td id="pdfUtilities">0</td>
-      </tr>
-      <tr>
-        <td>رواتب العمالة</td>
-        <td>إجمالي أجور الموظفين والعمال</td>
-        <td id="pdfSalaries">0</td>
-      </tr>
-      <tr>
-        <td>المصاريف التسويقية والنثريات</td>
-        <td>إعلانات ومصاريف تشغيلية متفرقة</td>
-        <td id="pdfMarketing">0</td>
-      </tr>
-      <tr class="row-highlight">
-        <td colspan="2">إجمالي التكاليف التشغيلية الشهرية</td>
-        <td id="pdfMonthlyTotal">0</td>
-      </tr>
-      <tr>
-        <td>التجهيزات والتشطيبات الأولية</td>
-        <td>يدفع مرة واحدة عند التأسيس</td>
-        <td id="pdfSetup">0</td>
-      </tr>
-      <tr class="row-grand">
-        <td colspan="2">إجمالي رأس المال المطلوب للتأسيس (أول شهر)</td>
-        <td id="pdfGrandTotal">0</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div style="margin-top:12px;font-size:11px;color:var(--mu)">
-    * هذا التقرير تم إعداده تلقائياً بناءً على البيانات المدخلة.
-  </div>
-</div>
-
-<div class="row" style="margin-top:12px">
-  <button type="button" onclick="generateFeasibilityPDF()" class="p" style="background:var(--gr);border-color:var(--gr)">📄 تحميل التقرير PDF</button>
-  <button type="button" onclick="$('feasibilityDialog').close()">إغلاق</button>
-</div>
-</dialog>
+<div class="sec">✍️ مشاريع إضافية (يدوي)</div><div class="mu" style="margin:0 0 6px">سطر لكل مشروع (المطور، المنطقة، النوع، السعر).</div><textarea id="pjt" rows="4" oninput="pjSave()" placeholder="مثال: سوديك إيست - التجمع - شقق من 5.2 مليون - استلام 2028"></textarea></dialog>
+<dialog id="wd"><div class="hd"><b>💬 رسالة واتساب</b><button type="button" class="x" onclick="wd.close()" aria-label="إغلاق">✕</button></div><div class="row" id="wb" style="margin:8px 0"></div><textarea id="wt" rows="5"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wsend()">فتح واتساب</button><button onclick="wd.close()">إغلاق</button></div></dialog>
+<dialog id="cd2"><div class="hd"><b>🧮 حاسبة خطة السداد</b><button type="button" class="x" onclick="cd2.close()" aria-label="إغلاق">✕</button></div><label>سعر الوحدة (ج)</label><input id="cp" type="number" inputmode="numeric" oninput="calc()"><div class="row"><div style="flex:1"><label>المقدم %</label><input id="cd" type="number" value="10" oninput="calc()"></div><div style="flex:1"><label>سنين التقسيط</label><input id="cy" type="number" value="8" oninput="calc()"></div></div><pre id="co"></pre><div class="row"><button class="p" onclick="cshare()">إرسال واتساب</button><button onclick="ccopy()">نسخ</button><button onclick="cd2.close()">إغلاق</button></div></dialog>
 
 <script>
 // إعدادات Supabase
@@ -387,14 +166,7 @@ var SP={"تفاوض":0,"معاينة":1,"مهتم":2,"جديد":3,"مبيردش"
 function byNx(a,b){return a.nx<b.nx?-1:a.nx>b.nx?1:sp(a)-sp(b)}
 function dupC(){var n=num($("ph").value),e=$("dup");if(n.length<10){e.textContent="";return}var x=C.filter(function(c){return c.id!=cur&&num(c.ph)==n})[0];e.textContent=x?"⚠️ الرقم ده متسجل عند: "+x.n:""}
 var SC={"مهتم":"#1f6feb","معاينة":"#8e44ad","تفاوض":"#e8710a","جديد":"#6b7280","مبيردش":"#d93025","تم البيع":"#188038","مش مهتم":"#9aa0a6"};
-function fitB(c){
-  var allProjects = getAllProjects();
-  if(!allProjects.length||!c.pr)return"";
-  var b=nBud(c.bu);if(!b)return"";
-  var q=c.pr.split(/[,،]/)[0].trim().toLowerCase(),x=allProjects.filter(function(y){return y.n.toLowerCase()==q})[0];
-  if(!x||!x.lo)return"";
-  return x.lo>b?'<span class="late">⚠️ فوق الميزانية</span>':'<span>✅ في الميزانية</span>';
-}
+function fitB(c){if(!PD.length||!c.pr)return"";var b=nBud(c.bu);if(!b)return"";var q=c.pr.split(/[,،]/)[0].trim().toLowerCase(),x=PD.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x||!x.lo)return"";return x.lo>b?'<span class="late">⚠️ فوق الميزانية</span>':'<span>✅ في الميزانية</span>'}
 
 function getPipelineBar(s){
   var steps=["جديد","مهتم","معاينة","تفاوض","تم البيع"];
@@ -407,6 +179,7 @@ function getPipelineBar(s){
   return h+'</div>';
 }
 
+// توليد النصيحة السريعة للكارت من برة
 function getQuickAiSnippet(c){
   var logs = c.log ? c.log.map(function(l){return l.t}).join(" ").toLowerCase() : "";
   if(logs.includes("استلام") || logs.includes("جاهز") || logs.includes("مستعجل")) return "ركز على موقف الإنشاءات والتسليم وسرعة المعاينة.";
@@ -419,9 +192,9 @@ function getQuickAiSnippet(c){
 
 function card(c){
   var t=td(),n="";
-  if(c.nx){n=c.nx<t?'<span class="late">⏰ متأخر من '+c.nx+'</span>':c.nx==t?'<span class="today">🔔 فولو اب النهاردة</span>':'<span>📅 '+c.nx+'</span>'}else if(act(c))n='<span class="late">⚠ من غير ميعاد</span>';
+  if(c.nx){n=c.nx<t?'<span class="late">⏰ متأخر من '+c.nx+'</span>':c.nx==t?'<span class="today">🔔 فولو اب النهاردة</span>':'<span>📅 '+c.nx+'</span>'}else if(act(c))n='<span class="late">⚠️ من غير ميعاد</span>';
   var id="'"+c.id+"'",st=stale(c),due=act(c)&&c.nx&&c.nx<=t,col=SC[c.s]||"#6b7280",l=null,k=(c.log||[]).length;while(k--){if(!c.log[k].a){l=c.log[k];break}}
-  var bn=+String(c.bu||"").replace(/,/g,""),bu=c.bu&&!isNaN(bn)?(bn>=1e6?+(bn/1e6).toFixed(2)+"M":bn.toLocaleString("en-US"))+" EGP":c.bu;
+  var bn=+String(c.bu||"").replace(/,/g,""),bu=c.bu&&!isNaN(bn)?(bn>=1e6?+(bn/1e6).toFixed(2)+"M":bn.toLocaleString("ar-EG"))+" ج":c.bu;
   var ft=due?'<div class="ft"><span class="mu" style="margin:0">أجّل:</span>'+[[1,"يوم"],[3,"3 أيام"],[7,"أسبوع"]].map(function(z){return'<button type="button" class="b2" onclick="event.stopPropagation();snz('+id+','+z[0]+')">'+z[1]+'</button>'}).join("")+'</div>':"";
   
   var aiSnippet = getQuickAiSnippet(c);
@@ -445,7 +218,7 @@ var n={late:C.filter(isLate).length,today:C.filter(isNow).length,soon:C.filter(i
 $("s1").textContent=n.late;$("s2").textContent=n.today;$("s4").textContent=n.soon;$("s3").textContent=n.all;
 var D=TAB||(n.late?"late":n.today?"today":"all"),E=q?"all":D;
 ["all","late","today","soon"].forEach(function(k){$("k_"+k).className="st"+(E==k?" on":"")+(k=="late"&&n.late?" hot":"")+(k=="today"&&n.today?" warm":"")});
-var ac=C.filter(act),sum=0;ac.forEach(function(c){sum+=nBud(c.bu)});$("pp").textContent=sum?"💼 "+ac.length+" عميل نشط • إجمالي ميزانياتهم "+(sum>=1e9?+(sum/1e9).toFixed(2)+"B":+(sum/1e6).toFixed(1)+"M")+" EGP":"";
+var ac=C.filter(act),sum=0;ac.forEach(function(c){sum+=nBud(c.bu)});$("pp").textContent=sum?"💼 "+ac.length+" عميل نشط • إجمالي ميزانياتهم "+(sum>=1e9?+(sum/1e9).toFixed(2)+"B":+(sum/1e6).toFixed(1)+"M")+" ج":"";
 var L=C.filter(function(c){return(!f||c.s==f)&&(!q||(c.n+" "+c.ph+" "+c.pr).toLowerCase().indexOf(q)>-1)});
 var M={late:["مفيش متأخرين ✅",isLate,byNx],today:["مفيش متابعات النهاردة ✅",isNow,function(a,b){return sp(a)-sp(b)}],soon:["مفيش متابعات جاية",isSoon,byNx],all:["لسه مفيش عملاء. دوس + عميل",function(){return true},function(a,b){return b.c-a.c}]}[E];
 L=L.filter(M[1]);
@@ -502,35 +275,18 @@ function showToast(msg) {
 
 function nxq(n){var x=new Date();x.setDate(x.getDate()+n);$("nx").value=ymd(x)}
 var PRL=[];
-
-function getAllProjects(){
-  return CUSTOM_PROJECTS.concat(PD);
-}
-
 function prTok(){var v=$("pr").value,i=Math.max(v.lastIndexOf(","),v.lastIndexOf("،"));return{pre:v.slice(0,i+1),q:v.slice(i+1).trim()}}
-function prS(){
-  var P=$("prs");
-  var allProjects = getAllProjects();
-  if(!allProjects.length){P.hidden=true;return}
-  var q=prTok().q.toLowerCase(),L=allProjects.filter(function(x){return!q||(x.n+" "+x.d+" "+x.a).toLowerCase().indexOf(q)>-1});
-  L.sort(function(a,b){var an=a.n.toLowerCase().indexOf(q)==0?0:1,bn=b.n.toLowerCase().indexOf(q)==0?0:1;return an-bn||(a.u<b.u?1:-1)});
-  var T=L.length;PRL=L.slice(0,60).map(function(x){return{v:x.n,h:"<b>"+esc(x.n)+'</b><div class="mu">'+esc(x.d||"")+" • "+esc(x.a||"")+" • "+nP(x.lo)+"–"+nP(x.hi)+"</div>"}});
-  if(q.length>=2){var seen={},c=0;allProjects.forEach(function(x){var k=x.a;if(k&&!seen[k]&&c<5&&k.toLowerCase().indexOf(q)>-1){seen[k]=1;c++;PRL.push({v:k,h:"<b>📍 "+esc(k)+"</b>"})}})}
-  P.innerHTML=PRL.length?PRL.map(function(r,i){return'<div class="pri" onmousedown="event.preventDefault()" onclick="prP('+i+')">'+r.h+"</div>"}).join("")+(T>60?'<div class="mu" style="padding:8px 12px">اكتب أكتر للتضييق ('+T+" مشروع)</div>":""):'<div class="mu" style="padding:8px 12px">مفيش مشروع بالاسم ده — هيتسجل زي ما كتبته</div>';
-  P.hidden=false
-}
+function prS(){var P=$("prs");if(!PD.length){P.hidden=true;return}var q=prTok().q.toLowerCase(),L=PD.filter(function(x){return!q||(x.n+" "+x.d+" "+x.a).toLowerCase().indexOf(q)>-1});
+L.sort(function(a,b){var an=a.n.toLowerCase().indexOf(q)==0?0:1,bn=b.n.toLowerCase().indexOf(q)==0?0:1;return an-bn||(a.u<b.u?1:-1)});
+var T=L.length;PRL=L.slice(0,60).map(function(x){return{v:x.n,h:"<b>"+esc(x.n)+'</b><div class="mu">'+esc(x.d)+" • "+esc(x.a)+" • "+nP(x.lo)+"–"+nP(x.hi)+"</div>"}});
+if(q.length>=2){var seen={},c=0;PD.forEach(function(x){var k=x.a;if(k&&!seen[k]&&c<5&&k.toLowerCase().indexOf(q)>-1){seen[k]=1;c++;PRL.push({v:k,h:"<b>📍 "+esc(k)+"</b>"})}})}
+P.innerHTML=PRL.length?PRL.map(function(r,i){return'<div class="pri" onmousedown="event.preventDefault()" onclick="prP('+i+')">'+r.h+"</div>"}).join("")+(T>60?'<div class="mu" style="padding:8px 12px">اكتب أكتر للتضييق ('+T+" مشروع)</div>":""):'<div class="mu" style="padding:8px 12px">مفيش مشروع بالاسم ده — هيتسجل زي ما كتبته</div>';
+P.hidden=false}
 function prP(i){var t=prTok(),r=PRL[i];if(!r)return;$("pr").value=(t.pre?t.pre+" ":"")+r.v;prH();prI();dS()}
 function prH(){$("prs").hidden=true}
-function prI(){
-  var el=$("pin"),b=nBud($("bu").value),h=[];
-  var allProjects = getAllProjects();
-  $("pr").value.split(/[,،]/).map(function(s){return s.trim().toLowerCase()}).filter(Boolean).forEach(function(q){
-    var x=allProjects.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x)return;
-    var fit=b&&x.lo?(x.lo>b?' • <span class="late">⚠ أقل سعر فوق ميزانيته</span>':" • ✅ في حدود ميزانيته"):"";
-    h.push("💰 "+nP(x.lo)+"–"+nP(x.hi)+" EGP • 🏢 "+esc(x.d||"")+(x.cm?" • عمولة "+esc(x.cm)+"%":"")+fit)
-  });
-  el.innerHTML=h.join("<br>")
-}
+function prI(){var el=$("pin"),b=nBud($("bu").value),h=[];$("pr").value.split(/[,،]/).map(function(s){return s.trim().toLowerCase()}).filter(Boolean).forEach(function(q){var x=PD.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x)return;
+var fit=b&&x.lo?(x.lo>b?' • <span class="late">⚠️️ أقل سعر فوق ميزانيته</span>':" • ✅ في حدود ميزانيته"):"";
+h.push("💰 "+nP(x.lo)+"–"+nP(x.hi)+" ج • 🏢 "+esc(x.d)+(x.cm?" • عمولة "+esc(x.cm)+"%":"")+fit)});el.innerHTML=h.join("<br>")}
 function dS(){var p=[],b=$("bu").value.trim(),st=$("stt").value,pr=$("pr").value.trim(),sr=$("src").value.trim();
 if(b)p.push("💰 "+b);if(st)p.push(st);if(pr)p.push("📍 "+pr);if(sr)p.push("🔗 "+sr);
 $("dsm").textContent=p.length?p.join(" • "):"لسه فاضية"}
@@ -549,6 +305,7 @@ function openF(id){
   $("nx").value = c.nx || "";
   $("nt").value = "";
   
+  // تصفير خانات المساعد عند فتح ملف عميل جديد
   $("ai_q").value = ""; 
   $("ai_res").textContent = "اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات فورية...";
 
@@ -570,175 +327,22 @@ var t=$("nt").value.trim();if(t){c.log=c.log||[];c.log.push({d:td(),t:t})}
 P();$("d").close();R();showToast("✓ تم الحفظ بنجاح")}
 var dc=0;function delClient(){var b=$("del");if(!dc){dc=1;b.textContent="متأكد؟ دوس تاني";setTimeout(function(){dc=0;b.textContent="حذف"},3000);return}dc=0;b.textContent="حذف";C=C.filter(function(x){return x.id!=cur});P();$("d").close();R();showToast("تم الحذف")}
 function exp(){var a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(C));a.download="crm-backup-"+td()+".json";a.click()}
-
-/* تصدير العملاء بتنسيق ملف Excel منظم وصريح */
-function expXLSX(){
-  if(!C.length){ alert("لا يوجد عملاء لتصديرهم!"); return; }
-  var rows = C.map(function(c){
-    var lastLog = (c.log && c.log.length) ? c.log[c.log.length-1].t : "";
-    return {
-      "الاسم": c.n || "",
-      "الموبايل": c.ph || "",
-      "الحالة": c.s || "",
-      "المشروع": c.pr || "",
-      "الميزانية": c.bu || "",
-      "المصدر": c.src || "",
-      "ميعاد الفولو اب": c.nx || "",
-      "آخر ملاحظة": lastLog
-    };
-  });
-  var ws = XLSX.utils.json_to_sheet(rows);
-  var wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "العملاء");
-  XLSX.writeFile(wb, "CRM_Clients_" + td() + ".xlsx");
-}
-
 function impF(i){var r=new FileReader();r.onload=function(){try{var x=JSON.parse(r.result);if(Array.isArray(x)){C=x;P();R();showToast("تم استرجاع البيانات")}}catch(e){alert("الملف مش سليم")}};if(i.files[0])r.readAsText(i.files[0])}
 var T=[["أول تواصل","أهلاً {اسم}، أنا كريم. شكراً لاهتمامك بـ {مشروع}. حابب أعرفك على تفاصيل الوحدات وخطط السداد، إمتى يناسبك نتكلم؟"],["بعد المعاينة","أهلاً {اسم}، شكراً لوقتك النهاردة في معاينة {مشروع}. عايز أعرف رأيك، وأنا جاهز أظبطلك أفضل خطة سداد تناسب ميزانيتك."],["متابعة","أهلاً {اسم}، عامل إيه؟ حبيت أطمن عليك وأعرف وصلت لإيه بخصوص {مشروع}، وفيه عروض جديدة ممكن تناسبك."],["عرض قرب يخلص","أهلاً {اسم}، حبيت أفكرك إن العرض الحالي في {مشروع} قرب يخلص. تحب أحجزلك الوحدة؟"]],WC=null;
 function num(p){var w=(p||"").replace(/\D/g,"");return w.indexOf("0")==0?"20"+w.slice(1):w}
-function wa(id){WC=C.filter(function(x){return x.id==id})[0];$("wb").innerHTML=T.map(function(t,i){return'<button type="button" onclick="fill('+i+')">'+t[0]+'</button>'}).join("");fill(0);$("wd").showModal()}
+function wa(id){WC=C.filter(function(x){return x.id==id})[0];$("wb").innerHTML=T.map(function(t,i){return'<button onclick="fill('+i+')">'+t[0]+'</button>'}).join("");fill(0);$("wd").showModal()}
 function fill(i){$("wt").value=T[i][1].replace("{اسم}",WC.n.split(" ")[0]).replace("{مشروع}",WC.pr||"المشروع")}
 function wsend(){window.open("https://wa.me/"+num(WC.ph)+"?text="+encodeURIComponent($("wt").value),"_blank");WC.log=WC.log||[];WC.log.push({d:td(),t:"اتبعتله رسالة واتساب"});P();$("wd").close();R()}
-
-// تنسيق أرقام بالإنجليزية حصراً
-function fEn(x){
-  return Math.round(x).toLocaleString('en-US');
-}
-
-// حاسبة الأقساط والعائد الاستثماري وتجهيز العرض التصميمي
-function calc(){
-  var p=+$("cp").value||0, d=+$("cd").value||0, y=+$("cy").value||0;
-  var growth=(+$("cgrowth").value||0)/100, years=+$("cyears").value||0;
-
-  var dp=p*d/100, r=p-dp, m=y?r/(y*12):0;
-  var future = p * Math.pow((1 + growth), years);
-  var profit = future - p;
-  var roi = dp > 0 ? ((profit / dp) * 100) : 0;
-
-  // تحديث عناصر الكارت الجمالي
-  $("pdf_date").textContent = td();
-  $("pv_p").textContent = fEn(p) + " EGP";
-  $("pv_dp").textContent = fEn(dp) + " EGP (" + fEn(d) + "%)";
-  $("pv_r").textContent = fEn(r) + " EGP";
-  $("pv_y").textContent = fEn(y) + " Years";
-  $("pv_m").textContent = fEn(m) + " EGP";
-  $("pv_q").textContent = fEn(m*3) + " EGP";
-
-  $("pv_years").textContent = fEn(years) + " Years";
-  $("pv_future").textContent = fEn(future) + " EGP";
-  $("pv_profit").textContent = fEn(profit) + " EGP";
-  $("pv_roi").textContent = fEn(roi.toFixed(1)) + "%";
-}
-
-function cshare(){
-  var text = "عرض استثماري عقاري\nالمستشار العقاري: كريم مصطفى\n" +
-             "سعر الوحدة: " + $("pv_p").textContent + "\n" +
-             "المقدم: " + $("pv_dp").textContent + "\n" +
-             "القسط الشهري: " + $("pv_m").textContent + "\n" +
-             "العائد المتوقع ROI: " + $("pv_roi").textContent;
-  window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
-}
-
-function ccopy(){
-  var text = "عرض استثماري عقاري\nالمستشار العقاري: كريم مصطفى\n" +
-             "سعر الوحدة: " + $("pv_p").textContent + "\n" +
-             "المقدم: " + $("pv_dp").textContent + "\n" +
-             "القسط الشهري: " + $("pv_m").textContent + "\n" +
-             "العائد المتوقع ROI: " + $("pv_roi").textContent;
-  try{navigator.clipboard.writeText(text);showToast("تم النسخ بنجاح")}catch(e){}
-}
-
-function exportPDF(){
-  var element = document.getElementById('pdf_offer');
-  html2pdf().set({
-    margin: 12,
-    filename: 'عرض_استثماري_كريم_مصطفى.pdf',
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  }).from(element).save();
-}
-
-/* وظائف حاسبة دراسة الجدوى وتكلفة المشروع */
-function calculateTotals() {
-  const area = parseFloat(document.getElementById('shopArea').value) || 0;
-  const rentPerMeter = parseFloat(document.getElementById('rentPerMeter').value) || 0;
-  const utilities = parseFloat(document.getElementById('utilitiesCost').value) || 0;
-  const salaries = parseFloat(document.getElementById('salariesCost').value) || 0;
-  const marketing = parseFloat(document.getElementById('marketingCost').value) || 0;
-  const setup = parseFloat(document.getElementById('setupCost').value) || 0;
-
-  const totalRent = area * rentPerMeter;
-  document.getElementById('totalRent').value = totalRent;
-
-  const monthlyTotal = totalRent + utilities + salaries + marketing;
-  const grandTotal = monthlyTotal + setup;
-
-  const projectName = document.getElementById('projectName').value.trim();
-  document.getElementById('pdfProjectTitle').innerText = projectName ? `دراسة تكاليف: ${projectName}` : 'دراسة تكاليف المشروع';
-  
-  document.getElementById('pdfArea').innerText = area.toLocaleString('ar-EG');
-  document.getElementById('pdfRentPerMeter').innerText = rentPerMeter.toLocaleString('ar-EG');
-  document.getElementById('pdfTotalRent').innerText = totalRent.toLocaleString('ar-EG');
-  
-  document.getElementById('pdfUtilities').innerText = utilities.toLocaleString('ar-EG');
-  document.getElementById('pdfSalaries').innerText = salaries.toLocaleString('ar-EG');
-  document.getElementById('pdfMarketing').innerText = marketing.toLocaleString('ar-EG');
-  document.getElementById('pdfMonthlyTotal').innerText = monthlyTotal.toLocaleString('ar-EG');
-  
-  document.getElementById('pdfSetup').innerText = setup.toLocaleString('ar-EG');
-  document.getElementById('pdfGrandTotal').innerText = grandTotal.toLocaleString('ar-EG');
-}
-
-function generateFeasibilityPDF() {
-  const element = document.getElementById('feasibility-pdf-content');
-  const projectName = document.getElementById('projectName').value.trim() || 'دراسة_مشروع';
-
-  const opt = {
-    margin:       10,
-    filename:     `${projectName}.pdf`,
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2 },
-    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
-
-  html2pdf().set(opt).from(element).save();
-}
-
-function renderFunnel(){
-  var total = C.length || 1;
-  var stages = ['جديد', 'مهتم', 'معاينة', 'تفاوض', 'تم البيع'];
-  var h = "";
-  stages.forEach(function(st){
-    var count = C.filter(function(c){return c.s == st}).length;
-    var pct = Math.round((count / total) * 100);
-    h += '<div class="card" style="margin:0;padding:8px 12px">'+
-           '<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">'+
-             '<b>' + st + ' (' + count + ')</b>' +
-             '<span>' + pct + '%</span>' +
-           '</div>'+
-           '<div style="background:var(--bd);height:8px;border-radius:4px;overflow:hidden">'+
-             '<div style="background:var(--pr);height:100%;width:' + pct + '%"></div>'+
-           '</div>'+
-         '</div>';
-  });
-  $("funnel_box").innerHTML = h;
-}
-
-function requestNotify(){
-  if ('Notification' in window) {
-    Notification.requestPermission().then(function(p){
-      if(p === 'granted'){
-        new Notification('CRM العقارات', { body: 'تم تفعيل إشعارات المتابعات اليومية بنجاح!' });
-      } else {
-        alert('يرجى السماح للإشعارات من إعدادات المتصفح.');
-      }
-    });
-  }
-}
+function f(x){return Math.round(x).toLocaleString("ar-EG")}
+function calc(){var p=+$("cp").value||0,d=+$("cd").value||0,y=+$("cy").value||0,dp=p*d/100,r=p-dp,m=y?r/(y*12):0;
+$("co").textContent="سعر الوحدة: "+f(p)+" ج\nالمقدم ("+d+"%): "+f(dp)+" ج\nالمتبقي: "+f(r)+" ج\nالتقسيط على "+y+" سنين\nالقسط الشهري: "+f(m)+" ج\nالقسط ربع السنوي: "+f(m*3)+" ج"}
+function cshare(){window.open("https://wa.me/?text="+encodeURIComponent($("co").textContent),"_blank")}
+function ccopy(){try{navigator.clipboard.writeText($("co").textContent)}catch(e){}}
 
 var tm=null;
 function setSync(t){$("sy").textContent=t}
 
+// دالة حفظ البيانات سحابياً في Supabase
 function cloud(){
   setSync("⏳ بيتحفظ");
   clearTimeout(tm);
@@ -754,20 +358,21 @@ function cloud(){
       body: JSON.stringify({
         id: "main_user",
         clients: JSON.stringify(C),
-        proj: JSON.stringify(CUSTOM_PROJECTS),
+        proj: PJ,
         at: CAT
       })
     })
     .then(function(res){
-      if(res.ok) setSync("☁ متزامن");
+      if(res.ok) setSync("☁️ متزامن");
       else setSync("⚠️ المزامنة فشلت");
     })
     .catch(function(){
-      setSync("⚠ المزامنة فشلت");
+      setSync("⚠️️ المزامنة فشلت");
     });
   }, 800);
 }
 
+// دالة تحميل البيانات سحابياً من Supabase
 async function initCloud(){
   try {
     var res = await fetch(SUPABASE_URL + "crm_data?id=eq.main_user", {
@@ -782,18 +387,14 @@ async function initCloud(){
       var ca = +cloudData.at || 0;
       if (ca > CAT) {
         C = JSON.parse(cloudData.clients || "[]");
-        try {
-          var parsedProj = JSON.parse(cloudData.proj || "[]");
-          if(Array.isArray(parsedProj)) CUSTOM_PROJECTS = parsedProj;
-        } catch(e){}
+        PJ = cloudData.proj || "";
         CAT = ca;
         try {
           localStorage.setItem(K, JSON.stringify(C));
           localStorage.setItem(K+"_at", String(CAT));
-          localStorage.setItem("crm_custom_proj_v2", JSON.stringify(CUSTOM_PROJECTS));
+          localStorage.setItem("crm_proj_v1", PJ);
         } catch(e){}
         R();
-        renderCustomProjects();
       } else if (CAT > ca || C.length) {
         cloud();
       }
@@ -820,6 +421,7 @@ function dtab(n){
   $("dt3").className = n==3 ? "on" : "";
 }
 
+// محرك الذكاء الاستراتيجي المحلي
 function runAssistant(){
   var c = C.filter(function(x){return x.id==cur})[0] || {};
   var logs = c.log ? c.log.map(function(l){return l.t}).join(" ") : "";
@@ -859,108 +461,8 @@ function runAssistant(){
   $("ai_res").textContent = finalHtml;
 }
 
-/* =========================================================
-   إدارة كاملة للمشاريع اليدوية (CRUD)
-   ========================================================= */
-var CUSTOM_PROJECTS = [];
-try {
-  CUSTOM_PROJECTS = JSON.parse(localStorage.getItem("crm_custom_proj_v2") || "[]");
-} catch(e) {
-  CUSTOM_PROJECTS = [];
-}
-
-function saveCustomProjectStorage(){
-  try {
-    localStorage.setItem("crm_custom_proj_v2", JSON.stringify(CUSTOM_PROJECTS));
-  } catch(e){}
-  cloud();
-  renderCustomProjects();
-}
-
-function saveCustomProject(e){
-  if(e) e.preventDefault();
-  var id = $("pjt_edit_id").value;
-  var name = $("pjt_name").value.trim();
-  var dev = $("pjt_dev").value.trim();
-  var area = $("pjt_area").value.trim();
-  var type = $("pjt_type").value.trim();
-  var lo = parseFloat($("pjt_lo").value) || 0;
-  var hi = parseFloat($("pjt_hi").value) || 0;
-  var cm = $("pjt_cm").value.trim();
-
-  if(!name) return;
-
-  if(id){
-    var item = CUSTOM_PROJECTS.find(function(x){ return x.id === id; });
-    if(item){
-      item.n = name; item.d = dev; item.a = area; item.t = type; item.lo = lo; item.hi = hi; item.cm = cm;
-      showToast("✓ تم تعديل المشروع اليدوي بنجاح");
-    }
-  } else {
-    var newProj = {
-      id: "p_" + Date.now(),
-      n: name, d: dev, a: area, t: type, lo: lo, hi: hi, cm: cm, isCustom: true
-    };
-    CUSTOM_PROJECTS.push(newProj);
-    showToast("✓ تم إضافة المشروع اليدوي بنجاح");
-  }
-
-  resetCustomProjectForm();
-  saveCustomProjectStorage();
-}
-
-function editCustomProject(id){
-  var item = CUSTOM_PROJECTS.find(function(x){ return x.id === id; });
-  if(!item) return;
-  $("pjt_edit_id").value = item.id;
-  $("pjt_name").value = item.n || "";
-  $("pjt_dev").value = item.d || "";
-  $("pjt_area").value = item.a || "";
-  $("pjt_type").value = item.t || "";
-  $("pjt_lo").value = item.lo || "";
-  $("pjt_hi").value = item.hi || "";
-  $("pjt_cm").value = item.cm || "";
-
-  $("pjt_submit_btn").textContent = "💾 حفظ التعديلات";
-  $("pjt_cancel_btn").style.display = "inline-block";
-}
-
-function deleteCustomProject(id){
-  if(!confirm("هل أنت متأكد من حذف هذا المشروع اليدوي؟")) return;
-  CUSTOM_PROJECTS = CUSTOM_PROJECTS.filter(function(x){ return x.id !== id; });
-  showToast("تم حذف المشروع");
-  saveCustomProjectStorage();
-}
-
-function resetCustomProjectForm(){
-  $("pjt_edit_id").value = "";
-  $("pjt_form").reset();
-  $("pjt_submit_btn").textContent = "➕ إضافة المشروع";
-  $("pjt_cancel_btn").style.display = "none";
-}
-
-function renderCustomProjects(){
-  $("custom_proj_count").textContent = CUSTOM_PROJECTS.length;
-  if(!CUSTOM_PROJECTS.length){
-    $("custom_projects_list").innerHTML = '<div class="mu" style="margin:8px 0">لا توجد مشاريع يدوية مضافة حالياً.</div>';
-    return;
-  }
-  var h = CUSTOM_PROJECTS.map(function(x){
-    return '<div class="pjt-card">' +
-             '<div style="font-weight:bold;font-size:15px;color:var(--pr)">' + esc(x.n) + '</div>' +
-             '<div class="mu" style="margin-top:2px">' + (x.d ? esc(x.d) + ' • ' : '') + (x.a ? esc(x.a) + ' • ' : '') + (x.t ? esc(x.t) : '') + '</div>' +
-             '<div style="margin-top:4px;font-size:13px">السعر: ' + nP(x.lo) + ' – ' + nP(x.hi) + ' EGP' + (x.cm ? ' | العمولة: ' + esc(x.cm) + '%' : '') + '</div>' +
-             '<div class="pjt-card-actions">' +
-               '<button type="button" style="padding:4px 8px;font-size:12px" onclick="editCustomProject(\'' + x.id + '\')">✏️️ تعديل</button>' +
-               '<button type="button" class="late" style="padding:4px 8px;font-size:12px" onclick="deleteCustomProject(\'' + x.id + '\')">🗑️ حذف</button>' +
-             '</div>' +
-           '</div>';
-  }).join("");
-  $("custom_projects_list").innerHTML = h;
-}
-
-renderCustomProjects();
-
+var PJ="";try{PJ=localStorage.getItem("crm_proj_v1")||""}catch(e){}$("pjt").value=PJ;
+function pjSave(){PJ=$("pjt").value;try{localStorage.setItem("crm_proj_v1",PJ)}catch(e){}cloud()}
 var NK="crm_nawy_v1",PD=[],PDat=0;try{PD=JSON.parse(localStorage.getItem(NK)||"[]");PDat=+localStorage.getItem(NK+"_at")||0}catch(e){PD=[]}
 function csvP(t){t=t.replace(/^\ufeff/,"");var r=[],w=[],v="",q=false,i=0,ch;
 for(;i<t.length;i++){ch=t[i];
@@ -982,37 +484,29 @@ if(!out.length){alert("الملف فاضي");return}
 PD=out;PDat=Date.now();nSave();nR()}catch(e){alert("الملف مش سليم")}};rd.readAsText(f,"utf-8");i.value=""}
 function nSave(){try{localStorage.setItem(NK,JSON.stringify(PD));localStorage.setItem(NK+"_at",String(PDat))}catch(e){}}
 function nP(x){return x?(x>=1e6?+(x/1e6).toFixed(1)+"M":Math.round(x/1000)+"K"):"?"}
+function nR(){var st=$("nst"),q=($("nq").value||"").toLowerCase().trim(),b=(+$("nb").value||0)*1e6;
+st.textContent=PD.length?"📦 "+PD.length+" مشروع • آخر استيراد "+new Date(PDat).toISOString().slice(0,10):"لسه مفيش استيراد";
+if(!PD.length){$("nl").innerHTML='<div class="card mu">دوس ⬆ استيراد CSV واختار ملف nawy_projects.csv</div>';return}
+var L=PD.filter(function(x){return(!q||(x.n+" "+x.d+" "+x.a+" "+x.t).toLowerCase().indexOf(q)>-1)&&(!b||(x.lo&&x.lo<=b))});
+L.sort(function(a,c){return a.u<c.u?1:-1});
+var h='<div class="mu" style="margin:6px 0">'+L.length+' نتيجة'+(L.length>30?' (أول 30)':'')+'</div>'+L.slice(0,30).map(function(x){
+return'<div class="lg"><div><b>'+esc(x.n)+'</b> <span class="tag">'+esc(x.d)+'</span>'+(x.s=="launch"?' <span class="tag ok">🚀 إطلاق</span>':'')+'</div><div class="mu">📍 '+esc(x.a)+' • '+esc(x.t)+'</div><div>💰 '+nP(x.lo)+' – '+nP(x.hi)+' ج'+(x.cm?' • عمولة '+esc(x.cm)+'%':'')+'</div></div>'}).join("");
+$("nl").innerHTML=h}
 function nBud(s){
   s = String(s||"")
-    .replace(/,/g, "")
-    .replace(/[\u0660-\u0669]/g, function(d){ return d.charCodeAt(0) - 0x0660; })
-    .replace(/[\u06f0-\u06f9]/g, function(d){ return d.charCodeAt(0) - 0x06f0; });
-  var m = s.match(/(\d+(?:\.\d+)?)/);
+    .replace(/[٠-٩]/g, function(d){ return "٠١٢٣٤٥٦٧٨٩".indexOf(d); })
+    .replace(/٫/g,".")
+    .replace(/[,٬،]/g,"");
+  var m = s.match(/\d+(?:\.\d+)?/g);
   if(!m) return 0;
-  var v = parseFloat(m[1]);
-  if(isNaN(v)) return 0;
-  if(/مليون|م|million|m/i.test(s)) return v * 1e6;
-  if(/ألف|الف|k|thousand/i.test(s)) return v * 1000;
-  if(v < 100) return v * 1e6;
-  return v;
+  var n = Math.max.apply(null, m.map(Number));
+  if(/مليون|million/i.test(s)) n *= 1e6;
+  else if(/[اأ]لف|\bk\b/i.test(s)) n *= 1e3;
+  else if(n < 1000) n *= 1e6;
+  return n >= 1.5e6 ? n : 0;
 }
-function nR(){
-  var allProjects = getAllProjects();
-  if(!allProjects.length){
-    $("nst").textContent="مفيش مشاريع";
-    $("nl").innerHTML='<div class="mu" style="margin:8px 0">حمل ملف CSV الخاص بنوي أو أضف مشروعاً يدوياً.</div>';
-    return;
-  }
-  $("nst").textContent=allProjects.length+" مشروع إجمالي";
-  var q=($("nq").value||"").toLowerCase().trim();
-  var b=+$("nb").value||0;
-  var L=allProjects.filter(function(x){
-    return(!q||(x.n+" "+x.d+" "+x.a+" "+x.t).toLowerCase().indexOf(q)>-1)&&(!b||!x.lo||x.lo<=b*1e6);
-  });
-  $("nl").innerHTML=L.slice(0,100).map(function(x){
-    return'<div class="card" style="margin:6px 0;padding:8px 10px"><div style="font-weight:bold">'+esc(x.n)+(x.isCustom?' <span class="tag">يدوي</span>':'')+'</div><div class="mu">'+esc(x.d||"")+' • '+esc(x.a||"")+'</div><div>سعر مبدئي: '+nP(x.lo)+' - '+nP(x.hi)+' EGP</div></div>';
-  }).join("");
-}
-</script>
-</body>
-</html>
+
+(function(){var ds=document.querySelectorAll("dialog");function f(){var o=false;ds.forEach(function(x){if(x.open)o=true});document.documentElement.classList.toggle("lk",o)}
+var mo=new MutationObserver(f);ds.forEach(function(x){mo.observe(x,{attributes:true,attributeFilter:["open"]})});f()})();
+R();
+</script></body></html>
