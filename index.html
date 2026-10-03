@@ -113,7 +113,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 
 <div class="row" style="justify-content:space-between;align-items:center;margin-top:8px">
   <label style="margin:0">ملاحظة جديدة (بتتسجل بتاريخ النهاردة)</label>
-  <button type="button" onclick="startDictation()" style="font-size:12px;padding:3px 8px;background:rgba(31,111,235,0.1);color:var(--pr);border-color:var(--pr)">🎙️ إملاء صوتي</button>
+  <button type="button" onclick="startDictation()" style="font-size:12px;padding:3px 8px;background:rgba(31,111,235,0.1);color:var(--pr);border-color:var(--pr)">🎙️️ إملاء صوتي</button>
 </div>
 <textarea id="nt" rows="2" placeholder="اكتب أو استخدم الإملاء الصوتي..."></textarea>
 
@@ -285,7 +285,7 @@ P.hidden=false}
 function prP(i){var t=prTok(),r=PRL[i];if(!r)return;$("pr").value=(t.pre?t.pre+" ":"")+r.v;prH();prI();dS()}
 function prH(){$("prs").hidden=true}
 function prI(){var el=$("pin"),b=nBud($("bu").value),h=[];$("pr").value.split(/[,،]/).map(function(s){return s.trim().toLowerCase()}).filter(Boolean).forEach(function(q){var x=PD.filter(function(y){return y.n.toLowerCase()==q})[0];if(!x)return;
-var fit=b&&x.lo?(x.lo>b?' • <span class="late">⚠️️ أقل سعر فوق ميزانيته</span>':" • ✅ في حدود ميزانيته"):"";
+var fit=b&&x.lo?(x.lo>b?' • <span class="late">⚠ أقل سعر فوق ميزانيته</span>':" • ✅ في حدود ميزانيته"):"";
 h.push("💰 "+nP(x.lo)+"–"+nP(x.hi)+" ج • 🏢 "+esc(x.d)+(x.cm?" • عمولة "+esc(x.cm)+"%":"")+fit)});el.innerHTML=h.join("<br>")}
 function dS(){var p=[],b=$("bu").value.trim(),st=$("stt").value,pr=$("pr").value.trim(),sr=$("src").value.trim();
 if(b)p.push("💰 "+b);if(st)p.push(st);if(pr)p.push("📍 "+pr);if(sr)p.push("🔗 "+sr);
@@ -367,7 +367,7 @@ function cloud(){
       else setSync("⚠️ المزامنة فشلت");
     })
     .catch(function(){
-      setSync("⚠️️ المزامنة فشلت");
+      setSync("⚠ المزامنة فشلت");
     });
   }, 800);
 }
