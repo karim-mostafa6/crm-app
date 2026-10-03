@@ -82,7 +82,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 .rep{margin-top:8px;margin-inline-start:16px;border-inline-start:3px solid var(--pr);background:var(--bg);border-radius:8px;padding:8px 10px;font-size:14px}.rp2{margin-top:6px;font-size:13px}.gp{color:var(--or)}
 .log{font-size:13px;border-top:1px dashed var(--bd);padding:4px 0}.cb{margin-top:6px;padding:7px 10px;border-radius:12px;font-size:13px;white-space:pre-wrap}.cbu{background:var(--pr);color:#fff;margin-inline-start:28px}.cba{background:var(--card);border:1px solid var(--bd);margin-inline-end:28px}dialog{overscroll-behavior:contain}html{scrollbar-gutter:stable}html.lk,html.lk body{overflow:hidden}#dtl{border:1px solid var(--bd);border-radius:12px;margin:8px 0 4px;padding:0 12px 10px;background:var(--card)}#dtl summary{cursor:pointer;padding:10px 0 2px;font-weight:600;list-style:none;display:flex;align-items:center;gap:8px}#dtl summary::-webkit-details-marker{display:none}#dtl summary::after{content:"▾";margin-inline-start:auto;color:var(--mu)}#dtl[open] summary::after{content:"▴"}#dtl .dsm{flex:1;min-width:0;font-weight:400;font-size:12px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#dtl[open] .dsm{display:none}input[type=date]{position:relative}input[type=date]::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.prs{position:absolute;inset-inline:0;top:100%;z-index:20;max-height:240px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:10px;margin-top:4px;box-shadow:0 6px 20px rgba(0,0,0,.35)}.pri{padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--bd)}.pri:last-child{border-bottom:0}.pri:hover{background:rgba(127,127,127,.15)}.pri b{font-size:14px}.pri .mu{margin:2px 0 0}
 
-/* أنماط المساعد الذكي الاستراتيجي */
+/* أنماط المساعد الذكي الاستراتيجي المحسنة */
 .ai-box{background:rgba(31,111,235,0.06);border:1px solid rgba(31,111,235,0.25);border-radius:10px;padding:12px;margin-top:10px}
 .ai-title{font-size:14px;font-weight:bold;color:var(--pr);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .ai-res{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;min-height:70px}
@@ -123,11 +123,11 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 <div id="pc" hidden>
   <div class="ai-box">
     <div class="ai-title">🤖 تحليل واستراتيجية المساعد للديل</div>
-    <div id="ai_res" class="ai-res">اضغط على "تحليل العميل واقترح الرد" لإنشاء استراتيجية مبيعات فورية مخصصة لهذا العميل...</div>
+    <div id="ai_res" class="ai-res">اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات فورية...</div>
   </div>
   <label style="margin-top:10px">اسأل المساعد أو وجهه (اختياري):</label>
   <div class="row" style="gap:6px">
-    <input id="ai_q" placeholder="مثال: العميل خايف من الاستلام أو السعر عالي عليه...">
+    <input id="ai_q" placeholder="مثال: العميل خايف من إعادة البيع أو السعر عالي...">
     <button type="button" class="p" onclick="runAssistant()" style="flex:none">تحليل ورد سريع</button>
   </div>
 </div>
@@ -278,7 +278,7 @@ $("dt").textContent=id?(c.n||"عميل"):"عميل جديد";$("who").textConten
 $("n").value=c.n||"";$("ph").value=c.ph||"";$("bu").value=c.bu||"";$("stt").value=c.s||flt||"مهتم";$("pr").value=c.pr||"";$("src").value=c.src||"";$("nx").value=c.nx||"";$("nt").value="";
 $("hist").innerHTML=((c.log||[]).length?'<div class="sec">سجل الملاحظات</div>':"")+(c.log||[]).slice().reverse().map(function(l,i,a){return lg(l,a.length-1-i)}).join("");
 $("del").style.display=id?"":"none";dupC();$("dtl").open=!id;dS();prH();prI();dtab(id?1:2);$("d").showModal();
-runAssistant();} // تشغيل التحليل أوتوماتيكياً عند فتح العميل
+runAssistant();}
 
 function save(){var n=$("n").value.trim();if(!n){$("n").focus();return}
 var c=C.filter(function(x){return x.id==cur})[0];if(!c){c={id:"c"+Date.now(),c:Date.now(),log:[]};C.push(c)}
@@ -382,16 +382,15 @@ function dtab(n){
   if(n==3) runAssistant();
 }
 
-// محرك الذكاء الاستراتيجي المحلي الخاص بمبيعات العقارات المصرية (فوري وبدون أخطاء)
+// محرك الذكاء الاستراتيجي المحلي المطور (بدون أخطاء أو رموز عريضة)
 function runAssistant(){
   var c = C.filter(function(x){return x.id==cur})[0] || {};
   var logs = c.log ? c.log.map(function(l){return l.t}).join(" ") : "";
   var userQuery = ($("ai_q").value || "").trim();
   var clientName = (c.n || $("n").value || "العميل").split(" ")[0];
-  var project = c.pr || $("pr").value || "المشروع";
+  var project = c.pr || $("pr").value || "المشروع المطلوب";
   var budget = c.bu || $("bu").value || "المميزة";
   
-  // دمج النص المكتوب في خانة المساعد مع ملاحظات العميل للتحليل الفوري
   var combinedText = (userQuery + " " + logs).toLowerCase();
 
   var advice = "";
@@ -421,8 +420,6 @@ function runAssistant(){
                   "📅 خطوة الفولو أب المقترحة:\n" + followUp;
 
   $("ai_res").textContent = finalHtml;
-}
-  if($("ai_q")) $("ai_q").value = "";
 }
 
 var PJ="";try{PJ=localStorage.getItem("crm_proj_v1")||""}catch(e){}$("pjt").value=PJ;
