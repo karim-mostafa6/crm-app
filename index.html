@@ -82,6 +82,11 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 .rep{margin-top:8px;margin-inline-start:16px;border-inline-start:3px solid var(--pr);background:var(--bg);border-radius:8px;padding:8px 10px;font-size:14px}.rp2{margin-top:6px;font-size:13px}.gp{color:var(--or)}
 .log{font-size:13px;border-top:1px dashed var(--bd);padding:4px 0}.cb{margin-top:6px;padding:7px 10px;border-radius:12px;font-size:13px;white-space:pre-wrap}.cbu{background:var(--pr);color:#fff;margin-inline-start:28px}.cba{background:var(--card);border:1px solid var(--bd);margin-inline-end:28px}dialog{overscroll-behavior:contain}html{scrollbar-gutter:stable}html.lk,html.lk body{overflow:hidden}#dtl{border:1px solid var(--bd);border-radius:12px;margin:8px 0 4px;padding:0 12px 10px;background:var(--card)}#dtl summary{cursor:pointer;padding:10px 0 2px;font-weight:600;list-style:none;display:flex;align-items:center;gap:8px}#dtl summary::-webkit-details-marker{display:none}#dtl summary::after{content:"▾";margin-inline-start:auto;color:var(--mu)}#dtl[open] summary::after{content:"▴"}#dtl .dsm{flex:1;min-width:0;font-weight:400;font-size:12px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#dtl[open] .dsm{display:none}input[type=date]{position:relative}input[type=date]::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.prs{position:absolute;inset-inline:0;top:100%;z-index:20;max-height:240px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:10px;margin-top:4px;box-shadow:0 6px 20px rgba(0,0,0,.35)}.pri{padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--bd)}.pri:last-child{border-bottom:0}.pri:hover{background:rgba(127,127,127,.15)}.pri b{font-size:14px}.pri .mu{margin:2px 0 0}
 
+/* أنماط المساعد الذكي */
+.ai-box{background:rgba(31,111,235,0.06);border:1px solid rgba(31,111,235,0.25);border-radius:10px;padding:10px;margin-top:10px}
+.ai-title{font-size:13px;font-weight:bold;color:var(--pr);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ai-res{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:10px;font-size:13px;line-height:1.6;white-space:pre-wrap;min-height:50px}
+
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--gr);color:#fff;padding:8px 18px;border-radius:99px;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.2);z-index:999;display:none;animation:fadeIn 0.3s ease}
 @keyframes fadeIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
 </style></head><body><div class="w">
@@ -101,7 +106,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 <div id="toast">✓ تم الحفظ بنجاح</div>
 
 <dialog id="d"><form onsubmit="return false"><div class="hd"><b id="dt">عميل جديد</b><button type="button" class="x" onclick="d.close()" aria-label="إغلاق">✕</button></div>
-<div class="row tabs" style="margin:6px 0"><button type="button" id="dt1" class="on" onclick="dtab(1)">📋 الملف</button><button type="button" id="dt2" onclick="dtab(2)">👤 الاسم والرقم</button></div><div id="pb" hidden><label>الاسم</label><input id="n"><label>الموبايل</label><input id="ph" type="tel" dir="ltr" style="text-align:right" oninput="dupC()"><div id="dup" class="late" style="font-size:13px;margin-top:4px"></div></div><div id="pa"><div id="who" class="mu" dir="ltr" style="text-align:right"></div><div id="brief"></div>
+<div class="row tabs" style="margin:6px 0"><button type="button" id="dt1" class="on" onclick="dtab(1)">📋 الملف</button><button type="button" id="dt2" onclick="dtab(2)">👤 الاسم والرقم</button><button type="button" id="dt3" onclick="dtab(3)">🤖 المساعد</button></div><div id="pb" hidden><label>الاسم</label><input id="n"><label>الموبايل</label><input id="ph" type="tel" dir="ltr" style="text-align:right" oninput="dupC()"><div id="dup" class="late" style="font-size:13px;margin-top:4px"></div></div><div id="pa"><div id="who" class="mu" dir="ltr" style="text-align:right"></div><div id="brief"></div>
 <details id="dtl" oninput="dS();prI()" onchange="dS();prI()"><summary>📝 بيانات العميل <span id="dsm" class="dsm"></span></summary><div class="row"><div style="flex:1"><label>الميزانية</label><input id="bu"></div><div style="flex:1"><label>الحالة</label><select id="stt"></select></div></div>
 <label>المشروع / المنطقة المهتم بيها</label><div style="position:relative"><input id="pr" autocomplete="off" placeholder="ابحث باسم المشروع أو المطور أو المنطقة" oninput="prS();prI()" onfocus="prS()" onblur="setTimeout(prH,250)"><div id="prs" class="prs" hidden></div></div><label>المصدر</label><input id="src" placeholder="فيسبوك، ترشيح، ..."></details><div id="pin" class="mu" style="margin:6px 2px 0"></div>
 <label>ميعاد الفولو اب الجاي</label><input id="nx" type="date" onclick="try{this.showPicker()}catch(e){}"><div class="row" style="margin-top:6px;gap:6px"><button type="button" class="b2" style="margin:0" onclick="nxq(1)">بكرة</button><button type="button" class="b2" style="margin:0" onclick="nxq(3)">بعد 3 أيام</button><button type="button" class="b2" style="margin:0" onclick="nxq(7)">أسبوع</button><button type="button" class="b2" style="margin:0" onclick="nxq(14)">أسبوعين</button></div>
@@ -113,6 +118,20 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 <textarea id="nt" rows="2" placeholder="اكتب أو استخدم الإملاء الصوتي..."></textarea>
 
 <div id="hist"></div></div>
+
+<!-- تبويب المساعد الذكي -->
+<div id="pc" hidden>
+  <div class="ai-box">
+    <div class="ai-title">🤖 رد المساعد الذكي</div>
+    <div id="ai_res" class="ai-res">اضغط على زر إرسال لتحليل العميل واقتراح أفضل خطوة لتقفيل الديل...</div>
+  </div>
+  <label style="margin-top:10px">كَلّم المساعد: اسأل أو كمل الحوار...</label>
+  <div class="row" style="gap:6px">
+    <input id="ai_q" placeholder="اسأل المساعد عن نصيحة أو رسالة مناسبة للعميل...">
+    <button type="button" class="p" onclick="runAssistant()" style="flex:none">إرسال</button>
+  </div>
+</div>
+
 <div class="row" style="margin-top:12px"><button class="p" onclick="save()">حفظ</button><button onclick="d.close()">إلغاء</button><button id="del" class="late" onclick="delClient()" style="margin-inline-start:auto">حذف</button></div></form></dialog>
 <dialog id="pjd"><div class="hd"><b>🏢 مشاريعي</b><button type="button" class="x" onclick="pjd.close()" aria-label="إغلاق">✕</button></div>
 <div class="sec" style="margin-top:6px">📦 قاعدة مشاريع نوي</div>
@@ -127,6 +146,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 // إعدادات Supabase
 var SUPABASE_URL = "https://jxfumlinzbikkarzarsg.supabase.co/rest/v1/";
 var SUPABASE_KEY = "sb_publishable_4fOzE1ZGB2vXXvdMKCgD5A_Vf3WMSbX";
+var GEMINI_API_KEY = "AQ.Ab8RN6ICoYnlQIMHcdHzEfEejSlik1LuxJChsARGhf4HjcL8Tg";
 
 var S=["مهتم","معاينة","تفاوض","جديد","مبيردش","تم البيع","مش مهتم"],K="crm_clients_v1",C=[],cur=null,view=1;
 try{C=JSON.parse(localStorage.getItem(K)||"[]")}catch(e){C=[]}
@@ -351,7 +371,51 @@ initCloud();
 document.querySelectorAll("dialog").forEach(function(g){g.addEventListener("pointerdown",function(e){var r=g.getBoundingClientRect();g._o=e.target===g&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)});g.addEventListener("click",function(){if(g._o){g._o=false;g.close()}})});
 function chipsR(){var t=td(),a=S.map(function(s){var L=C.filter(function(c){return c.s==s}),d=L.filter(function(c){return act(c)&&c.nx&&c.nx<=t}).length;return'<button class="chip'+(flt==s?' on':'')+'" onclick="setF(\''+s+'\')">'+s+' <b>'+L.length+'</b>'+(d?'<i>'+d+'</i>':'')+'</button>'});a.unshift('<button class="chip'+(flt==""?' on':'')+'" onclick="setF(\'\')">الكل <b>'+C.length+'</b></button>');$("chips").innerHTML=a.join("")}
 function setF(v){flt=v;isTodayPlanSort=false;R()}
-function dtab(n){$("pa").hidden=n!=1;$("pb").hidden=n!=2;$("dt1").className=n==1?"on":"";$("dt2").className=n==2?"on":""}
+function dtab(n){
+  $("pa").hidden = n!=1;
+  $("pb").hidden = n!=2;
+  $("pc").hidden = n!=3;
+  $("dt1").className = n==1 ? "on" : "";
+  $("dt2").className = n==2 ? "on" : "";
+  $("dt3").className = n==3 ? "on" : "";
+}
+
+// دالة المساعد الذكي
+async function runAssistant(){
+  var c = C.filter(function(x){return x.id==cur})[0];
+  var logText = c && c.log ? c.log.map(function(l){return l.d + ": " + l.t}).join("\n") : $("nt").value.trim();
+  var userQuery = $("ai_q").value.trim();
+  var resBox = $("ai_res");
+  
+  resBox.textContent = "⏳ جاري التفكير وتحليل العميل...";
+  
+  var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + GEMINI_API_KEY;
+  var promptText = "أنت مساعد مبيعات عقارية خبير ومحترف في السوق المصري.\n\n" +
+                   "تفاصيل العميل وسجل الملاحظات:\n" + (logText || "لا توجد ملاحظات سابقة") + "\n\n" +
+                   "المشروع: " + ($("pr").value || "غير محدد") + "\n" +
+                   "الحالة: " + ($("stt").value || "غير محدد") + "\n" +
+                   "الميزانية: " + ($("bu").value || "غير محدد") + "\n\n" +
+                   "سؤال المستشار العقاري: " + (userQuery || "اعطني اقتراح خطة المتابعة القادمة لتقفيل الديل") + "\n\n" +
+                   "المطلوب:\n1. إعطاء نصيحة سريعة وعملية للتعامل مع العميل.\n2. اقتراح الرسالة/الفويس المناسبة لإرسالها للعميل.\n3. اقتراح خطوة المتابعة وتوقيتها.\nاكتب الإجابة بلغة عربية بسيطة ومباشرة جداً.";
+
+  try {
+    var response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+    });
+    var data = await response.json();
+    if(data.candidates && data.candidates[0].content.parts[0].text){
+      resBox.textContent = data.candidates[0].content.parts[0].text;
+      $("ai_q").value = "";
+    } else {
+      resBox.textContent = "⚠️ لم يتم التوصل لإجابة، حاول مرة أخرى.";
+    }
+  } catch(e) {
+    resBox.textContent = "⚠️ حدث خطأ أثناء الاتصال بالمساعد الذكي.";
+  }
+}
+
 var PJ="";try{PJ=localStorage.getItem("crm_proj_v1")||""}catch(e){}$("pjt").value=PJ;
 function pjSave(){PJ=$("pjt").value;try{localStorage.setItem("crm_proj_v1",PJ)}catch(e){}cloud()}
 var NK="crm_nawy_v1",PD=[],PDat=0;try{PD=JSON.parse(localStorage.getItem(NK)||"[]");PDat=+localStorage.getItem(NK+"_at")||0}catch(e){PD=[]}
@@ -383,9 +447,19 @@ L.sort(function(a,c){return a.u<c.u?1:-1});
 var h='<div class="mu" style="margin:6px 0">'+L.length+' نتيجة'+(L.length>30?' (أول 30)':'')+'</div>'+L.slice(0,30).map(function(x){
 return'<div class="lg"><div><b>'+esc(x.n)+'</b> <span class="tag">'+esc(x.d)+'</span>'+(x.s=="launch"?' <span class="tag ok">🚀 إطلاق</span>':'')+'</div><div class="mu">📍 '+esc(x.a)+' • '+esc(x.t)+'</div><div>💰 '+nP(x.lo)+' – '+nP(x.hi)+' ج'+(x.cm?' • عمولة '+esc(x.cm)+'%':'')+'</div></div>'}).join("");
 $("nl").innerHTML=h}
-function nBud(s){s=String(s||"").replace(/[٠-٩]/g,function(d){return"٠١٢٣٥٦٧٨٩".indexOf(d)}).replace(/٫/g,".").replace(/[,٬،]/g,"");var m=s.match(/\d+(?:\.\d+)?/g);if(!m)return 0;var n=Math.max.apply(null,m.map(Number));
-if(/مليون|million/i.test(s))n*=1e6;else if(/[اأ]لف|\bk\b/i.test(s))n*=1e3;else if(n<1000)n*=1e6;
-return n>=1.5e6?n:0}
+function nBud(s){
+  s = String(s||"")
+    .replace(/[٠-٩]/g, function(d){ return "٠١٢٣٤٥٦٧٨٩".indexOf(d); })
+    .replace(/٫/g,".")
+    .replace(/[,٬،]/g,"");
+  var m = s.match(/\d+(?:\.\d+)?/g);
+  if(!m) return 0;
+  var n = Math.max.apply(null, m.map(Number));
+  if(/مليون|million/i.test(s)) n *= 1e6;
+  else if(/[اأ]لف|\bk\b/i.test(s)) n *= 1e3;
+  else if(n < 1000) n *= 1e6;
+  return n >= 1.5e6 ? n : 0;
+}
 
 (function(){var ds=document.querySelectorAll("dialog");function f(){var o=false;ds.forEach(function(x){if(x.open)o=true});document.documentElement.classList.toggle("lk",o)}
 var mo=new MutationObserver(f);ds.forEach(function(x){mo.observe(x,{attributes:true,attributeFilter:["open"]})});f()})();
