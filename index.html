@@ -115,7 +115,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 .pdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
 .pdf-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; }
 .pdf-label { font-size: 12px; color: #64748b; font-weight: 500; }
-.pdf-val { font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 2px; dir: ltr; }
+.pdf-val { font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 2px; direction: ltr; text-align: right; }
 .pdf-sec-title { font-size: 14px; font-weight: 700; color: #1f6feb; background: #eff6ff; padding: 6px 10px; border-radius: 6px; margin: 16px 0 10px; border-inline-start: 4px solid #1f6feb; }
 .pdf-highlight { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px; margin-top: 12px; }
 .pdf-highlight .pdf-label { color: #047857; }
@@ -134,7 +134,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 .pjt-card { background:var(--card); border:1px solid var(--bd); border-radius:8px; padding:10px; margin-top:8px; position:relative; }
 .pjt-card-actions { display:flex; gap:6px; margin-top:6px; justify-content:flex-end; }
 </style></head><body><div class="w">
-<div class="row"><h1 style="flex:1">📇 CRM العقارات</h1><span id="sy" class="mu">💾 محلي</span><button onclick="requestNotify()">🔔 الإشعارات</button><button onclick="anald.showModal();renderFunnel()">📊 التحليلات</button><button onclick="$('cd2').showModal();calc()">🧮 حاسبة & ROI</button><button onclick="$('feasibilityDialog').showModal();calculateTotals()">📐 دراسة الجدوى</button><button onclick="pjd.showModal();nR()">🏢 مشاريعي</button><button class="p" onclick="openF()">+ عميل</button></div>
+<div class="row"><h1 style="flex:1">📇 CRM العقارات</h1><span id="sy" class="mu">💾 محلي</span><button onclick="requestNotify()">🔔 الإشعارات</button><button onclick="$('anald').showModal();renderFunnel()">📊 التحليلات</button><button onclick="$('cd2').showModal();calc()">🧮 حاسبة & ROI</button><button onclick="$('feasibilityDialog').showModal();calculateTotals()">📐 دراسة الجدوى</button><button onclick="$('pjd').showModal();nR()">🏢 مشاريعي</button><button class="p" onclick="openF()">+ عميل</button></div>
 <div class="stats"><button type="button" class="st" id="k_all" onclick="tab('all')"><b id="s3">0</b><span>👥 كل العملاء</span></button><button type="button" class="st" id="k_late" onclick="tab('late')"><b id="s1">0</b><span>🔴 متأخر</span></button><button type="button" class="st" id="k_today" onclick="tab('today')"><b id="s2">0</b><span>🔔 النهاردة</span></button><button type="button" class="st" id="k_soon" onclick="tab('soon')"><b id="s4">0</b><span>📅 الجاي</span></button></div>
 <div id="pp" class="mu" style="margin:-4px 2px 10px"></div>
 <div class="row" style="margin-bottom:6px">
@@ -145,7 +145,7 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 <div class="row" style="margin-top:18px">
   <button onclick="exp()">⬇ نسخة احتياطية JSON</button>
   <button onclick="expXLSX()" style="background:var(--gr);color:#fff;border-color:var(--gr)">📊 تصدير Excel</button>
-  <button onclick="imp.click()">⬆ استرجاع JSON</button>
+  <button onclick="$('imp').click()">⬆ استرجاع JSON</button>
   <input type="file" id="imp" accept=".json" hidden onchange="impF(this)">
 </div>
 <p class="mu">البيانات محفوظة في متصفحك وسحابياً عبر Supabase.</p>
@@ -154,13 +154,13 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 <!-- توست إشعار الحفظ -->
 <div id="toast">✓ تم الحفظ بنجاح</div>
 
-<dialog id="d"><form onsubmit="return false"><div class="hd"><b id="dt">عميل جديد</b><button type="button" class="x" onclick="d.close()" aria-label="إغلاق">✕</button></div>
+<dialog id="d"><form onsubmit="return false"><div class="hd"><b id="dt">عميل جديد</b><button type="button" class="x" onclick="$('d').close()" aria-label="إغلاق">✕</button></div>
 <div class="row tabs" style="margin:6px 0"><button type="button" id="dt1" class="on" onclick="dtab(1)">📋 الملف</button><button type="button" id="dt2" onclick="dtab(2)">👤 الاسم والرقم</button><button type="button" id="dt3" onclick="dtab(3)">🤖 المساعد الذكي</button></div><div id="pb" hidden><label>الاسم</label><input id="n"><label>الموبايل</label><input id="ph" type="tel" dir="ltr" style="text-align:right" oninput="dupC()"><div id="dup" class="late" style="font-size:13px;margin-top:4px"></div></div><div id="pa"><div id="who" class="mu" dir="ltr" style="text-align:right"></div><div id="brief"></div>
 <details id="dtl" oninput="dS();prI()" onchange="dS();prI()"><summary>📝 بيانات العميل <span id="dsm" class="dsm"></span></summary><div class="row"><div style="flex:1"><label>الميزانية</label><input id="bu"></div><div style="flex:1"><label>الحالة</label><select id="stt"></select></div></div>
 <label>المشروع / المنطقة المهتم بيها</label><div style="position:relative"><input id="pr" autocomplete="off" placeholder="ابحث باسم المشروع أو المطور أو المنطقة" oninput="prS();prI()" onfocus="prS()" onblur="setTimeout(prH,250)"><div id="prs" class="prs" hidden></div></div><label>المصدر</label><input id="src" placeholder="فيسبوك، ترشيح، ..."></details><div id="pin" class="mu" style="margin:6px 2px 0"></div>
 <label>ميعاد الفولو اب الجاي</label><input id="nx" type="date" onclick="try{this.showPicker()}catch(e){}"><div class="row" style="margin-top:6px;gap:6px"><button type="button" class="b2" style="margin:0" onclick="nxq(1)">بكرة</button><button type="button" class="b2" style="margin:0" onclick="nxq(3)">بعد 3 أيام</button><button type="button" class="b2" style="margin:0" onclick="nxq(7)">أسبوع</button><button type="button" class="b2" style="margin:0" onclick="nxq(14)">أسبوعين</button></div>
 
-<div class="row" style="justify-content:space-between;align-items:center;margin-top:8px">
+<div class="row" style="justify-space-between;align-items:center;margin-top:8px">
   <label style="margin:0">ملاحظة جديدة (بتتسجل بتاريخ النهاردة)</label>
   <button type="button" onclick="startDictation()" style="font-size:12px;padding:3px 8px;background:rgba(31,111,235,0.1);color:var(--pr);border-color:var(--pr)">🎙️ إملاء صوتي</button>
 </div>
@@ -181,17 +181,17 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
   </div>
 </div>
 
-<div class="row" style="margin-top:12px"><button class="p" onclick="save()">حفظ</button><button onclick="d.close()">إلغاء</button><button id="del" class="late" onclick="delClient()" style="margin-inline-start:auto">حذف</button></div></form></dialog>
+<div class="row" style="margin-top:12px"><button class="p" onclick="save()">حفظ</button><button type="button" onclick="$('d').close()">إلغاء</button><button type="button" id="del" class="late" onclick="delClient()" style="margin-inline-start:auto">حذف</button></div></form></dialog>
 
 <!-- نافذة التحليلات ومسار المبيعات Sales Funnel -->
-<dialog id="anald"><div class="hd"><b>📊 تحليلات مسار المبيعات (Sales Funnel)</b><button type="button" class="x" onclick="anald.close()" aria-label="إغلاق">✕</button></div>
+<dialog id="anald"><div class="hd"><b>📊 تحليلات مسار المبيعات (Sales Funnel)</b><button type="button" class="x" onclick="$('anald').close()" aria-label="إغلاق">✕</button></div>
 <div id="funnel_box" style="margin-top:10px;display:flex;flex-direction:column;gap:10px"></div>
 </dialog>
 
 <!-- نافذة إدارة المشاريع المحدثة مع نموذج للإضافة والتعديل والحذف -->
-<dialog id="pjd"><div class="hd"><b>🏢 مشاريعي</b><button type="button" class="x" onclick="pjd.close()" aria-label="إغلاق">✕</button></div>
+<dialog id="pjd"><div class="hd"><b>🏢 مشاريعي</b><button type="button" class="x" onclick="$('pjd').close()" aria-label="إغلاق">✕</button></div>
 <div class="sec" style="margin-top:6px">📦 قاعدة مشاريع نوي (CSV)</div>
-<div class="row"><button type="button" class="p" onclick="nimp.click()">⬆ استيراد CSV</button><span id="nst" class="mu" style="flex:1"></span></div><input type="file" id="nimp" accept=".csv,text/csv" hidden onchange="nImp(this)">
+<div class="row"><button type="button" class="p" onclick="$('nimp').click()">⬆ استيراد CSV</button><span id="nst" class="mu" style="flex:1"></span></div><input type="file" id="nimp" accept=".csv,text/csv" hidden onchange="nImp(this)">
 <div class="row" style="margin-top:8px"><input id="nq" placeholder="ابحث بالمشروع أو المطور أو المنطقة" oninput="nR()" style="flex:2;min-width:140px"><input id="nb" type="number" inputmode="decimal" placeholder="أقصى سعر (مليون)" oninput="nR()" style="flex:1;min-width:120px"></div>
 <div id="nl"></div>
 
@@ -221,10 +221,10 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 <div id="custom_projects_list"></div>
 </dialog>
 
-<dialog id="wd"><div class="hd"><b>💬 رسالة واتساب</b><button type="button" class="x" onclick="wd.close()" aria-label="إغلاق">✕</button></div><div class="row" id="wb" style="margin:8px 0"></div><textarea id="wt" rows="5"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wsend()">فتح واتساب</button><button onclick="wd.close()">إغلاق</button></div></dialog>
+<dialog id="wd"><div class="hd"><b>💬 رسالة واتساب</b><button type="button" class="x" onclick="$('wd').close()" aria-label="إغلاق">✕</button></div><div class="row" id="wb" style="margin:8px 0"></div><textarea id="wt" rows="5"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wsend()">فتح واتساب</button><button type="button" onclick="$('wd').close()">إغلاق</button></div></dialog>
 
 <!-- حاسبة الأقساط + حاسبة العائد الاستثماري وتصدير PDF المطور -->
-<dialog id="cd2"><div class="hd"><b>🧮 حاسبة الخطة والعائد الاستثماري (ROI)</b><button type="button" class="x" onclick="cd2.close()" aria-label="إغلاق">✕</button></div>
+<dialog id="cd2"><div class="hd"><b>🧮 حاسبة الخطة والعائد الاستثماري (ROI)</b><button type="button" class="x" onclick="$('cd2').close()" aria-label="إغلاق">✕</button></div>
 <label>سعر الوحدة (ج)</label><input id="cp" type="number" inputmode="numeric" value="5000000" oninput="calc()"><div class="row"><div style="flex:1"><label>المقدم %</label><input id="cd" type="number" value="10" oninput="calc()"></div><div style="flex:1"><label>سنين التقسيط</label><input id="cy" type="number" value="8" oninput="calc()"></div></div>
 <div class="row" style="margin-top:6px"><div style="flex:1"><label>الزيادة السنوية المتوقعة %</label><input id="cgrowth" type="number" value="20" oninput="calc()"></div><div style="flex:1"><label>سنوات الاستثمار</label><input id="cyears" type="number" value="3" oninput="calc()"></div></div>
 
@@ -264,10 +264,10 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
   </div>
 </div>
 
-<div class="row" style="margin-top:12px"><button class="p" onclick="cshare()">إرسال واتساب</button><button onclick="ccopy()">نسخ نصي</button><button onclick="exportPDF()" style="background:var(--rd);color:#fff;border-color:var(--rd)">📄 تصدير PDF</button></div></dialog>
+<div class="row" style="margin-top:12px"><button class="p" onclick="cshare()">إرسال واتساب</button><button type="button" onclick="ccopy()">نسخ نصي</button><button type="button" onclick="exportPDF()" style="background:var(--rd);color:#fff;border-color:var(--rd)">📄 تصدير PDF</button></div></dialog>
 
 <!-- حاسبة دراسة الجدوى وتكلفة المشروع -->
-<dialog id="feasibilityDialog"><div class="hd"><b>📐 حاسبة دراسة الجدوى والتكاليف</b><button type="button" class="x" onclick="feasibilityDialog.close()" aria-label="إغلاق">✕</button></div>
+<dialog id="feasibilityDialog"><div class="hd"><b>📐 حاسبة دراسة الجدوى والتكاليف</b><button type="button" class="x" onclick="$('feasibilityDialog').close()" aria-label="إغلاق">✕</button></div>
 <div class="row">
   <div style="flex:1;min-width:260px">
     <div class="sec">1. البيانات الأساسية والإيجار</div>
@@ -358,8 +358,8 @@ pre{white-space:pre-wrap;font:inherit;background:var(--card);border:1px solid va
 </div>
 
 <div class="row" style="margin-top:12px">
-  <button onclick="generateFeasibilityPDF()" class="p" style="background:var(--gr);border-color:var(--gr)">📄 تحميل التقرير PDF</button>
-  <button onclick="feasibilityDialog.close()">إغلاق</button>
+  <button type="button" onclick="generateFeasibilityPDF()" class="p" style="background:var(--gr);border-color:var(--gr)">📄 تحميل التقرير PDF</button>
+  <button type="button" onclick="$('feasibilityDialog').close()">إغلاق</button>
 </div>
 </dialog>
 
@@ -596,7 +596,7 @@ function expXLSX(){
 function impF(i){var r=new FileReader();r.onload=function(){try{var x=JSON.parse(r.result);if(Array.isArray(x)){C=x;P();R();showToast("تم استرجاع البيانات")}}catch(e){alert("الملف مش سليم")}};if(i.files[0])r.readAsText(i.files[0])}
 var T=[["أول تواصل","أهلاً {اسم}، أنا كريم. شكراً لاهتمامك بـ {مشروع}. حابب أعرفك على تفاصيل الوحدات وخطط السداد، إمتى يناسبك نتكلم؟"],["بعد المعاينة","أهلاً {اسم}، شكراً لوقتك النهاردة في معاينة {مشروع}. عايز أعرف رأيك، وأنا جاهز أظبطلك أفضل خطة سداد تناسب ميزانيتك."],["متابعة","أهلاً {اسم}، عامل إيه؟ حبيت أطمن عليك وأعرف وصلت لإيه بخصوص {مشروع}، وفيه عروض جديدة ممكن تناسبك."],["عرض قرب يخلص","أهلاً {اسم}، حبيت أفكرك إن العرض الحالي في {مشروع} قرب يخلص. تحب أحجزلك الوحدة؟"]],WC=null;
 function num(p){var w=(p||"").replace(/\D/g,"");return w.indexOf("0")==0?"20"+w.slice(1):w}
-function wa(id){WC=C.filter(function(x){return x.id==id})[0];$("wb").innerHTML=T.map(function(t,i){return'<button onclick="fill('+i+')">'+t[0]+'</button>'}).join("");fill(0);$("wd").showModal()}
+function wa(id){WC=C.filter(function(x){return x.id==id})[0];$("wb").innerHTML=T.map(function(t,i){return'<button type="button" onclick="fill('+i+')">'+t[0]+'</button>'}).join("");fill(0);$("wd").showModal()}
 function fill(i){$("wt").value=T[i][1].replace("{اسم}",WC.n.split(" ")[0]).replace("{مشروع}",WC.pr||"المشروع")}
 function wsend(){window.open("https://wa.me/"+num(WC.ph)+"?text="+encodeURIComponent($("wt").value),"_blank");WC.log=WC.log||[];WC.log.push({d:td(),t:"اتبعتله رسالة واتساب"});P();$("wd").close();R()}
 
@@ -951,7 +951,7 @@ function renderCustomProjects(){
              '<div class="mu" style="margin-top:2px">' + (x.d ? esc(x.d) + ' • ' : '') + (x.a ? esc(x.a) + ' • ' : '') + (x.t ? esc(x.t) : '') + '</div>' +
              '<div style="margin-top:4px;font-size:13px">السعر: ' + nP(x.lo) + ' – ' + nP(x.hi) + ' EGP' + (x.cm ? ' | العمولة: ' + esc(x.cm) + '%' : '') + '</div>' +
              '<div class="pjt-card-actions">' +
-               '<button type="button" style="padding:4px 8px;font-size:12px" onclick="editCustomProject(\'' + x.id + '\')">✏️ تعديل</button>' +
+               '<button type="button" style="padding:4px 8px;font-size:12px" onclick="editCustomProject(\'' + x.id + '\')">✏️️ تعديل</button>' +
                '<button type="button" class="late" style="padding:4px 8px;font-size:12px" onclick="deleteCustomProject(\'' + x.id + '\')">🗑️ حذف</button>' +
              '</div>' +
            '</div>';
