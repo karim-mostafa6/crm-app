@@ -61,6 +61,26 @@
 html { scroll-padding-top: env(safe-area-inset-top, 0px); scrollbar-gutter: stable; }
 * { box-sizing: border-box; }
 
+/* Custom Scrollbar Styles for Dialogs */
+dialog::-webkit-scrollbar,
+.history-container::-webkit-scrollbar {
+  width: 6px;
+}
+dialog::-webkit-scrollbar-track,
+.history-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+dialog::-webkit-scrollbar-thumb,
+.history-container::-webkit-scrollbar-thumb {
+  background: var(--bd-accent);
+  border-radius: 10px;
+}
+dialog::-webkit-scrollbar-thumb:hover,
+.history-container::-webkit-scrollbar-thumb:hover {
+  background: var(--pr);
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -303,29 +323,10 @@ dialog {
   width: min(94vw, 580px);
   padding: 20px;
   box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 dialog::backdrop { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); }
-
-/* تثبيت نافذة تفاصيل العميل لمنع تحرك أزرار التبويبات */
-dialog#d {
-  height: 85vh;
-  max-height: 650px;
-  padding: 0;
-  overflow: hidden;
-}
-dialog#d form {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-}
-#pa, #pb, #pc {
-  flex: 1;
-  overflow-y: auto;
-  padding-inline-end: 4px;
-}
-
 label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; font-weight: 600; }
 
 .hd {
@@ -342,8 +343,103 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 }
 .x { width: 36px; height: 36px; padding: 0; border-radius: 99px; font-size: 17px; line-height: 1; }
 
-.lg { background: var(--card); border: 1px solid var(--bd); border-radius: 12px; padding: 12px 14px; margin: 8px 0; }
-.lg .mu { font-size: 12px; margin-bottom: 4px; }
+/* 🌟 Dynamic & Beautiful Note Styles 🌟 */
+.note-input-container {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 12px;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+}
+.note-input-container:focus-within {
+  border-color: var(--pr);
+  background: rgba(59, 130, 246, 0.04);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.note-textarea {
+  background: transparent;
+  border: none;
+  padding: 0;
+  resize: vertical;
+  min-height: 65px;
+}
+.note-textarea:focus {
+  box-shadow: none;
+}
+
+.history-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-inline-end: 4px;
+}
+
+.note-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid var(--bd);
+  border-inline-start: 4px solid var(--pr);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+.note-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--bd-accent);
+  transform: translateX(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.note-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.note-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pr);
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.note-copy-btn {
+  background: transparent;
+  border: none;
+  color: var(--mu);
+  padding: 2px 6px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.2s;
+}
+.note-card:hover .note-copy-btn {
+  opacity: 1;
+}
+.note-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--tx);
+}
+
+.note-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--tx);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 
 /* AI Box */
 .ai-box { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 14px; padding: 16px; margin-top: 12px; }
@@ -501,18 +597,27 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
         <button type="button" class="b2" style="margin:0" onclick="nxq(14)">أسبوعين</button>
       </div>
 
-      <div class="row" style="justify-content:space-between;align-items:center;margin-top:10px">
-        <label style="margin:0">إضافة ملاحظة جديدة</label>
-        <button type="button" onclick="startDictation()" style="font-size:12px;padding:4px 10px;background:rgba(59,130,246,0.15);color:var(--pr);border-color:var(--pr)">🎙 إملاء صوتي</button>
+      <!-- إدخال ملاحظة جديدة محسّن -->
+      <div style="margin-top:14px">
+        <div class="row" style="justify-space-between;align-items:center;margin-bottom:4px">
+          <label style="margin:0">إضافة ملاحظة جديدة</label>
+          <button type="button" onclick="startDictation()" style="font-size:12px;padding:4px 10px;background:rgba(59,130,246,0.15);color:var(--pr);border-color:var(--pr);border-radius:8px">🎙 إملاء صوتي</button>
+        </div>
+        <div class="note-input-container">
+          <textarea id="nt" class="note-textarea" rows="2" placeholder="اكتب التفاصيل هنا أو استخدم الإملاء الصوتي..."></textarea>
+        </div>
       </div>
-      <textarea id="nt" rows="2" placeholder="اكتب التفاصيل أو استخدم الإملاء الصوتي..."></textarea>
 
-      <div id="hist"></div>
+      <!-- سجل الملاحظات الجمالي -->
+      <div id="hist_sec">
+        <div class="sec" style="margin-top:16px;margin-bottom:6px">سجل الملاحظات</div>
+        <div id="hist" class="history-container"></div>
+      </div>
     </div>
 
     <div id="pc" hidden>
       <div class="ai-box">
-        <div class="ai-title">🤖 تحلیل واستراتيجية المساعد للديل</div>
+        <div class="ai-title">🤖 تحليل واستراتيجية المساعد للديل</div>
         <div id="ai_res" class="ai-res">اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات فورية...</div>
       </div>
       <label style="margin-top:10px">اسأل المساعد أو وجهه (اختياري):</label>
@@ -522,7 +627,7 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
       </div>
     </div>
 
-    <div class="row" style="margin-top:auto;padding-top:16px;border-top:1px solid var(--bd)">
+    <div class="row" style="margin-top:16px">
       <button class="p" onclick="save()">حفظ البيانات</button>
       <button onclick="d.close()">إلغاء</button>
       <button id="del" class="late" onclick="delClient()" style="margin-inline-start:auto">حذف</button>
@@ -541,7 +646,7 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
     <input id="nb" type="number" inputmode="decimal" placeholder="أقصى سعر (مليون)" oninput="nR()" style="flex:1;min-width:120px">
   </div>
   <div id="nl"></div>
-  <div class="sec">✍️ مشاريع إضافية (يدوي)</div>
+  <div class="sec">✍️️ مشاريع إضافية (يدوي)</div>
   <textarea id="pjt" rows="4" oninput="pjSave()" placeholder="مثال: سوديك إيست - التجمع - شقق من 5.2 مليون - استلام 2028"></textarea>
 </dialog>
 
@@ -737,7 +842,26 @@ function toggleTheme(){
 })();
 
 function td(){ var x=new Date(); return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); }
-function lg(l,i){ return '<div class="lg"><div class="mu">📅 '+l.d+'</div><div>'+esc(l.t)+'</div></div>'; }
+
+// دالة عرض الملاحظات بشكل كروت جمالية
+function lg(l, i){
+  var safeText = esc(l.t);
+  return '<div class="note-card">' +
+    '<div class="note-card-header">' +
+      '<span class="note-date-badge">📅 ' + l.d + '</span>' +
+      '<button type="button" class="note-copy-btn" title="نسخ النص" onclick="event.stopPropagation(); copyNoteText(\'' + encodeURIComponent(l.t) + '\')">📋 نسخ</button>' +
+    '</div>' +
+    '<div class="note-text">' + safeText + '</div>' +
+  '</div>';
+}
+
+function copyNoteText(text) {
+  try {
+    navigator.clipboard.writeText(decodeURIComponent(text));
+    showToast("✓ تم نسخ الملاحظة");
+  } catch(e){}
+}
+
 function esc(s){ return String(s||"").replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
 
 var TAB=null;
@@ -868,14 +992,14 @@ function startDictation() {
   recognition.onresult = function(event) {
     var text = event.results[0][0].transcript;
     nt.value = nt.value ? nt.value + " " + text : text;
-    nt.placeholder = "اكتب التفاصيل أو استخدم الإملاء الصوتي...";
+    nt.placeholder = "اكتب التفاصيل هنا أو استخدم الإملاء الصوتي...";
   };
   recognition.onerror = function() {
-    nt.placeholder = "اكتب التفاصيل أو استخدم الإملاء الصوتي...";
+    nt.placeholder = "اكتب التفاصيل هنا أو استخدم الإملاء الصوتي...";
     alert("لم نتمكن من التقاط الصوت، حاول مجدداً.");
   };
   recognition.onend = function() {
-    nt.placeholder = "اكتب التفاصيل أو استخدم الإملاء الصوتي...";
+    nt.placeholder = "اكتب التفاصيل هنا أو استخدم الإملاء الصوتي...";
   };
 }
 
@@ -935,7 +1059,15 @@ function openF(id){
   $("ai_q").value = ""; 
   $("ai_res").textContent = "اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات فورية...";
 
-  $("hist").innerHTML = ((c.log || []).length ? '<div class="sec">سجل الملاحظات</div>' : "") + (c.log || []).slice().reverse().map(function(l, i, a){return lg(l, a.length - 1 - i)}).join("");
+  var logs = (c.log || []);
+  if (logs.length > 0) {
+    $("hist_sec").style.display = "";
+    $("hist").innerHTML = logs.slice().reverse().map(function(l, i, a){ return lg(l, a.length - 1 - i); }).join("");
+  } else {
+    $("hist_sec").style.display = "none";
+    $("hist").innerHTML = "";
+  }
+
   $("del").style.display = id ? "" : "none";
   dupC();
   $("dtl").open = !id;
