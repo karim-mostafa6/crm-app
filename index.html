@@ -3,14 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="google" content="notranslate">
-<title>CRM Karim Mostafa - Real Estate Executive Edition</title>
+<title>CRM Karim Mostafa - Real Estate Executive Edition Pro</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<!-- استدعاء خط Tajawal المميز -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-
-<!-- استدعاء مكتبة html2pdf لتحميل العرض كـ PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
@@ -19,8 +16,6 @@
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   --font: 'Tajawal', -apple-system, BlinkMacSystemFont, Tahoma, sans-serif;
-  
-  /* Ultra Dark Luxury Theme (Default) */
   --bg: #030712;
   --bg-gradient: radial-gradient(circle at 50% 0%, #111827 0%, #030712 75%);
   --card: rgba(17, 24, 39, 0.7);
@@ -29,8 +24,6 @@
   --mu: #9ca3af;
   --bd: rgba(255, 255, 255, 0.08);
   --bd-accent: rgba(59, 130, 246, 0.4);
-  
-  /* Accent Colors */
   --pr: #3b82f6;
   --pr-glow: rgba(59, 130, 246, 0.25);
   --rd: #f87171;
@@ -62,214 +55,68 @@ html { scroll-padding-top: env(safe-area-inset-top, 0px); scrollbar-gutter: stab
 * { box-sizing: border-box; }
 
 body {
-  margin: 0;
-  background: var(--bg);
-  background-image: var(--bg-gradient);
-  background-attachment: fixed;
-  color: var(--tx);
-  font-family: var(--font);
-  font-size: 15px;
-  line-height: 1.5;
-  min-height: 100vh;
-  transition: background 0.3s, color 0.3s;
+  margin: 0; background: var(--bg); background-image: var(--bg-gradient); background-attachment: fixed;
+  color: var(--tx); font-family: var(--font); font-size: 15px; line-height: 1.5; min-height: 100vh; transition: background 0.3s, color 0.3s;
 }
 
 .w { max-width: 1360px; margin: 0 auto; padding: 20px 16px 80px; }
 
-/* Lock Screen Overlay */
 #lockOverlay {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: var(--bg);
-  background-image: var(--bg-gradient);
-  z-index: 10000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg); background-image: var(--bg-gradient);
+  z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
 }
 .lock-card {
-  background: var(--card);
-  border: 1px solid var(--bd);
-  border-radius: 20px;
-  padding: 28px;
-  width: min(90%, 380px);
-  text-align: center;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  background: var(--card); border: 1px solid var(--bd); border-radius: 20px; padding: 28px; width: min(90%, 380px); text-align: center;
+  backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
-.lock-pin-input {
-  letter-spacing: 12px;
-  font-size: 24px;
-  text-align: center;
-  margin: 16px 0;
-  padding: 10px;
-}
+.lock-pin-input { letter-spacing: 12px; font-size: 24px; text-align: center; margin: 16px 0; padding: 10px; }
 
-/* Grid Layout */
-#list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-  gap: 16px;
-  align-items: stretch;
-}
+#list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; align-items: stretch; }
 #list > .sec, #list > .card { grid-column: 1 / -1; }
 
-/* Header Elements */
 .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .header-bar {
-  background: var(--card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--bd);
-  border-radius: 16px;
-  padding: 14px 20px;
-  margin-bottom: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: var(--card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--bd);
+  border-radius: 16px; padding: 14px 20px; margin-bottom: 16px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
-  font-size: 22px;
-  margin: 0;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #fff 0%, #a5f3fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 22px; margin: 0; font-weight: 800; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #fff 0%, #a5f3fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-
 :root[data-theme="light"] h1 {
-  background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
-/* Luxury Client Card */
 .cc {
-  background: var(--card);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--bd);
-  border-radius: 16px;
-  padding: 14px;
-  margin: 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
+  background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--bd);
+  border-radius: 16px; padding: 14px; margin: 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); display: flex; flex-direction: column;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
 }
-
-.cc:hover {
-  transform: translateY(-3px);
-  border-color: var(--bd-accent);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px var(--pr-glow);
-  background: var(--card-hover);
-}
-
+.cc:hover { transform: translateY(-3px); border-color: var(--bd-accent); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px var(--pr-glow); background: var(--card-hover); }
 .cc .ch { gap: 10px; display: flex; align-items: center; }
-.cc .av {
-  width: 40px;
-  height: 40px;
-  font-size: 16px;
-  border-radius: 12px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  flex: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-
+.cc .av { width: 40px; height: 40px; font-size: 16px; border-radius: 12px; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; flex: none; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); }
 .cc .cn { font-size: 16px; font-weight: 800; color: var(--tx); }
-
 .cc .ci { margin-top: 8px; gap: 6px; font-size: 12px; display: flex; flex-wrap: wrap; }
-.cc .ci span {
-  padding: 3px 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 99px;
-  border: 1px solid var(--bd);
-  font-weight: 500;
-}
-
-.cc .cl {
-  margin-top: 8px;
-  padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  font-size: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-}
+.cc .ci span { padding: 3px 10px; background: rgba(255, 255, 255, 0.05); border-radius: 99px; border: 1px solid var(--bd); font-weight: 500; }
+.cc .cl { margin-top: 8px; padding: 8px 12px; background: rgba(0, 0, 0, 0.2); border-radius: 10px; font-size: 12px; border: 1px solid rgba(255, 255, 255, 0.03); }
 .cc .cl1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-.cc .ib {
-  flex: none;
-  padding: 6px 10px;
-  font-size: 14px;
-  line-height: 1;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--bd);
-  color: var(--tx);
-  cursor: pointer;
-  transition: all 0.2s;
-}
+.cc .ib { flex: none; padding: 6px 10px; font-size: 14px; line-height: 1; border-radius: 8px; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--bd); color: var(--tx); cursor: pointer; transition: all 0.2s; }
 .cc .ib:hover { background: var(--pr); color: #fff; border-color: var(--pr); }
-
 .cc .ft { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: auto; padding-top: 10px; }
 
-/* Pipeline Bar */
-.pipeline-bar {
-  display: flex;
-  gap: 4px;
-  margin-top: 10px;
-  background: rgba(0, 0, 0, 0.25);
-  padding: 4px 6px;
-  border-radius: 8px;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid var(--bd);
-}
+.pipeline-bar { display: flex; gap: 4px; margin-top: 10px; background: rgba(0, 0, 0, 0.25); padding: 4px 6px; border-radius: 8px; align-items: center; justify-content: space-between; border: 1px solid var(--bd); }
 .pipe-step { height: 5px; flex: 1; border-radius: 3px; background: rgba(255, 255, 255, 0.1); transition: background 0.3s ease; }
 .pipe-step.active { background: var(--pr); box-shadow: 0 0 8px var(--pr-glow); }
 
-/* Assistant Box inside Card */
-.as {
-  margin-top: 8px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: rgba(59, 130, 246, 0.08);
-  border: 1px dashed rgba(59, 130, 246, 0.3);
-  border-inline-start: 3px solid var(--pr);
-  font-size: 12px;
-  line-height: 1.4;
-  color: var(--tx);
-}
+.as { margin-top: 8px; padding: 8px 10px; border-radius: 10px; background: rgba(59, 130, 246, 0.08); border: 1px dashed rgba(59, 130, 246, 0.3); border-inline-start: 3px solid var(--pr); font-size: 12px; line-height: 1.4; color: var(--tx); }
 .as .ast { font-size: 11px; font-weight: bold; color: var(--pr); margin-bottom: 2px; display: flex; align-items: center; gap: 4px; }
 
-.cc.dueC {
-  background: linear-gradient(180deg, rgba(239, 68, 68, 0.12), rgba(239, 68, 68, 0.03));
-  border-color: rgba(239, 68, 68, 0.4);
-  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.15);
-}
+.cc.dueC { background: linear-gradient(180deg, rgba(239, 68, 68, 0.12), rgba(239, 68, 68, 0.03)); border-color: rgba(239, 68, 68, 0.4); box-shadow: 0 6px 20px rgba(239, 68, 68, 0.15); }
 .cc.dueC .ci .today { color: var(--rd); font-weight: bold; }
 
-/* Stats Bar */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 16px; }
-.st {
-  background: var(--card);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--bd);
-  border-radius: 14px;
-  padding: 14px;
-  text-align: center;
-  cursor: pointer;
-  flex: none;
-  transition: all 0.25s ease;
-}
+.st { background: var(--card); backdrop-filter: blur(10px); border: 1px solid var(--bd); border-radius: 14px; padding: 14px; text-align: center; cursor: pointer; flex: none; transition: all 0.25s ease; }
 .st:hover { transform: translateY(-2px); border-color: var(--pr); }
 .st.on { border-color: var(--pr); box-shadow: 0 0 0 2px var(--pr) inset; background: rgba(59, 130, 246, 0.1); }
 .st b { display: block; font-size: 26px; font-weight: 800; }
@@ -279,21 +126,8 @@ h1 {
 .st#k_late.hot { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.35); }
 .st#k_today.warm { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.35); }
 
-/* Inputs and Controls */
-input, select, textarea, button {
-  font: inherit;
-  color: var(--tx);
-  background: var(--card);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  padding: 10px 12px;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-}
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--pr);
-  box-shadow: 0 0 0 3px var(--pr-glow);
-}
+input, select, textarea, button { font: inherit; color: var(--tx); background: var(--card); border: 1px solid var(--bd); border-radius: 10px; padding: 10px 12px; transition: border-color 0.2s, box-shadow 0.2s, background 0.2s; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--pr); box-shadow: 0 0 0 3px var(--pr-glow); }
 input, select, textarea { width: 100%; }
 button { cursor: pointer; transition: all 0.2s ease; font-weight: 600; }
 .p { background: var(--pr); color: #fff; border-color: var(--pr); box-shadow: 0 4px 12px var(--pr-glow); }
@@ -304,116 +138,49 @@ button { cursor: pointer; transition: all 0.2s ease; font-weight: 600; }
 .late { color: var(--rd); } .today { color: var(--or); } .ok { color: var(--gr); }
 .sec { font-weight: 800; margin: 18px 0 8px; font-size: 16px; letter-spacing: -0.3px; }
 
-/* Tabs & Chips */
 .tabs button { flex: 1; transition: all 0.2s ease; }
 .tabs .on { background: var(--pr); color: #fff; border-color: var(--pr); }
 
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
-.chip {
-  flex: 1 1 auto;
-  padding: 8px 14px;
-  font-size: 13px;
-  border-radius: 99px;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-  border: 1px solid var(--bd);
-  background: var(--card);
-}
+.chip { flex: 1 1 auto; padding: 8px 14px; font-size: 13px; border-radius: 99px; white-space: nowrap; transition: all 0.2s ease; border: 1px solid var(--bd); background: var(--card); }
 .chip.on { background: var(--pr); color: #fff; border-color: var(--pr); box-shadow: 0 4px 12px var(--pr-glow); }
 .chip b { opacity: .8; margin-inline-start: 4px; }
 .chip i { font-style: normal; background: var(--rd); color: #fff; border-radius: 99px; padding: 0 6px; margin-inline-start: 4px; font-size: 11px; }
 .b2 { padding: 6px 12px; font-size: 12px; margin-top: 6px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); }
 
-/* Dialogs */
-dialog {
-  border: 1px solid var(--bd);
-  border-radius: 20px;
-  background: var(--bg);
-  background-image: var(--bg-gradient);
-  color: var(--tx);
-  width: min(94vw, 580px);
-  padding: 20px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-}
+dialog { border: 1px solid var(--bd); border-radius: 20px; background: var(--bg); background-image: var(--bg-gradient); color: var(--tx); width: min(94vw, 620px); padding: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
 dialog::backdrop { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); }
 label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; font-weight: 600; }
 
-.hd {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: -20px;
-  margin: -20px -20px 12px;
-  padding: 16px 20px;
-  background: var(--bg);
-  z-index: 2;
-  border-bottom: 1px solid var(--bd);
-}
+.hd { display: flex; justify-content: space-between; align-items: center; position: sticky; top: -20px; margin: -20px -20px 12px; padding: 16px 20px; background: var(--bg); z-index: 2; border-bottom: 1px solid var(--bd); }
 .x { width: 36px; height: 36px; padding: 0; border-radius: 99px; font-size: 17px; line-height: 1; }
 
 .lg { background: var(--card); border: 1px solid var(--bd); border-radius: 12px; padding: 12px 14px; margin: 8px 0; }
 .lg .mu { font-size: 12px; margin-bottom: 4px; }
 
-/* AI Box */
 .ai-box { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 14px; padding: 16px; margin-top: 12px; }
 .ai-title { font-size: 14px; font-weight: bold; color: var(--pr); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
 .ai-res { background: var(--card); border: 1px solid var(--bd); border-radius: 10px; padding: 12px; font-size: 13px; line-height: 1.7; white-space: pre-wrap; min-height: 70px; }
 
-/* Floating Action Button (FAB) */
 .fab-container { position: fixed; bottom: 24px; left: 24px; z-index: 900; }
-.fab-main {
-  width: 56px;
-  height: 56px;
-  border-radius: 28px;
-  background: linear-gradient(135deg, var(--pr), var(--purple));
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
-  cursor: pointer;
-  border: none;
-  transition: transform 0.2s;
-}
+.fab-main { width: 56px; height: 56px; border-radius: 28px; background: linear-gradient(135deg, var(--pr), var(--purple)); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4); cursor: pointer; border: none; transition: transform 0.2s; }
 .fab-main:hover { transform: scale(1.08); }
 
-#toast {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--gr);
-  color: #000;
-  padding: 10px 24px;
-  border-radius: 99px;
-  font-size: 14px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  z-index: 999;
-  display: none;
-  animation: fadeIn 0.3s ease;
-  font-weight: 800;
-}
+#toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: var(--gr); color: #000; padding: 10px 24px; border-radius: 99px; font-size: 14px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); z-index: 999; display: none; animation: fadeIn 0.3s ease; font-weight: 800; }
 @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
-/* Light/Dark Toggle Button */
-.theme-toggle {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--bd);
-  border-radius: 99px;
-  padding: 6px 12px;
-  font-size: 13px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.theme-toggle { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--bd); border-radius: 99px; padding: 6px 12px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+/* Styles for Comparison Table & Amortization */
+.comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.comp-card { background: rgba(0,0,0,0.2); border: 1px solid var(--bd); border-radius: 12px; padding: 12px; }
+.schedule-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+.schedule-table th, .schedule-table td { border: 1px solid var(--bd); padding: 6px 8px; text-align: center; }
+.schedule-table th { background: rgba(59, 130, 246, 0.15); color: var(--pr); }
 </style>
 </head>
 <body>
 
-<!-- Lock Screen Component -->
 <div id="lockOverlay">
   <div class="lock-card">
     <div style="font-size:42px;margin-bottom:8px">🔒</div>
@@ -431,14 +198,14 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 <div class="w">
   <div class="header-bar row">
     <div style="flex:1">
-      <h1>📇 CRM العقارات Executive</h1>
-      <div class="mu" style="font-size:12px;margin-top:2px">نظام إدارة العملاء والاستثمار العقاري</div>
+      <h1>📇 CRM العقارات Executive Pro</h1>
+      <div class="mu" style="font-size:12px;margin-top:2px">نظام إدارة العملاء والاستثمار العقاري المتطور</div>
     </div>
     <span id="sy" class="mu" style="font-size:12px;padding:4px 8px;background:rgba(255,255,255,0.05);border-radius:6px">💾 محلي</span>
     <button onclick="lockApp()" title="قفل النظام" style="background:rgba(239,68,68,0.15);border-color:var(--rd);color:var(--rd)">🔒 قفل</button>
     <button onclick="openSecDlg()" title="إعدادات الحماية">⚙️ الحماية</button>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 داكن</button>
-    <button onclick="$('cd2').showModal();calc()">🧮 الحاسبة</button>
+    <button onclick="$('cd2').showModal();calc()">🧮 الحاسبة والتقرير</button>
     <button onclick="pjd.showModal();nR()">🏢 مشاريعي</button>
     <button class="p" onclick="openF()">+ عميل جديد</button>
   </div>
@@ -461,17 +228,16 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
   <div id="list"></div>
 
   <div class="row" style="margin-top:24px;justify-content:center">
-    <button onclick="exp()">⬇ نسخة احتياطية</button>
+    <button onclick="exp()">⬇ نسخة احتياطية (JSON)</button>
+    <button onclick="exportExcel()" style="border-color:var(--gr);color:var(--gr)">📊 تصدير Excel / CSV</button>
     <button onclick="imp.click()">⬆ استرجاع البيانات</button>
     <input type="file" id="imp" accept=".json" hidden onchange="impF(this)">
   </div>
   <p class="mu" style="text-align:center;font-size:12px;margin-top:10px">حفظ تلقائي محلي وسحابي عبر Supabase.</p>
 </div>
 
-<!-- توست الإشعارات -->
 <div id="toast">✓ تم الحفظ بنجاح</div>
 
-<!-- زر الإجراء الفوري الطافي -->
 <div class="fab-container">
   <button class="fab-main" onclick="openF()" title="إضافة عميل جديد">+</button>
 </div>
@@ -486,7 +252,7 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
   <input type="password" id="newPin" maxlength="4" pattern="\d*" inputmode="numeric" placeholder="رمز PIN الجديد">
   <button class="p" onclick="changePin()" style="margin-top:8px;width:100%">تحديث رمز PIN</button>
   <hr style="border:0;border-top:1px solid var(--bd);margin:16px 0">
-  <div class="row" style="justify-style:space-between">
+  <div class="row" style="justify-content:space-between">
     <span style="font-weight:bold">تفعيل البصمة / Face ID</span>
     <button id="toggleBioBtn" onclick="setupBiometrics()" style="margin-inline-start:auto">تفعيل الآن</button>
   </div>
@@ -504,7 +270,7 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
     <div class="row tabs" style="margin:6px 0">
       <button type="button" id="dt1" class="on" onclick="dtab(1)">📋 الملف</button>
       <button type="button" id="dt2" onclick="dtab(2)">👤 الاسم والرقم</button>
-      <button type="button" id="dt3" onclick="dtab(3)">🤖 المساعد الذكي</button>
+      <button type="button" id="dt3" onclick="dtab(3)">🤖 المساعد الذكي Pro</button>
     </div>
 
     <div id="pb" hidden>
@@ -536,8 +302,14 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
       
       <div id="pin" class="mu" style="margin:6px 2px 0"></div>
 
-      <label>ميعاد المتابعة الجاي (Follow-up)</label>
-      <input id="nx" type="date" onclick="try{this.showPicker()}catch(e){}">
+      <div class="row" style="align-items:flex-end;gap:8px">
+        <div style="flex:1">
+          <label>ميعاد المتابعة الجاي (Follow-up)</label>
+          <input id="nx" type="date" onclick="try{this.showPicker()}catch(e){}">
+        </div>
+        <button type="button" onclick="addCurrentToCalendar()" style="background:rgba(168,85,247,0.15);border-color:var(--purple);color:#fff;font-size:12px;padding:10px" title="إضافة لتاريخ تقويم جوجل">📅 إضافة للتقويم</button>
+      </div>
+
       <div class="row" style="margin-top:6px;gap:6px">
         <button type="button" class="b2" style="margin:0" onclick="nxq(1)">بكرة</button>
         <button type="button" class="b2" style="margin:0" onclick="nxq(3)">بعد 3 أيام</button>
@@ -556,9 +328,14 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 
     <div id="pc" hidden>
       <div class="ai-box">
-        <div class="ai-title">🤖 تحليل واستراتيجية المساعد للديل</div>
-        <div id="ai_res" class="ai-res">اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات فورية...</div>
+        <div class="ai-title">🤖 تحليل شخصية العميل واستراتيجية المبيعات</div>
+        <div id="ai_res" class="ai-res">اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات ورسالة مخصصة...</div>
       </div>
+      
+      <div class="row" style="margin-top:10px;gap:6px">
+        <button type="button" class="p" onclick="generateSmartOffer()" style="flex:1;background:linear-gradient(135deg, var(--pr), var(--purple))">🪄 توليد عرض موجه للواتساب</button>
+      </div>
+
       <label style="margin-top:10px">اسأل المساعد أو وجهه (اختياري):</label>
       <div class="row" style="gap:6px">
         <input id="ai_q" placeholder="مثال: العميل خايف من إعادة البيع أو السعر عالي...">
@@ -593,156 +370,206 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 <dialog id="wd">
   <div class="hd"><b>💬 رسالة واتساب سريعة</b><button type="button" class="x" onclick="wd.close()" aria-label="إغلاق">✕</button></div>
   <div class="row" id="wb" style="margin:8px 0"></div>
-  <textarea id="wt" rows="5"></textarea>
+  <textarea id="wt" rows="6"></textarea>
   <div class="row" style="margin-top:12px">
     <button class="p" onclick="wsend()">فتح واتساب</button>
     <button onclick="wd.close()">إغلاق</button>
   </div>
 </dialog>
 
-<!-- الحاسبة الاستثمارية المحدثة -->
-<dialog id="cd2" style="width:min(96vw,600px)">
+<!-- الحاسبة الاستثمارية والمقارنة المحدثة Pro -->
+<dialog id="cd2" style="width:min(96vw,680px)">
   <div class="hd">
-    <b>📈 حاسبة العرض الاستثماري والعائد الإيجاري</b>
+    <b>📈 الحاسبة والعروض الاستثمارية والمقارنة</b>
     <button type="button" class="x" onclick="cd2.close()" aria-label="إغلاق">✕</button>
   </div>
 
-  <div class="row" style="margin-top:6px">
-    <div style="flex:1;min-width:130px">
-      <label>سعر الوحدة (ج)</label>
-      <input id="cp" type="number" inputmode="numeric" value="5500000" oninput="calc()">
+  <div class="row tabs" style="margin:6px 0">
+    <button type="button" id="ctab1" class="on" onclick="calcTab(1)">📊 حاسبة مشروع فردي</button>
+    <button type="button" id="ctab2" onclick="calcTab(2)">⚖️ مقارنة مشروعين</button>
+    <button type="button" id="ctab3" onclick="calcTab(3)">📅 جدول الأقساط</button>
+  </div>
+
+  <!-- تبويب مشروع واحد -->
+  <div id="csec1">
+    <div class="row" style="margin-top:6px">
+      <div style="flex:1;min-width:130px">
+        <label>سعر الوحدة (ج)</label>
+        <input id="cp" type="number" inputmode="numeric" value="5500000" oninput="calc()">
+      </div>
+      <div style="flex:1;min-width:100px">
+        <label>المقدم %</label>
+        <input id="cd" type="number" value="10" oninput="calc()">
+      </div>
+      <div style="flex:1;min-width:100px">
+        <label>سنين التقسيط</label>
+        <input id="cy" type="number" value="8" oninput="calc()">
+      </div>
     </div>
-    <div style="flex:1;min-width:100px">
-      <label>المقدم %</label>
-      <input id="cd" type="number" value="10" oninput="calc()">
+
+    <div class="row">
+      <div style="flex:1;min-width:130px">
+        <label>سنوات التقدير الاستثماري</label>
+        <input id="c_years" type="number" value="3" oninput="calc()">
+      </div>
+      <div style="flex:1;min-width:130px">
+        <label>نسبة الزيادة السنوية %</label>
+        <input id="c_growth" type="number" value="15" oninput="calc()">
+      </div>
     </div>
-    <div style="flex:1;min-width:100px">
-      <label>سنين التقسيط</label>
-      <input id="cy" type="number" value="8" oninput="calc()">
+
+    <div class="row" style="background:rgba(59,130,246,0.08);padding:10px;border-radius:12px;border:1px dashed var(--bd-accent)">
+      <div style="flex:1;min-width:130px">
+        <label style="color:var(--pr);font-weight:bold">مساحة الوحدة (م²)</label>
+        <input id="c_area" type="number" value="100" placeholder="مثال: 85" oninput="calc()">
+      </div>
+      <div style="flex:1;min-width:130px">
+        <label style="color:var(--pr);font-weight:bold">سعر المتر الإيجاري المتوقع (ج)</label>
+        <input id="c_rent_meter" type="number" value="500" placeholder="مثال: 400" oninput="calc()">
+      </div>
+    </div>
+
+    <!-- رفع اللوجو الخاص لـ Branding -->
+    <div class="row" style="margin-top:10px;align-items:center">
+      <label style="margin:0;font-size:12px">إضافة اللوجو الخاص بك للبروشور:</label>
+      <input type="file" id="logoUpload" accept="image/*" onchange="loadLogo(this)" style="font-size:11px;padding:4px">
+    </div>
+
+    <!-- معاينة البروشور الاستثماري للتحميل -->
+    <div id="offer_preview" style="background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin:14px 0;font-size:13px">
+      
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--bd);padding-bottom:10px">
+        <div>
+          <h2 style="margin:0;color:var(--pr);font-size:18px;font-weight:800">🏢 عرض استثماري عقاري</h2>
+          <span class="mu" style="font-size:12px">المستشار العقاري: كريم مصطفى</span>
+        </div>
+        <div style="text-align:left">
+          <img id="brandLogo" src="" alt="" style="max-height:45px;display:none;margin-bottom:4px">
+          <div class="mu" id="c_date" style="font-size:11px"></div>
+        </div>
+      </div>
+
+      <div style="background:rgba(59,130,246,0.12);padding:6px 12px;border-radius:6px;font-weight:bold;color:var(--pr);margin-bottom:10px;border-inline-start:3px solid var(--pr)">
+        💳 خطة الدفع والتقسيط
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">سعر الوحدة</div>
+          <b id="v_price" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">المقدم</div>
+          <b id="v_dp" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">المتبقي للتقسيط</div>
+          <b id="v_rem" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">مدة التقسيط</div>
+          <b id="v_years" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">القسط الشهري</div>
+          <b id="v_m" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">القسط ربع السنوي</div>
+          <b id="v_q" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+      </div>
+
+      <div style="background:rgba(59,130,246,0.12);padding:6px 12px;border-radius:6px;font-weight:bold;color:var(--pr);margin-bottom:10px;border-inline-start:3px solid var(--pr)">
+        🏢 التوقعات الإيجارية والدخل الشهري
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">المساحة الإجمالية</div>
+          <b id="v_area" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">سعر المتر الإيجاري</div>
+          <b id="v_rent_meter" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">الإيجار الشهري المتوقع</div>
+          <b id="v_rent_monthly" style="font-size:14px;color:var(--gr)">-</b>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">العائد الإيجاري السنوي %</div>
+          <b id="v_rent_yield" style="font-size:14px;color:var(--gr)">-</b>
+        </div>
+      </div>
+
+      <div style="background:rgba(59,130,246,0.12);padding:6px 12px;border-radius:6px;font-weight:bold;color:var(--pr);margin-bottom:10px;border-inline-start:3px solid var(--pr)">
+        📈 التوقع والربح الرأسمالي (إعادة البيع)
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">سنوات التقدير</div>
+          <b id="v_est_years" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
+          <div class="mu" style="font-size:11px">القيمة المتوقعة للوحدة</div>
+          <b id="v_future" style="font-size:14px;color:var(--tx)">-</b>
+        </div>
+      </div>
+
+      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center;margin-bottom:8px">
+        <div class="mu" style="font-size:11px">صافي / الأوفر الربح المتوقع</div>
+        <b id="v_profit" style="font-size:15px;color:var(--gr)">-</b>
+      </div>
+
+      <div style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);padding:12px;border-radius:10px;text-align:center">
+        <div style="font-size:11px;color:var(--gr);font-weight:bold">العائد على المقدم (ROI)</div>
+        <b id="v_roi" style="font-size:22px;color:var(--gr)">-</b>
+      </div>
+
+      <div class="mu" style="text-align:center;font-size:10px;margin-top:12px">
+        تم إعداد هذا العرض خصيصاً بواسطة المستشار العقاري كريم مصطفى • للحجز والاستفسار يرجى التواصل مباشرة
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div style="flex:1;min-width:130px">
-      <label>سنوات التقدير الاستثماري</label>
-      <input id="c_years" type="number" value="3" oninput="calc()">
+  <!-- تبويب المقارنة -->
+  <div id="csec2" hidden>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <b style="color:var(--pr)">🏢 المشروع الأول</b>
+        <label>السعر</label><input id="p1_price" type="number" value="6000000" oninput="calcComp()">
+        <label>المقدم %</label><input id="p1_dp" type="number" value="10" oninput="calcComp()">
+        <label>السنوات</label><input id="p1_years" type="number" value="7" oninput="calcComp()">
+      </div>
+      <div class="comp-card">
+        <b style="color:var(--purple)">🏢 المشروع الثاني</b>
+        <label>السعر</label><input id="p2_price" type="number" value="7500000" oninput="calcComp()">
+        <label>المقدم %</label><input id="p2_dp" type="number" value="15" oninput="calcComp()">
+        <label>السنوات</label><input id="p2_years" type="number" value="8" oninput="calcComp()">
+      </div>
     </div>
-    <div style="flex:1;min-width:130px">
-      <label>نسبة الزيادة السنوية %</label>
-      <input id="c_growth" type="number" value="15" oninput="calc()">
+    <div id="comp_result" style="margin-top:12px;padding:12px;background:rgba(0,0,0,0.2);border-radius:10px;font-size:13px"></div>
+  </div>
+
+  <!-- تبويب جدول الأقساط -->
+  <div id="csec3" hidden>
+    <div style="max-height:280px;overflow-y:auto">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>القسط #</th>
+            <th>النوع</th>
+            <th>المبلغ المستحق</th>
+          </tr>
+        </thead>
+        <tbody id="schedule_body"></tbody>
+      </table>
     </div>
   </div>
 
-  <div class="row" style="background:rgba(59,130,246,0.08);padding:10px;border-radius:12px;border:1px dashed var(--bd-accent)">
-    <div style="flex:1;min-width:130px">
-      <label style="color:var(--pr);font-weight:bold">مساحة الوحدة (م²)</label>
-      <input id="c_area" type="number" value="100" placeholder="مثال: 85" oninput="calc()">
-    </div>
-    <div style="flex:1;min-width:130px">
-      <label style="color:var(--pr);font-weight:bold">سعر المتر الإيجاري المتوقع (ج)</label>
-      <input id="c_rent_meter" type="number" value="500" placeholder="مثال: 400" oninput="calc()">
-    </div>
-  </div>
-
-  <!-- معاينة البروشور الاستثماري للتحميل -->
-  <div id="offer_preview" style="background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin:14px 0;font-size:13px">
-    
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px;border-bottom:1px solid var(--bd);padding-bottom:10px">
-      <div>
-        <h2 style="margin:0;color:var(--pr);font-size:18px;font-weight:800">🏢 عرض استثماري عقاري</h2>
-        <span class="mu" style="font-size:12px">المستشار العقاري: كريم مصطفى</span>
-      </div>
-      <span class="mu" id="c_date" style="font-size:11px"></span>
-    </div>
-
-    <!-- خطة الدفع -->
-    <div style="background:rgba(59,130,246,0.12);padding:6px 12px;border-radius:6px;font-weight:bold;color:var(--pr);margin-bottom:10px;border-inline-start:3px solid var(--pr)">
-      💳 خطة الدفع والتقسيط
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">سعر الوحدة</div>
-        <b id="v_price" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">المقدم</div>
-        <b id="v_dp" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">المتبقي للتقسيط</div>
-        <b id="v_rem" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">مدة التقسيط</div>
-        <b id="v_years" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">القسط الشهري</div>
-        <b id="v_m" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">القسط ربع السنوي</div>
-        <b id="v_q" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-    </div>
-
-    <!-- العائد الإيجاري -->
-    <div style="background:rgba(59,130,246,0.12);padding:6px 12px;border-radius:6px;font-weight:bold;color:var(--pr);margin-bottom:10px;border-inline-start:3px solid var(--pr)">
-      🏢 التوقعات الإيجارية والدخل الشهري
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">المساحة الإجمالية</div>
-        <b id="v_area" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">سعر المتر الإيجاري</div>
-        <b id="v_rent_meter" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">الإيجار الشهري المتوقع</div>
-        <b id="v_rent_monthly" style="font-size:14px;color:var(--gr)">-</b>
-      </div>
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">العائد الإيجاري السنوي %</div>
-        <b id="v_rent_yield" style="font-size:14px;color:var(--gr)">-</b>
-      </div>
-    </div>
-
-    <!-- الربح الرأسمالي -->
-    <div style="background:rgba(59,130,246,0.12);padding:6px 12px;border-radius:6px;font-weight:bold;color:var(--pr);margin-bottom:10px;border-inline-start:3px solid var(--pr)">
-      📈 التوقع والربح الرأسمالي (إعادة البيع)
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">سنوات التقدير</div>
-        <b id="v_est_years" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-      <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center">
-        <div class="mu" style="font-size:11px">القيمة المتوقعة للوحدة</div>
-        <b id="v_future" style="font-size:14px;color:var(--tx)">-</b>
-      </div>
-    </div>
-
-    <div style="background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-align:center;margin-bottom:8px">
-      <div class="mu" style="font-size:11px">صافي / الأوفر الربح المتوقع</div>
-      <b id="v_profit" style="font-size:15px;color:var(--gr)">-</b>
-    </div>
-
-    <div style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);padding:12px;border-radius:10px;text-align:center">
-      <div style="font-size:11px;color:var(--gr);font-weight:bold">العائد على المقدم (ROI)</div>
-      <b id="v_roi" style="font-size:22px;color:var(--gr)">-</b>
-    </div>
-
-    <div class="mu" style="text-align:center;font-size:10px;margin-top:12px">
-      تم إعداد هذا العرض خصيصاً بواسطة المستشار العقاري كريم مصطفى • للحجز والاستفسار يرجى التواصل مباشرة
-    </div>
-  </div>
-
-  <div class="row">
+  <div class="row" style="margin-top:16px">
     <button class="p" onclick="downloadPDF()">تحميل PDF 📄</button>
     <button onclick="cshare()">إرسال واتساب 💬</button>
     <button onclick="ccopy()">نسخ العرض 📋</button>
@@ -751,7 +578,6 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 </dialog>
 
 <script>
-// إعدادات Supabase
 var SUPABASE_URL = "https://jxfumlinzbikkarzarsg.supabase.co/rest/v1/";
 var SUPABASE_KEY = "sb_publishable_4fOzE1ZGB2vXXvdMKCgD5A_Vf3WMSbX";
 
@@ -764,7 +590,6 @@ var $ = function(i){ return document.getElementById(i); };
 var flt = "";
 $("stt").innerHTML = S.map(function(s){ return "<option>"+s+"</option>"; }).join("");
 
-// --- نظام الأمان والحماية (Passcode & Biometrics) ---
 var PIN_KEY = "crm_user_pin";
 var BIO_KEY = "crm_bio_enabled";
 var isSetupMode = false;
@@ -789,25 +614,14 @@ function initSecurity() {
   } else {
     $("bioBtn").style.display = "none";
   }
-  
   updateSecUI();
 }
 
-function checkPinInput(e) {
-  if ($("pinInput").value.length === 4) {
-    submitPin();
-  }
-}
+function checkPinInput(e) { if ($("pinInput").value.length === 4) submitPin(); }
 
 function submitPin() {
-  var input = $("pinInput").value;
-  var err = $("lockErr");
-  err.textContent = "";
-
-  if (input.length !== 4) {
-    err.textContent = "الرمز يجب أن يتكون من 4 أرقام";
-    return;
-  }
+  var input = $("pinInput").value, err = $("lockErr"); err.textContent = "";
+  if (input.length !== 4) { err.textContent = "الرمز يجب أن يتكون من 4 أرقام"; return; }
 
   if (isSetupMode) {
     localStorage.setItem(PIN_KEY, input);
@@ -815,123 +629,50 @@ function submitPin() {
     unlockApp();
   } else {
     var savedPin = localStorage.getItem(PIN_KEY);
-    if (input === savedPin) {
-      unlockApp();
-    } else {
-      err.textContent = "رمز PIN غير صحيح، حاول مجدداً";
-      $("pinInput").value = "";
-    }
+    if (input === savedPin) unlockApp();
+    else { err.textContent = "رمز PIN غير صحيح، حاول مجدداً"; $("pinInput").value = ""; }
   }
 }
 
-function unlockApp() {
-  $("lockOverlay").style.display = "none";
-  $("pinInput").value = "";
-  $("lockErr").textContent = "";
-}
-
-function lockApp() {
-  $("lockOverlay").style.display = "flex";
-  initSecurity();
-}
-
-function openSecDlg() {
-  $("newPin").value = "";
-  updateSecUI();
-  $("secDlg").showModal();
-}
+function unlockApp() { $("lockOverlay").style.display = "none"; $("pinInput").value = ""; $("lockErr").textContent = ""; }
+function lockApp() { $("lockOverlay").style.display = "flex"; initSecurity(); }
+function openSecDlg() { $("newPin").value = ""; updateSecUI(); $("secDlg").showModal(); }
 
 function updateSecUI() {
-  var bioEnabled = localStorage.getItem(BIO_KEY) === "true";
-  var btn = $("toggleBioBtn");
-  if(btn) {
-    btn.textContent = bioEnabled ? "إلغاء التفعيل" : "تفعيل الآن";
-    btn.className = bioEnabled ? "late" : "p";
-  }
+  var bioEnabled = localStorage.getItem(BIO_KEY) === "true", btn = $("toggleBioBtn");
+  if(btn) { btn.textContent = bioEnabled ? "إلغاء التفعيل" : "تفعيل الآن"; btn.className = bioEnabled ? "late" : "p"; }
 }
 
 function changePin() {
   var np = $("newPin").value.trim();
-  if (np.length !== 4 || isNaN(np)) {
-    alert("برجاء كتابة رمز PIN مكون من 4 أرقام فقط");
-    return;
-  }
-  localStorage.setItem(PIN_KEY, np);
-  showToast("✓ تم تغيير رمز PIN بنجاح");
-  $("secDlg").close();
+  if (np.length !== 4 || isNaN(np)) { alert("برجاء كتابة رمز PIN مكون من 4 أرقام فقط"); return; }
+  localStorage.setItem(PIN_KEY, np); showToast("✓ تم تغيير رمز PIN بنجاح"); $("secDlg").close();
 }
 
 async function setupBiometrics() {
   var bioEnabled = localStorage.getItem(BIO_KEY) === "true";
-  if (bioEnabled) {
-    localStorage.setItem(BIO_KEY, "false");
-    showToast("تم إلغاء تفعيل البصمة");
-    updateSecUI();
-    return;
-  }
-
-  if (!window.PublicKeyCredential) {
-    alert("خاصية البصمة غير مدعومة في متصفحك أو جهازك.");
-    return;
-  }
+  if (bioEnabled) { localStorage.setItem(BIO_KEY, "false"); showToast("تم إلغاء تفعيل البصمة"); updateSecUI(); return; }
+  if (!window.PublicKeyCredential) { alert("خاصية البصمة غير مدعومة في متصفحك أو جهازك."); return; }
 
   try {
-    var challenge = new Uint8Array(32);
-    window.crypto.getRandomValues(challenge);
-    var userId = new Uint8Array(16);
-    window.crypto.getRandomValues(userId);
-
-    var createCredentialOptions = {
-      publicKey: {
-        challenge: challenge,
-        rp: { name: "CRM Karim Mostafa" },
-        user: {
-          id: userId,
-          name: "karim",
-          displayName: "Karim Mostafa"
-        },
-        pubKeyCredParams: [{ alg: -7, type: "public-key" }, { alg: -257, type: "public-key" }],
-        authenticatorSelection: { authenticatorAttachment: "platform" },
-        timeout: 60000
-      }
-    };
-
-    var cred = await navigator.credentials.create(createCredentialOptions);
-    if (cred) {
-      localStorage.setItem(BIO_KEY, "true");
-      showToast("✓ تم تفعيل البصمة بنجاح");
-      updateSecUI();
-    }
-  } catch (e) {
-    alert("عذراً، لم نتمكن من تفعيل البصمة: " + e.message);
-  }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var userId = new Uint8Array(16); window.crypto.getRandomValues(userId);
+    var cred = await navigator.credentials.create({
+      publicKey: { challenge: challenge, rp: { name: "CRM Karim Mostafa" }, user: { id: userId, name: "karim", displayName: "Karim Mostafa" }, pubKeyCredParams: [{ alg: -7, type: "public-key" }], timeout: 60000 }
+    });
+    if (cred) { localStorage.setItem(BIO_KEY, "true"); showToast("✓ تم تفعيل البصمة بنجاح"); updateSecUI(); }
+  } catch (e) { alert("عذراً، لم نتمكن من تفعيل البصمة: " + e.message); }
 }
 
 async function authBiometrics() {
   if (!window.PublicKeyCredential || localStorage.getItem(BIO_KEY) !== "true") return;
-  
   try {
-    var challenge = new Uint8Array(32);
-    window.crypto.getRandomValues(challenge);
-
-    var getCredentialOptions = {
-      publicKey: {
-        challenge: challenge,
-        timeout: 60000
-      }
-    };
-
-    var assertion = await navigator.credentials.get(getCredentialOptions);
-    if (assertion) {
-      unlockApp();
-      showToast("✓ تم الفتح باستخدام البصمة");
-    }
-  } catch (e) {
-    $("lockErr").textContent = "فشلت المصادقة بالبصمة، استخدم رمز PIN";
-  }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var assertion = await navigator.credentials.get({ publicKey: { challenge: challenge, timeout: 60000 } });
+    if (assertion) { unlockApp(); showToast("✓ تم الفتح باستخدام البصمة"); }
+  } catch (e) { $("lockErr").textContent = "فشلت المصادقة بالبصمة، استخدم رمز PIN"; }
 }
 
-// الثيمات Dark/Light Toggle
 function toggleTheme(){
   var current = document.documentElement.getAttribute("data-theme") || "dark";
   var next = current === "dark" ? "light" : "dark";
@@ -942,9 +683,7 @@ function toggleTheme(){
 (function initTheme(){
   var saved = localStorage.getItem("crm_theme") || "dark";
   document.documentElement.setAttribute("data-theme", saved);
-  setTimeout(function(){
-    if($("themeBtn")) $("themeBtn").textContent = saved === "dark" ? "🌙 داكن" : "☀️ فاتح";
-  }, 100);
+  setTimeout(function(){ if($("themeBtn")) $("themeBtn").textContent = saved === "dark" ? "🌙 داكن" : "☀️ فاتح"; }, 100);
 })();
 
 function td(){ var x=new Date(); return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); }
@@ -1026,10 +765,7 @@ function card(c){
 }
 
 var isTodayPlanSort=false;
-function sortTodayPlan(){
-  isTodayPlanSort=true;
-  R();
-}
+function sortTodayPlan(){ isTodayPlanSort=true; R(); }
 
 function R(){
   var t=td(), q=$("q").value.toLowerCase().trim(), f=flt; chipsR();
@@ -1045,7 +781,7 @@ function R(){
   $("pp").textContent = sum ? "💼 "+ac.length+" عميل نشط • إجمالي محفظة الميزانيات: "+(sum>=1e9?+(sum/1e9).toFixed(2)+"B":+(sum/1e6).toFixed(1)+"M")+" ج" : "";
   
   var L=C.filter(function(c){ return(!f||c.s==f)&&(!q||(c.n+" "+c.ph+" "+c.pr).toLowerCase().indexOf(q)>-1); });
-  var M={late:["مفيش متأخرين ✅",isLate,byNx], today:["مفيش متابعات النهاردة ✅",isNow,function(a,b){return sp(a)-sp(b)}], soon:["مفيish متابعات جاية",isSoon,byNx], all:["لسه مفيش عملاء. دوس + عميل جديد",function(){return true},function(a,b){return b.c-a.c}]}[E];
+  var M={late:["مفيش متأخرين ✅",isLate,byNx], today:["مفيش متابعات النهاردة ✅",isNow,function(a,b){return sp(a)-sp(b)}], soon:["مفيش متابعات جاية",isSoon,byNx], all:["لسه مفيش عملاء. دوس + عميل جديد",function(){return true},function(a,b){return b.c-a.c}]}[E];
   
   L=L.filter(M[1]);
 
@@ -1064,37 +800,24 @@ function R(){
 
 function startDictation() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    alert("خاصية الإملاء الصوتي غير مدعومة في متصفحك. يفضل استخدام متصفح Google Chrome.");
-    return;
+    alert("خاصية الإملاء الصوتي غير مدعومة في متصفحك. يفضل استخدام متصفح Google Chrome."); return;
   }
   var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  var recognition = new SpeechRecognition();
-  recognition.lang = 'ar-EG';
-  recognition.interimResults = false;
-  
-  var nt = $("nt");
-  nt.placeholder = "جاري الاستماع... اتكلم الآن";
-  recognition.start();
+  var recognition = new SpeechRecognition(); recognition.lang = 'ar-EG'; recognition.interimResults = false;
+  var nt = $("nt"); nt.placeholder = "جاري الاستماع... اتكلم الآن"; recognition.start();
   
   recognition.onresult = function(event) {
     var text = event.results[0][0].transcript;
     nt.value = nt.value ? nt.value + " " + text : text;
     nt.placeholder = "اكتب التفاصيل أو استخدم الإملاء الصوتي...";
   };
-  recognition.onerror = function() {
-    nt.placeholder = "اكتب التفاصيل أو استخدم الإملاء الصوتي...";
-    alert("لم نتمكن من التقاط الصوت، حاول مجدداً.");
-  };
-  recognition.onend = function() {
-    nt.placeholder = "اكتب التفاصيل أو استخدم الإملاء الصوتي...";
-  };
+  recognition.onerror = function() { nt.placeholder = "اكتب التفاصيل..."; alert("لم نتمكن من التقاط الصوت."); };
+  recognition.onend = function() { nt.placeholder = "اكتب التفاصيل..."; };
 }
 
 function showToast(msg) {
-  var t = $("toast");
-  if(msg) t.textContent = msg;
-  t.style.display = "block";
-  setTimeout(function(){ t.style.display = "none"; }, 2500);
+  var t = $("toast"); if(msg) t.textContent = msg;
+  t.style.display = "block"; setTimeout(function(){ t.style.display = "none"; }, 2500);
 }
 
 function nxq(n){ var x=new Date(); x.setDate(x.getDate()+n); $("nx").value=ymd(x); }
@@ -1144,7 +867,7 @@ function openF(id){
   $("nt").value = "";
   
   $("ai_q").value = ""; 
-  $("ai_res").textContent = "اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات فورية...";
+  $("ai_res").textContent = "اضغط على تحليل ورد سريع لإنشاء استراتيجية مبيعات ورسالة مخصصة...";
 
   $("hist").innerHTML = ((c.log || []).length ? '<div class="sec">سجل الملاحظات</div>' : "") + (c.log || []).slice().reverse().map(function(l, i, a){return lg(l, a.length - 1 - i)}).join("");
   $("del").style.display = id ? "" : "none";
@@ -1175,6 +898,24 @@ function exp(){
   a.download="crm-backup-"+td()+".json";
   a.click();
 }
+
+function exportExcel() {
+  if(!C.length){ alert("مفيش عملاء للتصدير"); return; }
+  var csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+  csvContent += "الاسم,الموبايل,الحالة,المشروع,الميزانية,المصدر,تاريخ المتابعة\n";
+  C.forEach(function(c){
+    csvContent += `"${c.n||''}","${c.ph||''}","${c.s||''}","${c.pr||''}","${c.bu||''}","${c.src||''}","${c.nx||''}"\n`;
+  });
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "crm_clients_export_" + td() + ".csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast("✓ تم تصدير ملف Excel/CSV بنجاح");
+}
+
 function impF(i){
   var r=new FileReader();
   r.onload=function(){ try{ var x=JSON.parse(r.result); if(Array.isArray(x)){ C=x; P(); R(); showToast("تم استرجاع البيانات"); } }catch(e){ alert("الملف مش سليم"); } };
@@ -1195,42 +936,77 @@ function wsend(){ window.open("https://wa.me/"+num(WC.ph)+"?text="+encodeURIComp
 
 function f(x){ return Math.round(x).toLocaleString("en-US"); }
 
+function calcTab(n){
+  $("csec1").hidden = n!=1; $("csec2").hidden = n!=2; $("csec3").hidden = n!=3;
+  $("ctab1").className = n==1 ? "on" : ""; $("ctab2").className = n==2 ? "on" : ""; $("ctab3").className = n==3 ? "on" : "";
+  if(n==2) calcComp();
+  if(n==3) generateAmortization();
+}
+
 function calc(){
   var p = +$("cp").value || 0, d = +$("cd").value || 0, y = +$("cy").value || 0;
   var estY = +$("c_years").value || 0, growthRate = +$("c_growth").value || 0;
   var area = +$("c_area").value || 0, rentPerMeter = +$("c_rent_meter").value || 0;
 
-  var dp = p * (d / 100);
-  var rem = p - dp;
-  var m = y ? rem / (y * 12) : 0;
-  var q = m * 3;
-
-  var monthlyRent = area * rentPerMeter;
-  var yearlyRent = monthlyRent * 12;
-  var rentYield = p > 0 ? ((yearlyRent / p) * 100) : 0;
-
-  var futurePrice = p * Math.pow((1 + growthRate / 100), estY);
-  var profit = futurePrice - p;
-  var paidSoFar = dp + (m * 12 * Math.min(estY, y));
-  var roi = paidSoFar > 0 ? ((profit / paidSoFar) * 100) : 0;
+  var dp = p * (d / 100), rem = p - dp, m = y ? rem / (y * 12) : 0, q = m * 3;
+  var monthlyRent = area * rentPerMeter, yearlyRent = monthlyRent * 12, rentYield = p > 0 ? ((yearlyRent / p) * 100) : 0;
+  var futurePrice = p * Math.pow((1 + growthRate / 100), estY), profit = futurePrice - p;
+  var paidSoFar = dp + (m * 12 * Math.min(estY, y)), roi = paidSoFar > 0 ? ((profit / paidSoFar) * 100) : 0;
 
   $("c_date").textContent = td();
-  $("v_price").textContent = "EGP " + f(p);
-  $("v_dp").textContent = "EGP (" + d + "%) " + f(dp);
-  $("v_rem").textContent = "EGP " + f(rem);
-  $("v_years").textContent = "Years " + y;
-  $("v_m").textContent = "EGP " + f(m);
-  $("v_q").textContent = "EGP " + f(q);
+  $("v_price").textContent = "EGP " + f(p); $("v_dp").textContent = "EGP (" + d + "%) " + f(dp);
+  $("v_rem").textContent = "EGP " + f(rem); $("v_years").textContent = "Years " + y;
+  $("v_m").textContent = "EGP " + f(m); $("v_q").textContent = "EGP " + f(q);
 
-  $("v_area").textContent = area + " m²";
-  $("v_rent_meter").textContent = "EGP " + f(rentPerMeter);
-  $("v_rent_monthly").textContent = "EGP " + f(monthlyRent);
-  $("v_rent_yield").textContent = rentYield.toFixed(1) + "% Yearly";
+  $("v_area").textContent = area + " m²"; $("v_rent_meter").textContent = "EGP " + f(rentPerMeter);
+  $("v_rent_monthly").textContent = "EGP " + f(monthlyRent); $("v_rent_yield").textContent = rentYield.toFixed(1) + "% Yearly";
 
-  $("v_est_years").textContent = "Years " + estY;
-  $("v_future").textContent = "EGP " + f(futurePrice);
-  $("v_profit").textContent = "EGP " + f(profit);
-  $("v_roi").textContent = Math.round(roi) + "%";
+  $("v_est_years").textContent = "Years " + estY; $("v_future").textContent = "EGP " + f(futurePrice);
+  $("v_profit").textContent = "EGP " + f(profit); $("v_roi").textContent = Math.round(roi) + "%";
+}
+
+function calcComp() {
+  var p1 = +$("p1_price").value||0, d1 = +$("p1_dp").value||0, y1 = +$("p1_years").value||0;
+  var p2 = +$("p2_price").value||0, d2 = +$("p2_dp").value||0, y2 = +$("p2_years").value||0;
+
+  var dp1 = p1 * (d1/100), rem1 = p1 - dp1, m1 = y1 ? rem1 / (y1 * 12) : 0;
+  var dp2 = p2 * (d2/100), rem2 = p2 - dp2, m2 = y2 ? rem2 / (y2 * 12) : 0;
+
+  $("comp_result").innerHTML = `
+    <b style="color:var(--pr)">⚖️ التقرير المقارن السريع:</b><br>
+    • <b>المشروع 1:</b> مقدم <b>${f(dp1)} ج</b> والقسط الشهري <b>${f(m1)} ج</b> على ${y1} سنوات.<br>
+    • <b>المشروع 2:</b> مقدم <b>${f(dp2)} ج</b> والقسط الشهري <b>${f(m2)} ج</b> على ${y2} سنوات.<br>
+    💡 <i>${m1 < m2 ? "المشروع الأول يقدم قسط شهري أقل مريح للميزانية." : "المشروع الثاني يحقق سداد أسرع أو إمكانيات أخرى."}</i>
+  `;
+}
+
+function generateAmortization() {
+  var p = +$("cp").value || 0, d = +$("cd").value || 0, y = +$("cy").value || 0;
+  var dp = p * (d / 100), rem = p - dp, m = y ? rem / (y * 12) : 0;
+  var body = $("schedule_body"), rows = "";
+  
+  rows += `<tr><td>1</td><td>المقدم (${d}%)</td><td>EGP ${f(dp)}</td></tr>`;
+  var totalMonths = y * 12;
+  for(var i = 1; i <= Math.min(totalMonths, 24); i++) {
+    rows += `<tr><td>${i+1}</td><td>قسط شهري (${i})</td><td>EGP ${f(m)}</td></tr>`;
+  }
+  if(totalMonths > 24) {
+    rows += `<tr><td colspan="3" class="mu">... باقي الأقساط حتى نهاية الـ ${y} سنوات بنفس القيمة</td></tr>`;
+  }
+  body.innerHTML = rows;
+}
+
+function loadLogo(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var logoImg = $("brandLogo");
+      logoImg.src = e.target.result;
+      logoImg.style.display = "block";
+      showToast("✓ تم إضافة اللوجو للبروشور بنجاح");
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
 }
 
 function downloadPDF() {
@@ -1243,9 +1019,7 @@ function downloadPDF() {
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
   showToast("⏳ جاري إنشاء ملف PDF...");
-  html2pdf().set(opt).from(element).save().then(function(){
-    showToast("✓ تم تحميل PDF بنجاح");
-  });
+  html2pdf().set(opt).from(element).save().then(function(){ showToast("✓ تم تحميل PDF بنجاح"); });
 }
 
 function getShareText() {
@@ -1280,73 +1054,54 @@ function getShareText() {
 
 function cshare(){ window.open("https://wa.me/?text=" + encodeURIComponent(getShareText()), "_blank"); }
 function ccopy(){
-  try {
-    navigator.clipboard.writeText(getShareText());
-    showToast("✓ تم نسخ العرض بنجاح");
-  } catch(e){}
+  try { navigator.clipboard.writeText(getShareText()); showToast("✓ تم نسخ العرض بنجاح"); } catch(e){}
+}
+
+function addCurrentToCalendar() {
+  var cName = $("n").value || "العميل";
+  var cDate = $("nx").value;
+  var cProj = $("pr").value || "العقارات";
+  if (!cDate) { alert("يرجى تحديد تاريخ المتابعة أولاً"); return; }
+  
+  var startDate = cDate.replace(/-/g, '') + "T090000Z";
+  var endDate = cDate.replace(/-/g, '') + "T100000Z";
+  var title = `متابعة عقارية: ${cName} - ${cProj}`;
+  var details = `متابعة العميل ${cName} بخصوص مشروع ${cProj}. الميزانية: ${$("bu").value}`;
+  
+  var url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&details=${encodeURIComponent(details)}&dates=${startDate}/${endDate}`;
+  window.open(url, '_blank');
 }
 
 var tm=null;
 function setSync(t){ $("sy").textContent=t; }
 
 function cloud(){
-  setSync("⏳ بيتحفظ");
-  clearTimeout(tm);
+  setSync("⏳ بيتحفظ"); clearTimeout(tm);
   tm = setTimeout(function(){
     fetch(SUPABASE_URL + "crm_data", {
       method: "POST",
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
-        "Content-Type": "application/json",
-        "Prefer": "resolution=merge-duplicates"
-      },
-      body: JSON.stringify({
-        id: "main_user",
-        clients: JSON.stringify(C),
-        proj: PJ,
-        at: CAT
-      })
+      headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Content-Type": "application/json", "Prefer": "resolution=merge-duplicates" },
+      body: JSON.stringify({ id: "main_user", clients: JSON.stringify(C), proj: PJ, at: CAT })
     })
-    .then(function(res){
-      if(res.ok) setSync("☁️ متزامن");
-      else setSync("⚠️ المزامنة فشلت");
-    })
-    .catch(function(){
-      setSync("⚠ المزامنة فشلت");
-    });
+    .then(function(res){ if(res.ok) setSync("☁️ متزامن"); else setSync("⚠️ المزامنة فشلت"); })
+    .catch(function(){ setSync("⚠ المزامنة فشلت"); });
   }, 800);
 }
 
 async function initCloud(){
   try {
-    var res = await fetch(SUPABASE_URL + "crm_data?id=eq.main_user", {
-      headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY }
-    });
+    var res = await fetch(SUPABASE_URL + "crm_data?id=eq.main_user", { headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY } });
     var data = await res.json();
     if (data && data.length > 0) {
-      var cloudData = data[0];
-      var ca = +cloudData.at || 0;
+      var cloudData = data[0], ca = +cloudData.at || 0;
       if (ca > CAT) {
-        C = JSON.parse(cloudData.clients || "[]");
-        PJ = cloudData.proj || "";
-        CAT = ca;
-        try {
-          localStorage.setItem(K, JSON.stringify(C));
-          localStorage.setItem(K+"_at", String(CAT));
-          localStorage.setItem("crm_proj_v1", PJ);
-        } catch(e){}
+        C = JSON.parse(cloudData.clients || "[]"); PJ = cloudData.proj || ""; CAT = ca;
+        try { localStorage.setItem(K, JSON.stringify(C)); localStorage.setItem(K+"_at", String(CAT)); localStorage.setItem("crm_proj_v1", PJ); } catch(e){}
         R();
-      } else if (CAT > ca || C.length) {
-        cloud();
-      }
-    } else if (C.length) {
-      cloud();
-    }
+      } else if (CAT > ca || C.length) { cloud(); }
+    } else if (C.length) { cloud(); }
     setSync("☁️ متزامن");
-  } catch(e) {
-    setSync("⚠️ محلي فقط");
-  }
+  } catch(e) { setSync("⚠️ محلي فقط"); }
 }
 
 initCloud();
@@ -1369,12 +1124,8 @@ function chipsR(){
 }
 function setF(v){ flt=v; isTodayPlanSort=false; R(); }
 function dtab(n){
-  $("pa").hidden = n!=1;
-  $("pb").hidden = n!=2;
-  $("pc").hidden = n!=3;
-  $("dt1").className = n==1 ? "on" : "";
-  $("dt2").className = n==2 ? "on" : "";
-  $("dt3").className = n==3 ? "on" : "";
+  $("pa").hidden = n!=1; $("pb").hidden = n!=2; $("pc").hidden = n!=3;
+  $("dt1").className = n==1 ? "on" : ""; $("dt2").className = n==2 ? "on" : ""; $("dt3").className = n==3 ? "on" : "";
 }
 
 function runAssistant(){
@@ -1386,27 +1137,43 @@ function runAssistant(){
   var budget = c.bu || $("bu").value || "المميزة";
   
   var combinedText = (userQuery + " " + logs).toLowerCase();
-  var advice = "", msg = "", followUp = "";
+  var advice = "", msg = "", followUp = "", tone = "";
 
   if(combinedText.includes("استلام") || combinedText.includes("جاهز") || combinedText.includes("مستعجل")){
-    advice = "العميل مستعجل على الاستلام. اضغط على موقف الإنشاءات الحالي على الأرض وسرعة تسليم الوحدات.";
+    tone = "🎯 شخصية العميل: مستعجل / سكن فوري";
+    advice = "العميل مستعجل على الاستلام. اضغط على موقف الإنشاءات الحالي ومواعيد التسليم الفعلي.";
     msg = "أهلاً يا " + clientName + "، بخصوص موقف الاستلام في " + project + "، معدلات البناء ممتازة ومطابقة للمواعيد. تحب نحدد معاد معاينة قريب تشوف بنفسك؟";
     followUp = "متابعة خلال 24 ساعة لتأكيد موعد المعاينة.";
   } else if(combinedText.includes("إعادة بيع") || combinedText.includes("اعادة بيع") || combinedText.includes("استثمار")){
-    advice = "العميل مهتم بإعادة البيع والأوفر (Resale). ركّز على حجم العائد المتوقع وموقع المشروع الحيوي الذي يضمن سيولة عالية.";
+    tone = "📈 شخصية العميل: مستثمر أرقام وعائد (Investor)";
+    advice = "العميل مهتم بإعادة البيع والأوفر (Resale). ركّز على حجم العائد المتوقع وموقع المشروع الحيوي.";
     msg = "ازيك يا " + clientName + "؟ نقطة إعادة البيع والاستثمار في " + project + " مضمونة جداً نظراً للإقبال الكبير. يناسبك أبعتلك دراسة سريعة للعائد المتوقع؟";
     followUp = "متابعة بعد 48 ساعة لمناقشة أرقام الاستثمار.";
   } else if(combinedText.includes("غالي") || combinedText.includes("سعر") || combinedText.includes("ميزانية")){
+    tone = "💰 شخصية العميل: حساس للسعر والميزانية (Price Sensitive)";
     advice = "العميل مهتم بالميزانية والسعر. وضّح له مرونة خطة السداد وطول فترة التقسيط لتخفيف الأعباء.";
     msg = "مساء الفل يا " + clientName + "، عارف إن الأسعار بقت محتاجة دراسة، عشان كدة قدرت أظبطلك خطة سداد تناسب ميزانيتك بمقدم مريح وتقسيط مريح. نراجعها سوا؟";
     followUp = "متابعة خلال يومين لعرض تفاصيل خطة السداد.";
   } else {
+    tone = "🤝 شخصية العميل: عميل متردد / اتخاذ قرار";
     advice = "عميل في مرحلة اتخاذ القرار. اسأله عن الميعاد المناسب لحجز الوحدة أو زيارة الموقع.";
     msg = "أهلاً بيك يا " + clientName + "، بناءً على ترشيحنا لـ " + project + " بميزانية " + budget + "، الوحدات المتاحة ممتازة وبتخلص بسرعة. تحب نحجز الوحدة النهاردة؟";
     followUp = "متابعة خلال 24 ساعة للحسم.";
   }
 
-  $("ai_res").textContent = "📌 استراتيجية التعامل:\n" + advice + "\n\n💬 مقترح رسالة الواتساب:\n" + msg + "\n\n📅 خطوة الفولو أب المقترحة:\n" + followUp;
+  $("ai_res").textContent = tone + "\n\n📌 استراتيجية التعامل:\n" + advice + "\n\n💬 مقترح رسالة الواتساب:\n" + msg + "\n\n📅 خطوة الفولو أب المقترحة:\n" + followUp;
+}
+
+function generateSmartOffer() {
+  var c = C.filter(function(x){return x.id==cur})[0] || {};
+  var cName = (c.n || $("n").value || "العميل").split(" ")[0];
+  var cProj = c.pr || $("pr").value || "المشروع المطلوب";
+  var cBud = c.bu || $("bu").value || "المناسبة";
+
+  var offerText = `أهلاً يا ${cName}، جهزتلك عرض مميز جداً بناءً على طلبك لـ ${cProj} بميزانية حوالي ${cBud}.\n\n` +
+                  `الوحدة بتتميز بموقع ممتاز وخطة سداد مرنة جداً. تحب أبعتلك التفاصيل الكاملة وبروشور المشروع نراجعه سوا؟`;
+  
+  window.open("https://wa.me/" + num(c.ph || $("ph").value) + "?text=" + encodeURIComponent(offerText), "_blank");
 }
 
 var PJ=""; try{ PJ=localStorage.getItem("crm_proj_v1")||""; }catch(e){} $("pjt").value=PJ;
@@ -1452,7 +1219,7 @@ function nSave(){ try{ localStorage.setItem(NK,JSON.stringify(PD)); localStorage
 function nP(x){ return x ? (x>=1e6 ? +(x/1e6).toFixed(1)+"M" : Math.round(x/1000)+"K") : "?"; }
 
 function nR(){
-  var st=$("nst"), q=($("nq").value||"").toLowerCase().trim(), b=(+$("nb").value||0)*1e6;
+  var st=$("nst"), q=($("nq").value\vert{}\vert{}"").toLowerCase().trim(), b=(+$("nb").value||0)*1e6;
   st.textContent = PD.length ? "📦 "+PD.length+" مشروع • آخر استيراد "+new Date(PDat).toISOString().slice(0,10) : "لسه مفيش استيراد";
   if(!PD.length){ $("nl").innerHTML='<div class="card mu">دوس ⬆ استيراد CSV واختار ملف nawy_projects.csv</div>'; return; }
   var L=PD.filter(function(x){ return(!q||(x.n+" "+x.d+" "+x.a+" "+x.t).toLowerCase().indexOf(q)>-1)&&(!b||(x.lo&&x.lo<=b)); });
