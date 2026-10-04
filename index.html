@@ -76,6 +76,37 @@ body {
 
 .w { max-width: 1360px; margin: 0 auto; padding: 20px 16px 80px; }
 
+/* Lock Screen Overlay */
+#lockOverlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: var(--bg);
+  background-image: var(--bg-gradient);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lock-card {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 20px;
+  padding: 28px;
+  width: min(90%, 380px);
+  text-align: center;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+.lock-pin-input {
+  letter-spacing: 12px;
+  font-size: 24px;
+  text-align: center;
+  margin: 16px 0;
+  padding: 10px;
+}
+
 /* Grid Layout */
 #list {
   display: grid;
@@ -382,6 +413,21 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 </head>
 <body>
 
+<!-- Lock Screen Component -->
+<div id="lockOverlay">
+  <div class="lock-card">
+    <div style="font-size:42px;margin-bottom:8px">🔒</div>
+    <h2 id="lockTitle" style="margin:0 0 6px;font-size:20px">فتح النظام</h2>
+    <div id="lockSub" class="mu" style="font-size:13px">أدخل رمز PIN للدخول</div>
+    <input type="password" id="pinInput" class="lock-pin-input" maxlength="4" pattern="\d*" inputmode="numeric" placeholder="••••" onkeyup="checkPinInput(event)">
+    <div id="lockErr" class="late" style="font-size:13px;margin-top:6px"></div>
+    <div class="row" style="margin-top:16px;justify-content:center;gap:10px">
+      <button class="p" onclick="submitPin()">تأكيد الدخول</button>
+      <button id="bioBtn" onclick="authBiometrics()" style="display:none;background:rgba(168,85,247,0.2);border-color:var(--purple);color:#fff">👆 البصمة</button>
+    </div>
+  </div>
+</div>
+
 <div class="w">
   <div class="header-bar row">
     <div style="flex:1">
@@ -389,6 +435,8 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
       <div class="mu" style="font-size:12px;margin-top:2px">نظام إدارة العملاء والاستثمار العقاري</div>
     </div>
     <span id="sy" class="mu" style="font-size:12px;padding:4px 8px;background:rgba(255,255,255,0.05);border-radius:6px">💾 محلي</span>
+    <button onclick="lockApp()" title="قفل النظام" style="background:rgba(239,68,68,0.15);border-color:var(--rd);color:var(--rd)">🔒 قفل</button>
+    <button onclick="openSecDlg()" title="إعدادات الحماية">⚙️ الحماية</button>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 داكن</button>
     <button onclick="$('cd2').showModal();calc()">🧮 الحاسبة</button>
     <button onclick="pjd.showModal();nR()">🏢 مشاريعي</button>
@@ -427,6 +475,23 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 <div class="fab-container">
   <button class="fab-main" onclick="openF()" title="إضافة عميل جديد">+</button>
 </div>
+
+<!-- دايالوج إعدادات الحماية والبصمة -->
+<dialog id="secDlg">
+  <div class="hd">
+    <b>🔐 إعدادات الحماية والبصمة</b>
+    <button type="button" class="x" onclick="secDlg.close()" aria-label="إغلاق">✕</button>
+  </div>
+  <label>تغيير رمز PIN (4 أرقام)</label>
+  <input type="password" id="newPin" maxlength="4" pattern="\d*" inputmode="numeric" placeholder="رمز PIN الجديد">
+  <button class="p" onclick="changePin()" style="margin-top:8px;width:100%">تحديث رمز PIN</button>
+  <hr style="border:0;border-top:1px solid var(--bd);margin:16px 0">
+  <div class="row" style="justify-style:space-between">
+    <span style="font-weight:bold">تفعيل البصمة / Face ID</span>
+    <button id="toggleBioBtn" onclick="setupBiometrics()" style="margin-inline-start:auto">تفعيل الآن</button>
+  </div>
+  <div class="mu" style="font-size:12px;margin-top:4px">تتيح لك فتح النظام باستخدام بصمة الاصبع أو الوجه الخاصة بجهازك.</div>
+</dialog>
 
 <!-- دايالوج إضافة/تعديل عميل -->
 <dialog id="d">
@@ -698,6 +763,173 @@ function P(){ CAT=Date.now(); try{ localStorage.setItem(K,JSON.stringify(C)); lo
 var $ = function(i){ return document.getElementById(i); };
 var flt = "";
 $("stt").innerHTML = S.map(function(s){ return "<option>"+s+"</option>"; }).join("");
+
+// --- نظام الأمان والحماية (Passcode & Biometrics) ---
+var PIN_KEY = "crm_user_pin";
+var BIO_KEY = "crm_bio_enabled";
+var isSetupMode = false;
+
+function initSecurity() {
+  var savedPin = localStorage.getItem(PIN_KEY);
+  var bioEnabled = localStorage.getItem(BIO_KEY) === "true";
+  
+  if (!savedPin) {
+    isSetupMode = true;
+    $("lockTitle").textContent = "إنشاء رمز PIN جديد";
+    $("lockSub").textContent = "قم بتعيين رمز PIN مكون من 4 أرقام لحماية حسابك";
+  } else {
+    isSetupMode = false;
+    $("lockTitle").textContent = "فتح النظام";
+    $("lockSub").textContent = "أدخل رمز PIN للدخول";
+  }
+  
+  if (bioEnabled && window.PublicKeyCredential) {
+    $("bioBtn").style.display = "inline-block";
+    authBiometrics();
+  } else {
+    $("bioBtn").style.display = "none";
+  }
+  
+  updateSecUI();
+}
+
+function checkPinInput(e) {
+  if ($("pinInput").value.length === 4) {
+    submitPin();
+  }
+}
+
+function submitPin() {
+  var input = $("pinInput").value;
+  var err = $("lockErr");
+  err.textContent = "";
+
+  if (input.length !== 4) {
+    err.textContent = "الرمز يجب أن يتكون من 4 أرقام";
+    return;
+  }
+
+  if (isSetupMode) {
+    localStorage.setItem(PIN_KEY, input);
+    showToast("✓ تم تعيين رمز PIN بنجاح");
+    unlockApp();
+  } else {
+    var savedPin = localStorage.getItem(PIN_KEY);
+    if (input === savedPin) {
+      unlockApp();
+    } else {
+      err.textContent = "رمز PIN غير صحيح، حاول مجدداً";
+      $("pinInput").value = "";
+    }
+  }
+}
+
+function unlockApp() {
+  $("lockOverlay").style.display = "none";
+  $("pinInput").value = "";
+  $("lockErr").textContent = "";
+}
+
+function lockApp() {
+  $("lockOverlay").style.display = "flex";
+  initSecurity();
+}
+
+function openSecDlg() {
+  $("newPin").value = "";
+  updateSecUI();
+  $("secDlg").showModal();
+}
+
+function updateSecUI() {
+  var bioEnabled = localStorage.getItem(BIO_KEY) === "true";
+  var btn = $("toggleBioBtn");
+  if(btn) {
+    btn.textContent = bioEnabled ? "إلغاء التفعيل" : "تفعيل الآن";
+    btn.className = bioEnabled ? "late" : "p";
+  }
+}
+
+function changePin() {
+  var np = $("newPin").value.trim();
+  if (np.length !== 4 || isNaN(np)) {
+    alert("برجاء كتابة رمز PIN مكون من 4 أرقام فقط");
+    return;
+  }
+  localStorage.setItem(PIN_KEY, np);
+  showToast("✓ تم تغيير رمز PIN بنجاح");
+  $("secDlg").close();
+}
+
+async function setupBiometrics() {
+  var bioEnabled = localStorage.getItem(BIO_KEY) === "true";
+  if (bioEnabled) {
+    localStorage.setItem(BIO_KEY, "false");
+    showToast("تم إلغاء تفعيل البصمة");
+    updateSecUI();
+    return;
+  }
+
+  if (!window.PublicKeyCredential) {
+    alert("خاصية البصمة غير مدعومة في متصفحك أو جهازك.");
+    return;
+  }
+
+  try {
+    var challenge = new Uint8Array(32);
+    window.crypto.getRandomValues(challenge);
+    var userId = new Uint8Array(16);
+    window.crypto.getRandomValues(userId);
+
+    var createCredentialOptions = {
+      publicKey: {
+        challenge: challenge,
+        rp: { name: "CRM Karim Mostafa" },
+        user: {
+          id: userId,
+          name: "karim",
+          displayName: "Karim Mostafa"
+        },
+        pubKeyCredParams: [{ alg: -7, type: "public-key" }, { alg: -257, type: "public-key" }],
+        authenticatorSelection: { authenticatorAttachment: "platform" },
+        timeout: 60000
+      }
+    };
+
+    var cred = await navigator.credentials.create(createCredentialOptions);
+    if (cred) {
+      localStorage.setItem(BIO_KEY, "true");
+      showToast("✓ تم تفعيل البصمة بنجاح");
+      updateSecUI();
+    }
+  } catch (e) {
+    alert("عذراً، لم نتمكن من تفعيل البصمة: " + e.message);
+  }
+}
+
+async function authBiometrics() {
+  if (!window.PublicKeyCredential || localStorage.getItem(BIO_KEY) !== "true") return;
+  
+  try {
+    var challenge = new Uint8Array(32);
+    window.crypto.getRandomValues(challenge);
+
+    var getCredentialOptions = {
+      publicKey: {
+        challenge: challenge,
+        timeout: 60000
+      }
+    };
+
+    var assertion = await navigator.credentials.get(getCredentialOptions);
+    if (assertion) {
+      unlockApp();
+      showToast("✓ تم الفتح باستخدام البصمة");
+    }
+  } catch (e) {
+    $("lockErr").textContent = "فشلت المصادقة بالبصمة، استخدم رمز PIN";
+  }
+}
 
 // الثيمات Dark/Light Toggle
 function toggleTheme(){
@@ -1251,6 +1483,7 @@ function nBud(s){
   var mo=new MutationObserver(f); ds.forEach(function(x){ mo.observe(x,{attributes:true,attributeFilter:["open"]}); }); f();
 })();
 
+initSecurity();
 R();
 </script>
 </body>
