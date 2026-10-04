@@ -171,7 +171,6 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 
 .theme-toggle { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--bd); border-radius: 99px; padding: 6px 12px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 
-/* Styles for Comparison Table & Amortization */
 .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
 .comp-card { background: rgba(0,0,0,0.2); border: 1px solid var(--bd); border-radius: 12px; padding: 12px; }
 .schedule-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
@@ -181,17 +180,19 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 </head>
 <body>
 
+<!-- شاشة القفل المحسنة -->
 <div id="lockOverlay">
   <div class="lock-card">
     <div style="font-size:42px;margin-bottom:8px">🔒</div>
     <h2 id="lockTitle" style="margin:0 0 6px;font-size:20px">فتح النظام</h2>
     <div id="lockSub" class="mu" style="font-size:13px">أدخل رمز PIN للدخول</div>
-    <input type="password" id="pinInput" class="lock-pin-input" maxlength="4" pattern="\d*" inputmode="numeric" placeholder="••••" onkeyup="checkPinInput(event)">
+    <input type="password" id="pinInput" class="lock-pin-input" maxlength="4" pattern="\d*" inputmode="numeric" placeholder="••••" onkeydown="if(event.key==='Enter') submitPin()" onkeyup="checkPinInput(event)">
     <div id="lockErr" class="late" style="font-size:13px;margin-top:6px"></div>
     <div class="row" style="margin-top:16px;justify-content:center;gap:10px">
       <button class="p" onclick="submitPin()">تأكيد الدخول</button>
       <button id="bioBtn" onclick="authBiometrics()" style="display:none;background:rgba(168,85,247,0.2);border-color:var(--purple);color:#fff">👆 البصمة</button>
     </div>
+    <button type="button" onclick="resetPinForce()" style="background:none;border:none;color:var(--mu);font-size:12px;margin-top:14px;text-decoration:underline;cursor:pointer">نسيت الرمز؟ إعادة تعيين الـ PIN</button>
   </div>
 </div>
 
@@ -615,9 +616,12 @@ function initSecurity() {
     $("bioBtn").style.display = "none";
   }
   updateSecUI();
+  setTimeout(function(){ if($("pinInput")) $("pinInput").focus(); }, 100);
 }
 
-function checkPinInput(e) { if ($("pinInput").value.length === 4) submitPin(); }
+function checkPinInput(e) { 
+  if ($("pinInput").value.length === 4) submitPin(); 
+}
 
 function submitPin() {
   var input = $("pinInput").value, err = $("lockErr"); err.textContent = "";
@@ -631,6 +635,15 @@ function submitPin() {
     var savedPin = localStorage.getItem(PIN_KEY);
     if (input === savedPin) unlockApp();
     else { err.textContent = "رمز PIN غير صحيح، حاول مجدداً"; $("pinInput").value = ""; }
+  }
+}
+
+function resetPinForce() {
+  if (confirm("هل تريد إعادة تعيين رمز PIN الجديد؟")) {
+    localStorage.removeItem(PIN_KEY);
+    $("pinInput").value = "";
+    initSecurity();
+    showToast("تم مسح الرمز القديم، قم بإنشاء رمز جديد الآن");
   }
 }
 
@@ -1101,7 +1114,7 @@ async function initCloud(){
       } else if (CAT > ca || C.length) { cloud(); }
     } else if (C.length) { cloud(); }
     setSync("☁️ متزامن");
-  } catch(e) { setSync("⚠️ محلي فقط"); }
+  } catch(e) { setSync("⚠️️ محلي فقط"); }
 }
 
 initCloud();
