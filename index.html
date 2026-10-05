@@ -635,6 +635,11 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
         <input id="ai_q" placeholder="مثال: العميل خايف من إعادة البيع أو السعر عالي...">
         <button type="button" class="p" onclick="runAssistant()" style="flex:none">تحليل ورد سريع</button>
       </div>
+      <div class="row" style="gap:6px;margin-top:10px">
+        <button type="button" onclick="copyCase()" style="flex:1">📋 انسخ الحالة لـ Claude</button>
+        <a class="b" href="https://claude.ai/new" target="_blank" rel="noopener" style="flex:none">فتح Claude ↗</a>
+      </div>
+      <div class="mu" style="margin-top:6px">بينسخ بيانات العميل وملاحظاته ومشاريع مناسبة لميزانيته. الصقه في Claude واطلب التحليل.</div>
     </div>
 
     <div class="row" style="margin-top:16px">
@@ -891,6 +896,33 @@ function lg(l, i){
   '</div>';
 }
 
+function copyCase(){
+  var c = C.filter(function(x){return x.id==cur})[0] || {};
+  var nm = ($("n").value||c.n||"").trim() || "العميل";
+  var bu = $("bu").value || c.bu || "";
+  var b = nBud(bu);
+  var L = (c.log||[]).map(function(l){ return "- " + l.d + ": " + l.t; }).join("\n") || "- (مفيش ملاحظات)";
+  var P = PD.slice();
+  if(b) P = P.filter(function(x){ return x.lo && x.lo <= b*1.05; });
+  P.sort(function(x,y){ return b ? (y.lo - x.lo) : ((y.u||0) - (x.u||0)); });
+  var PL = P.slice(0,15).map(function(x){ return "- " + x.n + " | " + x.d + " | " + x.a + " | " + x.t + " | من " + nP(x.lo); }).join("\n");
+  var txt = "أنا سمسار عقارات في مصر. حلل حالة العميل ده واقترح الخطوة الجاية لقفل الصفقة.\n\n"
+    + "بيانات العميل:\nالاسم: " + nm
+    + "\nالمشروع/المنطقة المهتم بيها: " + ($("pr").value||c.pr||"-")
+    + "\nالميزانية: " + (bu||"-")
+    + "\nالحالة: " + ($("stt").value||c.s||"-")
+    + "\nالمصدر: " + ($("src").value||c.src||"-")
+    + "\nميعاد الفولو اب: " + ($("nx").value||c.nx||"-")
+    + "\nاليوم: " + td()
+    + "\n\nالملاحظات (القديم للجديد):\n" + L
+    + "\n\nمشاريعي:\n" + (PJ.trim() || "(فاضية)")
+    + "\n\nمشاريع من قاعدة نوّي تناسب الميزانية:\n" + (PL || "(مفيش)")
+    + "\n\nالمطلوب بالمصري وباختصار:\n1) إيه العقبة الأساسية عند العميل؟\n2) أفضل 3 مشاريع من القوايم اللي فوق بس تحل العقبة دي، وليه كل واحد.\n3) الخطوة الجاية وميعاد الفولو اب.\n4) رسالة واتساب قصيرة جاهزة للعميل.\nممنوع تخترع مشاريع أو أسعار مش موجودة في القوايم.";
+  function done(){ showToast("✓ اتنسخت — الصقها في Claude"); }
+  try{ navigator.clipboard.writeText(txt).then(done, fb); }catch(e){ fb(); }
+  function fb(){ var t=document.createElement("textarea"); t.value=txt; t.style.position="fixed"; t.style.opacity="0"; document.body.appendChild(t); t.select(); try{ document.execCommand("copy"); done(); }catch(e){ showToast("معرفتش أنسخ"); } t.remove(); }
+  return txt;
+}
 function copyNoteText(text) {
   try {
     navigator.clipboard.writeText(decodeURIComponent(text));
