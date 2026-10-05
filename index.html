@@ -498,6 +498,15 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 </style>
 </head>
 <body>
+<div id="lock" style="display:none;position:fixed;inset:0;z-index:99999;background:var(--bg);align-items:center;justify-content:center;padding:20px">
+  <form onsubmit="return doLogin(event)" style="width:min(92vw,380px);display:flex;flex-direction:column;gap:10px">
+    <h2 style="margin:0 0 6px">🔒 تسجيل الدخول</h2>
+    <input id="lem" type="email" placeholder="الإيميل" autocomplete="username" dir="ltr" style="text-align:right" required>
+    <input id="lpw" type="password" placeholder="الباسورد" autocomplete="current-password" dir="ltr" style="text-align:right" required>
+    <button class="p" type="submit">دخول</button>
+    <div id="lerr" class="mu" style="min-height:20px"></div>
+  </form>
+</div>
 
 <div class="w">
   <div class="header-bar row">
@@ -506,6 +515,7 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
       <div class="mu" style="font-size:12px;margin-top:2px">نظام إدارة العملاء والاستثمار العقاري</div>
     </div>
     <span id="sy" class="mu" style="font-size:12px;padding:4px 8px;background:rgba(255,255,255,0.05);border-radius:6px">💾 محلي</span>
+    <button onclick="logout()" title="تسجيل خروج" style="padding:4px 8px;font-size:12px">🚪</button>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 داكن</button>
     <button onclick="$('cd2').showModal();calc()">🧮 الحاسبة</button>
     <button onclick="pjd.showModal();nR()">🏢 مشاريعي</button>
@@ -815,6 +825,32 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 // إعدادات Supabase
 var SUPABASE_URL = "https://jxfumlinzbikkarzarsg.supabase.co/rest/v1/";
 var SUPABASE_KEY = "sb_publishable_4fOzE1ZGB2vXXvdMKCgD5A_Vf3WMSbX";
+var AUTH_URL = SUPABASE_URL.replace("/rest/v1/", "/auth/v1/");
+function getSess(){ try{ return JSON.parse(localStorage.getItem("crm_sess")||"null"); }catch(e){ return null; } }
+function setSess(s){ try{ if(s) localStorage.setItem("crm_sess", JSON.stringify(s)); else localStorage.removeItem("crm_sess"); }catch(e){} }
+function sessFrom(j){ return { access_token:j.access_token, refresh_token:j.refresh_token, expires_at: Math.floor(Date.now()/1000) + (j.expires_in||3600) }; }
+async function getToken(){
+  var s = getSess(); if(!s) return null;
+  if(s.expires_at - 60 > Date.now()/1000) return s.access_token;
+  try{
+    var r = await fetch(AUTH_URL + "token?grant_type=refresh_token", {method:"POST", headers:{"apikey":SUPABASE_KEY,"Content-Type":"application/json"}, body:JSON.stringify({refresh_token:s.refresh_token})});
+    if(!r.ok){ setSess(null); return null; }
+    var n = sessFrom(await r.json()); setSess(n); return n.access_token;
+  }catch(e){ return s.access_token; }
+}
+function showLock(){ $("lock").style.display = "flex"; }
+async function doLogin(ev){
+  ev.preventDefault(); var er = $("lerr"); er.textContent = "⏳";
+  try{
+    var r = await fetch(AUTH_URL + "token?grant_type=password", {method:"POST", headers:{"apikey":SUPABASE_KEY,"Content-Type":"application/json"}, body:JSON.stringify({email:$("lem").value.trim(), password:$("lpw").value})});
+    var j = await r.json();
+    if(!r.ok || !j.access_token){ er.textContent = "الإيميل أو الباسورد غلط"; return false; }
+    setSess(sessFrom(j)); $("lpw").value = ""; er.textContent = ""; $("lock").style.display = "none"; initCloud();
+  }catch(x){ er.textContent = "مفيش اتصال بالنت"; }
+  return false;
+}
+function logout(){ setSess(null); setSync("🔒 مقفول"); showLock(); }
+
 
 var S=["مهتم","معاينة","تفاوض","جديد","مبيردش","تم البيع","مش مهتم"], K="crm_clients_v1", C=[], cur=null;
 try{ C = JSON.parse(localStorage.getItem(K)||"[]"); } catch(e){ C=[]; }
@@ -1213,37 +1249,36 @@ function setSync(t){ $("sy").textContent=t; }
 function cloud(){
   setSync("⏳ بيتحفظ");
   clearTimeout(tm);
-  tm = setTimeout(function(){
+  tm = setTimeout(async function(){
+    var tk = await getToken();
+    if(!tk){ setSync("🔒 سجل دخول"); showLock(); return; }
     fetch(SUPABASE_URL + "crm_data", {
       method: "POST",
       headers: {
         "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
+        "Authorization": "Bearer " + tk,
         "Content-Type": "application/json",
         "Prefer": "resolution=merge-duplicates"
       },
-      body: JSON.stringify({
-        id: "main_user",
-        clients: JSON.stringify(C),
-        proj: PJ,
-        at: CAT
-      })
+      body: JSON.stringify({ id: "main_user", clients: JSON.stringify(C), proj: PJ, at: CAT })
     })
     .then(function(res){
       if(res.ok) setSync("☁️ متزامن");
+      else if(res.status==401 || res.status==403){ setSess(null); setSync("🔒 سجل دخول"); showLock(); }
       else setSync("⚠️ المزامنة فشلت");
     })
-    .catch(function(){
-      setSync("⚠ المزامنة فشلت");
-    });
+    .catch(function(){ setSync("⚠ المزامنة فشلت"); });
   }, 800);
 }
 
 async function initCloud(){
   try {
+    var tk = await getToken();
+    if(!tk){ setSync("🔒 سجل دخول"); showLock(); return; }
     var res = await fetch(SUPABASE_URL + "crm_data?id=eq.main_user", {
-      headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY }
+      headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + tk }
     });
+    if(res.status==401 || res.status==403){ setSess(null); setSync("🔒 سجل دخول"); showLock(); return; }
     var data = await res.json();
     if (data && data.length > 0) {
       var cloudData = data[0];
