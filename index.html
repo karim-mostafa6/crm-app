@@ -646,7 +646,7 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
     <input id="nb" type="number" inputmode="decimal" placeholder="أقصى سعر (مليون)" oninput="nR()" style="flex:1;min-width:120px">
   </div>
   <div id="nl"></div>
-  <div class="sec">✍ مشاريع إضافية (يدوي)</div>
+  <div class="sec">✍️️ مشاريع إضافية (يدوي)</div>
   <textarea id="pjt" rows="4" oninput="pjSave()" placeholder="مثال: سوديك إيست - التجمع - شقق من 5.2 مليون - استلام 2028"></textarea>
 </dialog>
 
@@ -816,7 +816,7 @@ label { display: block; font-size: 13px; color: var(--mu); margin: 10px 0 4px; f
 var SUPABASE_URL = "https://jxfumlinzbikkarzarsg.supabase.co/rest/v1/";
 var SUPABASE_KEY = "sb_publishable_4fOzE1ZGB2vXXvdMKCgD5A_Vf3WMSbX";
 
-var S=["مهتم","معاينة","تفاوض","جديد","مبيردش","كنسيليشن","تم البيع","مش مهتم"], K="crm_clients_v1", C=[], cur=null;
+var S=["مهتم","معاينة","تفاوض","جديد","مبيردش","تم البيع","مش مهتم"], K="crm_clients_v1", C=[], cur=null;
 try{ C = JSON.parse(localStorage.getItem(K)||"[]"); } catch(e){ C=[]; }
 var CAT=0; try{ CAT = +localStorage.getItem(K+"_at")||0; } catch(e){}
 
@@ -866,7 +866,7 @@ function esc(s){ return String(s||"").replace(/[&<>"]/g, function(c){ return {"&
 
 var TAB=null;
 function tab(v){ TAB=v; isTodayPlanSort=false; R(); }
-function act(c){ return c.s!="تم البيع" && c.s!="مش مهتم" && c.s!="كنسيليشن"; }
+function act(c){ return c.s!="تم البيع" && c.s!="مش مهتم"; }
 function ymd(x){ return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); }
 function stale(c){
   if(!act(c)) return 0;
@@ -875,12 +875,12 @@ function stale(c){
 }
 function snz(id,d){ var c=C.filter(function(x){return x.id==id})[0]; if(!c)return; var x=new Date(); x.setDate(x.getDate()+d); c.nx=ymd(x); P(); R(); }
 
-var SP={"تفاوض":0,"معاينة":1,"مهتم":2,"جديد":3,"مبيردش":4,"كنسيليشن":5};
-function sp(c){ return SP[c.s]==null ? 6 : SP[c.s]; }
+var SP={"تفاوض":0,"معاينة":1,"مهتم":2,"جديد":3,"مبيردش":4};
+function sp(c){ return SP[c.s]==null ? 5 : SP[c.s]; }
 function byNx(a,b){ return a.nx<b.nx ? -1 : a.nx>b.nx ? 1 : sp(a)-sp(b); }
 function dupC(){ var n=num($("ph").value), e=$("dup"); if(n.length<10){ e.textContent=""; return; } var x=C.filter(function(c){ return c.id!=cur && num(c.ph)==n; })[0]; e.textContent = x ? "⚠️ الرقم ده متسجل عند: "+x.n : ""; }
 
-var SC={"مهتم":"#3b82f6","معاينة":"#a855f7","تفاوض":"#f59e0b","جديد":"#6b7280","مبيردش":"#ef4444","كنسيليشن":"#4b5563","تم البيع":"#10b981","مش مهتم":"#64748b"};
+var SC={"مهتم":"#3b82f6","معاينة":"#a855f7","تفاوض":"#f59e0b","جديد":"#6b7280","مبيردش":"#ef4444","تم البيع":"#10b981","مش مهتم":"#64748b"};
 
 function fitB(c){
   if(!PD.length||!c.pr) return "";
@@ -905,7 +905,6 @@ function getQuickAiSnippet(c){
   if(logs.includes("غالي") || logs.includes("سعر") || logs.includes("ميزانية")) return "عرض مرونة خطة السداد وطول فترة التقسيط.";
   if(c.s == "تفاوض") return "حفزه بجدية الحجز لضمان المتاح قبل زيادات الأسعار.";
   if(c.s == "مبيردش") return "أرسل تحديثاً سريعاً وخفيفاً عن عرض خاص لفترة محدودة.";
-  if(c.s == "كنسيليشن") return "عميل غير متجاوب نهائياً، يمكن إعادة التواصل لاحقاً أو أرشفة الملف.";
   return "متابعة عامة واقتراح خطة سداد تناسب ميزانيته.";
 }
 
