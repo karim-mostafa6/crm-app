@@ -1264,8 +1264,9 @@ function cloud(){
     })
     .then(function(res){
       if(res.ok) setSync("☁️ متزامن");
-      else if(res.status==401 || res.status==403){ setSess(null); setSync("🔒 سجل دخول"); showLock(); }
-      else setSync("⚠️ المزامنة فشلت");
+      else if(res.status==401){ setSess(null); setSync("🔒 سجل دخول"); showLock(); }
+      else if(res.status==403) setSync("⛔ مفيش صلاحية — شغّل SQL الحماية");
+      else setSync("⚠️ المزامنة فشلت (" + res.status + ")");
     })
     .catch(function(){ setSync("⚠ المزامنة فشلت"); });
   }, 800);
@@ -1278,7 +1279,7 @@ async function initCloud(){
     var res = await fetch(SUPABASE_URL + "crm_data?id=eq.main_user", {
       headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + tk }
     });
-    if(res.status==401 || res.status==403){ setSess(null); setSync("🔒 سجل دخول"); showLock(); return; }
+    if(res.status==401){ setSess(null); setSync("🔒 سجل دخول"); showLock(); return; }
     var data = await res.json();
     if (data && data.length > 0) {
       var cloudData = data[0];
