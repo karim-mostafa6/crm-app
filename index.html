@@ -868,7 +868,7 @@ async function doLogin(ev){
 function logout(){ setSess(null); setSync("🔒 مقفول"); showLock(); }
 
 
-var S=["مهتم","معاينة","تفاوض","جديد","مبيردش","تم البيع","مش مهتم"], K="crm_clients_v1", C=[], cur=null;
+var S=["مهتم","معاينة","تفاوض","جديد","مبيردش","تم البيع","مش مهتم","كنسيليشن"], K="crm_clients_v1", C=[], cur=null;
 try{ C = JSON.parse(localStorage.getItem(K)||"[]"); } catch(e){ C=[]; }
 var CAT=0; try{ CAT = +localStorage.getItem(K+"_at")||0; } catch(e){}
 
@@ -945,13 +945,15 @@ function esc(s){ return String(s||"").replace(/[&<>"]/g, function(c){ return {"&
 
 var TAB=null;
 function tab(v){ TAB=v; isTodayPlanSort=false; R(); }
-function act(c){ return c.s!="تم البيع" && c.s!="مش مهتم"; }
+function act(c){ return c.s!="تم البيع" && c.s!="مش مهتم" && c.s!="كنسيليشن"; }
 function ymd(x){ return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); }
 function stale(c){
   if(!act(c)) return 0;
   var l=(c.log||[]).slice(-1)[0], d=l?new Date(l.d+"T00:00:00"):new Date(c.c||Date.now()), n=Math.floor((Date.now()-d.getTime())/864e5);
   return n>=5 ? n : 0;
 }
+function cxl(id){ var c=C.filter(function(x){return x.id==id})[0]; if(!c)return; c.s="كنسيليشن"; c.nx=""; c.log=c.log||[]; c.log.push({d:td(),t:"🚫 اتعمله كنسيليشن",a:1}); P(); R(); showToast("🚫 اتكنسل — هتلاقيه في خانة كنسيليشن"); }
+function unCxl(id){ var c=C.filter(function(x){return x.id==id})[0]; if(!c)return; var x=new Date(); x.setDate(x.getDate()+1); c.s="مهتم"; c.nx=ymd(x); c.log=c.log||[]; c.log.push({d:td(),t:"↩ اترجع لمهتم",a:1}); P(); R(); showToast("↩ رجع لمهتم وفولو اب بكرة"); }
 function snz(id,d){ var c=C.filter(function(x){return x.id==id})[0]; if(!c)return; var x=new Date(); x.setDate(x.getDate()+d); c.nx=ymd(x); P(); R(); }
 
 var SP={"تفاوض":0,"معاينة":1,"مهتم":2,"جديد":3,"مبيردش":4};
@@ -959,7 +961,7 @@ function sp(c){ return SP[c.s]==null ? 5 : SP[c.s]; }
 function byNx(a,b){ return a.nx<b.nx ? -1 : a.nx>b.nx ? 1 : sp(a)-sp(b); }
 function dupC(){ var n=num($("ph").value), e=$("dup"); if(n.length<10){ e.textContent=""; return; } var x=C.filter(function(c){ return c.id!=cur && num(c.ph)==n; })[0]; e.textContent = x ? "⚠️ الرقم ده متسجل عند: "+x.n : ""; }
 
-var SC={"مهتم":"#3b82f6","معاينة":"#a855f7","تفاوض":"#f59e0b","جديد":"#6b7280","مبيردش":"#ef4444","تم البيع":"#10b981","مش مهتم":"#64748b"};
+var SC={"مهتم":"#3b82f6","معاينة":"#a855f7","تفاوض":"#f59e0b","جديد":"#6b7280","مبيردش":"#ef4444","تم البيع":"#10b981","مش مهتم":"#64748b","كنسيليشن":"#475569"};
 
 function fitB(c){
   if(!PD.length||!c.pr) return "";
@@ -970,6 +972,7 @@ function fitB(c){
 }
 
 function getPipelineBar(s){
+  if(s=="كنسيليشن") return "";
   var steps=["جديد","مهتم","معاينة","تفاوض","تم البيع"];
   var idx=steps.indexOf(s); if(idx==-1) idx=0;
   var h='<div class="pipeline-bar" title="مرحلة العميل: '+s+'">';
@@ -1002,6 +1005,10 @@ function card(c){
   var ft = due ? '<div class="ft"><span class="mu" style="margin:0;font-size:11px">أجّل:</span>'+[[1,"يوم"],[3,"3 أيام"],[7,"أسبوع"]].map(function(z){ return '<button type="button" class="b2" onclick="event.stopPropagation();snz('+id+','+z[0]+')">'+z[1]+'</button>'; }).join("")+'</div>' : "";
   
   var aiSnippet = getQuickAiSnippet(c);
+  var cxb = '<button type="button" class="b2" style="margin-inline-start:auto" onclick="event.stopPropagation();cxl('+id+')">🚫 كنسيليشن</button>';
+  if(c.s=="كنسيليشن") ft = '<div class="ft"><span class="mu" style="margin:0;font-size:11px">🚫 مكنسل — مش بيظهر في المتابعات</span><button type="button" class="b2" style="margin-inline-start:auto" onclick="event.stopPropagation();unCxl('+id+')">↩ رجّعه لمهتم</button></div>';
+  else if(due) ft = ft.replace(/<\/div>$/, cxb+'</div>');
+  else if(act(c) && c.s=="مبيردش") ft = '<div class="ft">'+cxb+'</div>';
 
   return '<div class="cc'+(due?' dueC':'')+'" role="button" tabindex="0" onclick="openF('+id+')" style="border-inline-start:4px solid '+(due?'var(--rd)':col)+'">'
   + '<div class="ch">'
@@ -1012,7 +1019,7 @@ function card(c){
   + '<div class="ci">'+n+(st?'<span class="late">🧊 '+st+' يوم</span>':"")+(c.pr?'<span>📍 '+esc(c.pr)+'</span>':"")+(bu?'<span>💰 '+esc(bu)+'</span>':"")+fitB(c)+'</div>'
   + getPipelineBar(c.s)
   + (l ? '<div class="cl"><div class="cl1">💬 '+esc(l.t)+'</div></div>' : "")
-  + '<div class="as"><div class="ast">🤖 اقتراح المساعد</div>'+esc(aiSnippet)+'</div>'
+  + (c.s=="كنسيليشن" ? "" : '<div class="as"><div class="ast">🤖 اقتراح المساعد</div>'+esc(aiSnippet)+'</div>')
   + ft 
   + '</div>';
 }
@@ -1026,17 +1033,17 @@ function sortTodayPlan(){
 function R(){
   var t=td(), q=$("q").value.toLowerCase().trim(), f=flt; chipsR();
   var isLate=function(c){return act(c)&&c.nx&&c.nx<t}, isNow=function(c){return act(c)&&c.nx==t}, isSoon=function(c){return act(c)&&c.nx&&c.nx>t};
-  var n={late:C.filter(isLate).length, today:C.filter(isNow).length, soon:C.filter(isSoon).length, all:C.length};
+  var n={late:C.filter(isLate).length, today:C.filter(isNow).length, soon:C.filter(isSoon).length, all:C.filter(function(c){return c.s!="كنسيليشن"}).length};
   
   $("s1").textContent=n.late; $("s2").textContent=n.today; $("s4").textContent=n.soon; $("s3").textContent=n.all;
-  var D=TAB||(n.late?"late":n.today?"today":"all"), E=q?"all":D;
+  var D=TAB||(n.late?"late":n.today?"today":"all"), E=(q||f=="كنسيليشن"||f=="تم البيع"||f=="مش مهتم")?"all":D;
   
   ["all","late","today","soon"].forEach(function(k){ $("k_"+k).className="st"+(E==k?" on":"")+(k=="late"&&n.late?" hot":"")+(k=="today"&&n.today?" warm":""); });
   
   var ac=C.filter(act), sum=0; ac.forEach(function(c){sum+=nBud(c.bu)});
   $("pp").textContent = sum ? "💼 "+ac.length+" عميل نشط • إجمالي محفظة الميزانيات: "+(sum>=1e9?+(sum/1e9).toFixed(2)+"B":+(sum/1e6).toFixed(1)+"M")+" ج" : "";
   
-  var L=C.filter(function(c){ return(!f||c.s==f)&&(!q||(c.n+" "+c.ph+" "+c.pr).toLowerCase().indexOf(q)>-1); });
+  var L=C.filter(function(c){ return(f ? c.s==f : (q || c.s!="كنسيليشن"))&&(!q||(c.n+" "+c.ph+" "+c.pr).toLowerCase().indexOf(q)>-1); });
   var M={late:["مفيش متأخرين ✅",isLate,byNx], today:["مفيش متابعات النهاردة ✅",isNow,function(a,b){return sp(a)-sp(b)}], soon:["مفيش متابعات جاية",isSoon,byNx], all:["لسه مفيش عملاء. دوس + عميل جديد",function(){return true},function(a,b){return b.c-a.c}]}[E];
   
   L=L.filter(M[1]);
@@ -1158,7 +1165,8 @@ function save(){
   var n=$("n").value.trim(); if(!n){$("n").focus();return;}
   var c=C.filter(function(x){return x.id==cur})[0];
   if(!c){ c={id:"c"+Date.now(), c:Date.now(), log:[]}; C.push(c); }
-  c.n=n; c.ph=$("ph").value.trim(); c.bu=$("bu").value.trim(); c.s=$("stt").value; c.pr=$("pr").value.trim(); c.src=$("src").value.trim(); c.nx=$("nx").value;
+  var os=c.s; c.n=n; c.ph=$("ph").value.trim(); c.bu=$("bu").value.trim(); c.s=$("stt").value; c.pr=$("pr").value.trim(); c.src=$("src").value.trim(); c.nx=$("nx").value;
+  if(c.s=="كنسيليشن"){ c.nx=""; if(os!="كنسيليشن"){ c.log=c.log||[]; c.log.push({d:td(),t:"🚫 اتعمله كنسيليشن",a:1}); } }
   var t=$("nt").value.trim(); if(t){ c.log=c.log||[]; c.log.push({d:td(),t:t}); }
   P(); $("d").close(); R(); showToast("✓ تم الحفظ بنجاح");
 }
@@ -1364,7 +1372,7 @@ function chipsR(){
     var L=C.filter(function(c){return c.s==s}), d=L.filter(function(c){return act(c)&&c.nx&&c.nx<=t}).length;
     return'<button class="chip'+(flt==s?' on':'')+'" onclick="setF(\''+s+'\')">'+s+' <b>'+L.length+'</b>'+(d?'<i>'+d+'</i>':'')+'</button>';
   });
-  a.unshift('<button class="chip'+(flt==""?' on':'')+'" onclick="setF(\'\')">الكل <b>'+C.length+'</b></button>');
+  a.unshift('<button class="chip'+(flt==""?' on':'')+'" onclick="setF(\'\')">الكل <b>'+C.filter(function(c){return c.s!="كنسيليشن"}).length+'</b></button>');
   $("chips").innerHTML=a.join("");
 }
 function setF(v){ flt=v; isTodayPlanSort=false; R(); }
